@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel = "stylesheet" type="text/css" href="/C:\Users\dazzl\Documents\CapstoneFront\LogInStartCSS\bootstrap.min.css"/>
+    <link rel = "stylesheet" type="text/css" href="/C:\Users\dazzl\Documents\CapstoneFront\LogInStartCSS\font-awesome.min"/>
+    <link rel = "stylesheet" type="text/css" href="/C:\Users\dazzl\Documents\CapstoneFront\LogInStartCSSstyle.css"/>
+    <link rel="stylesheet" href="/C:\Users\dazzl\Documents\CapstoneFront\SearchBox.css">
+
+    <title> Search Patient </title>
+<style>
+body {
+  /* background-image: url(StartBG.png);  */
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  }
+
+fieldset {
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-top: 0.35em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  border: 2px groove (internal value);
+  border-color: #404040;
+}
+
+.button {
+  background-color: #404040;
+  border: none;
+  color:  #f2f2f2;
+  padding: 15px 25px;
+  text-align:center;
+  font-size: 20px;
+  cursor: pointer; 
+  width:30%;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  /* border-radius: 30px; */
+  margin:auto;
+  min-width:460px;
+  max-width:460px;
+}
+.button:hover {
+  background-color:#ffcc00;
+  color: black;
+}
+.CRM{
+          font-family:  Arial, Helvetica, sans-serif;
+          font-size: 40px;
+          text-align: center;
+          text-shadow: 1px 1px #ffcc00;
+    }
+ .TRAST{
+          font-family: Arial, Helvetica, sans-serif;
+          color: #666666;
+          font-size: 20px;
+          text-align: center;
+          /* text-shadow: 1px 1px #000000; */
+        }
+        *{
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 22px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #666666;
+  color: white;
+  font-size: 22px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+  
+}
+
+form.example button:hover {
+  background: #ffcc00;
+  color: black;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}       
+        
+</style>
+ </head>
+ <html>
+<body>
+    <div class="titlelog">
+        <div class="store">
+          <ul>
+            <li class="logo"><a><img src="ustcrm.png"></a></li>
+            <br><li><span>University of Santo Tomas Hospital <br> Center for Respiratory Medicine</span></li>
+            <li class="logo1"><a href="LandingPage.html"><img src="logout.png"></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="divline"></div>
+    
+<br><br><br> 
+  
+<fieldset>
+  <!-- <br><br><br>
+    <h1 class="CRM">Center for Respiratory Medicine</h1>
+    <p class="TRAST">TRAST: Thrombosis Risk Assessment System</p>
+<br><br><br> -->
+<br><br><br> <br><br><br> 
+
+<center><form class="example" action="patientCareInfo.html" style="margin:auto;max-width:460px;min-width:460px">
+  <input type="text" placeholder="Existing Patient Name" name="search2">
+  <button type="submit" onclick="window.location.href= 'patientCareInfo.html';"><i class= "fa"></i>Search</button></form> 
+</form></center>
+<br><br><br>
+<center><button class="button" onclick="window.location.href= 'NewPatient.html';">New Patient</button></center>
+<br><br>
+<!-- <center><button class="button";>Manage System</button></center> -->
+<!-- <center><button class="button" onclick="window.location.href= 'RetPatient.html';">Returning Patient</button></center>  -->
+
+</fieldset>
+</body>
+</body>
+</html>

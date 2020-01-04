@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel = "stylesheet" type="text/css" href="/C:\Users\dazzl\Documents\CapstoneFront\RetPatientCSS\bootstrap.min4.0.css"/>
+        <link rel = "stylesheet" type="text/css" href="/C:\Users\dazzl\Documents\CapstoneFront\LogInCSS\font-awesome.min"/>
+        <link rel = "stylesheet" type="text/css" href="style.css"/>
+        <title>Start Assessment</title>
+<style>
+table.table tbody tr td,
+table.table thead tr th,
+table.table thead {
+  /* border-left: 1px solid black;
+  border-right: 1px solid black; */
+  background-color: #eaece5;
+}
+
+/* fieldset {
+  display: block;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-top: 0.35em;
+  padding-bottom: 0.625em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  border: 2px groove (internal value);
+  border-color: #000000; 
+  width: 0px; } */
+
+
+body
+{
+  /* background-color: #ffcc00; */
+  max-width: 100%;
+  min-width: 100%;
+}
+tr.noBorder td {
+  border: 0;
+}
+
+.LineAnswer
+{
+  border: none;
+  border-bottom: 2px solid red;
+}
+button {
+  background-color: #404040;
+  border: none;
+  color:  #f2f2f2;
+  padding: 15px 25px;
+  text-align:center;
+  font-size: 20px;
+  cursor: pointer; 
+  width:30%;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 30px;
+  margin:auto;
+  
+}
+</style>
+</head>
+  <body>
+    	<div class="titlelog">
+          <div class="store">
+            <ul>
+              <li class="logo"><a><img src="ustcrm.png"></a></li>
+              <br><li><span>University of Santo Tomas Hospital <br> Center for Respiratory Medicine</span></li>
+              <li class="logo1"><a href="SearchPatient.html"><img src="home.png"></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="divline"></div>
+      
+  <br><br><br> 
+
+      <!-- START OF STEP 1 -->
+
+        <div class="container">
+        <table class="table table-sm">
+          <h1>STEP 1: Check Risk Factors associated with Clinical Setting </h1>
+          <h2>(Baseline Risk Factor Score)</h2>      
+          <thead>
+                  <tr>                  
+                    <th scope="col">Score 1 factor</th>
+                    <th scope="col">Score 2 factor</th>
+                    <th scope="col">Score 3 factor</th>
+                    <th scope="col">Score 5 factor</th>
+                  </tr>
+                </thead>
+                <tbody>   
+                  <tr>            
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Minor surgery <br> </td>
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Major Surgery  >45min<br> </td>
+                    <td>
+                      <input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> 
+                        Major surgery with
+                        <br>  - Myocardial infarction
+                        <br>  - Congestive heart failure
+                        <br>  - Severe sepsis/infection
+                    </td>
+                   <td scope="row"><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();">
+                        Elective major lower  
+                        <br>extremity arthroplasty
+                   </td> </tr>
+                  <tr>
+                    <td> <br> </td>
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Laparoscopic surgery (>45min)</td>
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Medical patient with additional risk factors<br></td>
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Hip, pelvis or leg fracture</td>
+                  </tr>
+                  <tr>
+                        <td></td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Patients confined to bed >72 hours</td>
+                        <td></td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Stroke</td>                   
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Immobilizing plaster cast</td>
+                    <td></td>
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Multiple trauma</td>   
+                  </tr>
+
+                <tr>
+                  <td></td>
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Central venous access</td>
+                    <td></td>
+                    <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Acute spinal cord injury (paralysis)</td>
+                </tr>
+                </tbody>
+              </table> 
+              
+              </div>  
+              
+              <!-- START OF STEP 2 -->
+
+              <div class="container">
+                  <table class="table table-sm">
+                    <h1>STEP 2: Check Risk Factors associated with Patient</h1>
+                    <h2>(Additional Risk Factor Score)</h2>
+                          <thead>
+                            <tr>                  
+                              <th scope="col">Clinical</th>
+                              <th scope="col">Hypercoagulable States (Thrombophilia)</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>    
+                        <tr>
+                                  <td><br></td>
+                                  <td> INHERITED</td>                     
+                                  <td> ACQUIRED</td>
+                        </tr>
+                        <tr class="noBorder">       
+                              <td><input type="checkbox" name="Step1" value="1" onclick="dis('1')"> Age 41 to 60 years<br> </td>
+                              <td><input type="checkbox" name="Step1" value="1" onclick="dis('1')"> Factor V Leiden/Activated protein <br> C resistance </td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Lupus anticoagulant</td>
+                        </tr>
+                        <tr>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Age over 60 years (2 factors)<br> </td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Antithrombin III deficiency</td>                     
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Antiphospholipid antibodies</td>
+                            </tr>
+                            <tr>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> History of DVT/PE (3 factors)</td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Protein C or S deficiency</td>                                            
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Myeloproliferative disorders</td>
+                      </tr>
+                      <tr>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> History of prior major surgery</td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Dysfibrinogenemia</td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Disorders of plasminogen & plasmin activation</td>
+                      </tr> 
+                      <tr>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Pregnancy, or postpartum (<1 month)</td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Prothrombin 20210A</td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Heparin-induced thrombocytopenia</td>
+                      </tr> 
+                      <tr>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Malignacy (2 factors)</td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Homocysteinemia</td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Hyperviscosity syndrome</td>
+                      </tr> 
+                      <tr>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Varicose veins</td>
+                              <td></td>
+                              <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Homocysteinemia</td>
+                      </tr> 
+                      <tr>
+                          <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Inflammatory bowel disease</td>
+                          <td></td>
+                          <td></td>
+                      </tr> 
+                      <tr>
+                          <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Obesity (>20% of ideal body weight)</td>
+                          <td></td>
+                          <td></td>
+                      </tr>
+                      <tr>
+                          <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Oral contraceptives or hormone <br> replacement therapy</td>
+                          <td></td>
+                          <td></td>
+                      </tr> 
+ </tbody>
+ </table>
+
+                       <!-- START OF STEP 3 -->
+                       <br><br>
+                       <h1>STEP 3: Total Risk Factor Score (TRF Score)</h1>
+                       <input type="text" style="border-color: 3px solid black;
+                       padding: 12px 20px;
+                       margin: 8px 0;
+                       box-sizing: border-box; 
+                       align-self:center;
+                       width: 60%;" placeholder="Baseline Risk Factor Score + Additional Risk Factor Score = Total Risk Factor Score">
+
+                       <br><br><br>
+                       <!-- START OF STEP 4 -->
+              <div class="container">
+                  <table class="table table-sm">
+                       <h1>STEP 4: Identify Recommended Prophylactic Regimen 
+                          <br>for each Risk Group depending on TRF Score</h1>
+
+                          <tbody>
+                              <thead>
+                                  <tr>                  
+                                    <th scope="col">Low Risk <br> (1 factor)</th>
+                                    <th scope="col">Moderate Risk <br> (2 factor)</th>
+                                    <th>High Risk <br> (3-4 factors)</th>
+                                    <th>Highest Risk <br> (5 or more factors)</th>
+                                  </tr>
+                                </thead>
+                            <tr>
+                              <td>No Specific Measures<br>Early Ambulation</td>
+                              <td>IPC or LDUH (q12h) or<br>LMWH or GCS </td>
+                              <td>GCS* and IPC or<br> LDUH (q8h) or LMWH</td>
+                              <td>GCS* and IPC + (LDUH or LMWH) or<br>ADH or LMWH Oral Anticoagulants</td>
+                            </tr>
+                            </tbody>
+                        </table> 
+                        </div> 
+
+                        <!-- START OF STEP 5 -->
+<br><br>
+        <div class="container">
+            <table class="table table-sm">
+              <h1>STEP 5: Choose from Modalities listed below</h1>
+              <h3>guided by STEP 4</h3>
+
+                    
+                      <thead>
+                        <td>Contraindication to anticoagulants?<br>          
+                          <input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Yes <br>         
+                          <input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> No <br>
+                          If yes, elaborate <input type="text" name="YesElaborate" style="border: none; border-bottom: 2px solid black; width: 70%;"></td>
+                        <th></th>
+                        <th></th>
+                      </thead>
+
+                      <tbody>  
+                      <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+
+                      </tr>
+                       <tr>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Graduated compression stockings (GCS)</td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Enoxaparin 40mg/SC q 24 h</td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Dabigatran 220 mg/tab po q 24h</td>
+                       
+                       </tr>
+                      <tr>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Intermittent pneumatic compression (IPC)</td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Fondaparinux 2.5 mg/SC q 24 h</td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Rivaroxaban 10mg/tab po q 24 h</td>
+                      </tr>
+                      <tr>
+                            <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Plantar Pneumatic Compression</td>
+                            <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Nadroparin 3,800 IU/ SC q 24 h</td>
+                            <td>Others: <input type="text" id="ineAnswer" name="Others"style="border: none; border-bottom: 2px solid black; width: 100%;"></td>                   
+                      </tr>
+                      <tr>
+                       
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Adjusted dose Heparin (ADH)</td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Tinzaparin 3,500 IU/SC q 24 h</td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> No prophylaxis</td>     
+                      </tr>
+    
+                    <tr>
+                      <td></td>
+                        <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Tinzaparin 4,500 IU/SC q 24 h</td>
+                        <td></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                          <td><input type="checkbox" name="Step1" value="MinorSurgery" onclick="return ValidateStepSelection();"> Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h </td>
+                          <td></td>
+                       </tr>
+
+                    </tbody>
+                  </table> 
+                    </div> 
+                    <br><br>
+                    <center><button class="button"style="padding: 5px; width: 40%";>Submit</button></center>
+                    <br><br><br>
+                    <!-- what div -->
+                    </div>
+</body></head> </html>
+</body>
+</html>
