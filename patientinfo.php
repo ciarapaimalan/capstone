@@ -1,6 +1,6 @@
 <?php
 include ('MySQL.php');
-
+session_start();
 ?>
 <html lang="en" >
     <head>
@@ -174,12 +174,14 @@ include ('MySQL.php');
             <div id="content">
                 <nav class="navbar navbar-default">
                     <div class="container-fluid">
+                        <ul class="nav navbar-nav navbar-left">
+
+                            <li> <h3 class="mb-4">TRAST: Thrombosis Risk Assessment System</h3></li>
+                        </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                              <!-- <a href="#"><i class="zmdi zmdi-notifications text-danger"></i>
-                              </a> -->
-                            </li>
-                            <li><a href="Logout.php">Log Out</a></li>
+
+                            <li>  <a><?php echo $_SESSION['username']; ?>
+                                    <li><a href="Logout.php">Log Out</a></li></li>
                         </ul>
                     </div>
                 </nav>
@@ -187,7 +189,7 @@ include ('MySQL.php');
 
 
                     <div id="content" class="p-4 p-md-5 pt-5">
-                        <h2 class="mb-4">TRAST: Thrombosis Risk Assessment System</h2>
+                        <h2 class="mb-4">Patient Profile</h2>
                         <p>	     
                         <div class="mb-5">
                             <br>
@@ -234,19 +236,32 @@ include ('MySQL.php');
 
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a  href="#1" data-toggle="tab">Patient Information</a>
+                                <a  href="#1" data-toggle="tab">Patient's Chart</a>
                             </li>
-                            <li><a href="#2" data-toggle="tab">Risk Assessments</a>
+                            <li>
+                                <a href="#2" data-toggle="tab">Risk Assessments</a>
+                            </li>
+                            <li>
+                                <a href="#3" data-toggle="tab">Scheduled Check-Ups</a>
                             </li>
                         </ul>
 
                         <div class="tab-content ">
                             <div class="tab-pane active" id="1">
+                                <?php
+                                include ('MySQL.php');
 
+                                $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
+
+                                $sql = "SELECT * FROM Patient WHERE ph_id='$id'";
+
+                                $result = mysqli_query($mysqlconn, $sql);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    echo '<br> <a href="PatientInfoForm.php?id=' . $row['ph_id'] . '">Add New Record</a><br>';
+                                }
+                                ?>
                                 <table id="example" class="table table-striped table-hover table-bordered" width="100%">
                                     <?php
-                                    $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
-
                                     $sqlinfo = "SELECT * FROM PatientInfo WHERE ph_id='$id'";
 
                                     $resultinfo = mysqli_query($mysqlconn, $sqlinfo);
@@ -254,6 +269,7 @@ include ('MySQL.php');
                                     if (mysqli_num_rows($resultinfo) > 0) {
                                         echo" <center> <table>
                                     <tr>
+                                    
                                         <th>Pulmonary Diagnosis</th>
                                         <th>Other Diagnosis</th>
                                         <th>Oxygen Level</th>
@@ -267,14 +283,11 @@ include ('MySQL.php');
                                         <th>Admission Date</th>
                                         <th>Disposition</th>
                                         <th>Discharge Date</th>
-                                        <th></th>
-                                        <th></th>
-
                                     </tr></center>";
 
                                         while ($row = mysqli_fetch_array($resultinfo)) {
-                                            echo '<a href="PatientInfoForm.php?id=' . $row['ph_id'] . '">Add New Record</a>';
 
+                                            echo "<tr>";
                                             echo "<td>" . $row['pulmonary_diagnosis'] . "</td>";
                                             echo "<td>" . $row['other_diagnosis'] . "</td>";
                                             echo "<td>" . $row['oxygen_lvl'] . "</td>";
@@ -288,11 +301,11 @@ include ('MySQL.php');
                                             echo "<td>" . $row['admission_date'] . "</td>";
                                             echo "<td>" . $row['disposition'] . "</td>";
                                             echo "<td>" . $row['discharge_date'] . "</td>";
-                                            
+
                                             echo "</tr>";
                                         }
                                     } else {
-                                        echo "No records found";
+                                        echo "<br>No records found";
                                     }
                                     ?>
 
@@ -300,7 +313,7 @@ include ('MySQL.php');
                             </div>
                             <div class="tab-pane" id="2">
 
-                                <table id="example1" class="table table-striped table-hover table-bordered" width="100%">
+                                <table id = "example1" class = "table table-striped table-hover table-bordered" width = "100%">
                                     <?php
                                     $sqlrisk = "SELECT * FROM RiskAssessment WHERE ph_id='$id'";
 
@@ -337,6 +350,57 @@ include ('MySQL.php');
 
 
                             </div>
+                            <div class="tab-pane" id="3">
+                                <?php
+                                include ('MySQL.php');
+
+                                $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
+
+                                $sql = "SELECT * FROM Patient WHERE ph_id='$id'";
+
+                                $result = mysqli_query($mysqlconn, $sql);
+                                while ($row = mysqli_fetch_array($result)) {
+                                    echo '<br> <a href="schedule.php?id=' . $row['ph_id'] . '">Schedule a Check-Up</a><br>';
+                                }
+                                ?>
+                                <table id="example" class="table table-striped table-hover table-bordered" width="100%">
+
+                                    <?php
+                                    $sqlsched = "SELECT * FROM schedule WHERE ph_id='$id' ORDER BY date  DESC";
+                                    $resultsched = mysqli_query($mysqlconn, $sqlsched);
+
+                                    if (mysqli_num_rows($resultsched) > 0) {
+                                        echo" <table>
+                                            <tr>
+                                            <th>Date</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>Physician</th>
+                                                <th>Note</th>
+                                                <th>Status</th>
+
+                                            </tr>";
+                                        while ($row = mysqli_fetch_array($resultsched)) {
+                                            echo "<tr>";
+                                            echo "<td>" . $row['date'] . "</td>";
+                                            echo "<td>" . $row['start_time'] . "</td>";
+                                            echo "<td>" . $row['end_time'] . "</td>";
+                                            echo "<td>" . $row['username'] . "</td>";
+                                            echo "<td>" . $row['note'] . "</td>";
+                                            echo "<td>" . $row['status'] . "</td>";
+                                            echo "</tr>";
+                                        }
+
+                                        echo "</table>";
+                                    } else {
+                                        echo "<br>No schedule found";
+                                    }
+                                    ?>
+
+
+
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -345,5 +409,14 @@ include ('MySQL.php');
                 </div></div></div>
 
     </body>
+
+</html>        </div>
+</div>
+
+
+
+</div></div></div>
+
+</body>
 
 </html>

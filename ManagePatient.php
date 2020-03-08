@@ -132,7 +132,7 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                 </header>
                 <ul class="nav">
                     <br>
-                    <li>
+                <li>
                         <a href="AdminHomepage.php">
                             <i class="zmdi zmdi-search"></i> Manage Patients
                         </a>
@@ -162,7 +162,6 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                             <i class="zmdi zmdi-calendar"></i> About
                         </a>
                     </li>
-
                     <!-- <li>
                       <a href="#">
                         <i class="zmdi zmdi-settings"></i> Services
@@ -305,7 +304,7 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                                 </tr> 
                                 <tr class="listheader">
                                 <tr class="listheader">
-                                    <td colspan="8">
+                                    <td colspan="6">
                                         Mode: <select name="SelectActions">
                                             <option value="ACTION_CREATE">Create</option>
                                             <option value="ACTION_UPDATE">Update</option>

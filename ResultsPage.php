@@ -33,65 +33,161 @@ if ($mysqlconn->query($sql) === true) {
 } else {
     $msg = "Could not able to execute $sql. " . $mysqlconn->error;
 }
-
-echo $msg;
-?>
-<br>
-<?php
-$queryStepOne = "SELECT step_one, COUNT(*) As total FROM RiskAssessment WHERE ph_id='$ph_id' GROUP By step_one HAVING COUNT(*)>1";
-$resultStepOne = mysqli_query($mysqlconn, $queryStepOne);
-if (mysqli_num_rows($resultStepOne) > 0) {
-    ?>
-    <br>
-    <?php while ($row = mysqli_fetch_assoc($resultStepOne)) { ?>
-
-        <span>Step One:</span> <?php echo $row['step_one']; ?><br>
-        <span>Total:</span> <?php echo $row['total']; ?><br>
-
-           <?php
-    }
-} else {
-    ?>
-    <span>No repeating values for Risk Factors associated with Patient(Step Two) </span><br>
-    <?php
-}
-?>
-
-<br>
-<?php
-$queryStepTwo = "SELECT step_two, COUNT(*) As total FROM RiskAssessment WHERE ph_id='$ph_id' GROUP By step_two HAVING COUNT(*)>1";
-$resultStepTwo = mysqli_query($mysqlconn, $queryStepTwo);
-if (mysqli_num_rows($resultStepTwo) > 0) {
-    ?>
-    <br>
-    <?php while ($row = mysqli_fetch_assoc($resultStepTwo)) { ?>
-
-        <span>Step One:</span> <?php echo $row['step_two']; ?><br>
-        <span>Total:</span> <?php echo $row['total']; ?><br>
-
-        <?php
-    }
-} else {
-    ?>
-    <span>No repeating values for Risk Factors associated with Patient(Step Two)  </span><br>
-    <?php
-}
 ?>
 
 
-<br>
-<span>Patient ID:</span> <?php echo $_POST['ph_id']; ?><br>
-<span>Step One:</span> <?php echo $_POST['step_one']; ?><br>
-<span>Step Two:</span> <?php echo implode(", ", $_POST['step_two']); ?><br>
-<span>TRF:</span> <?php echo $_POST['trf']; ?><br>
-<span>Risk Level:</span> <?php echo $_POST['regimen']; ?><br>
-<span>Anticoagulants:</span> <?php echo $_POST['anticoagulants']; ?><br>
-<span>Modalities:</span> <?php echo implode(", ", $_POST['modalities']); ?><br>
-<span>Physician:</span> <?php echo $_POST['username']; ?><br>
+
+<!DOCTYPE html>
+<html lang="eng">
+
+    <head>
+
+    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TRAST</title>
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'> -->
+    <link rel='stylesheet'href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
+    <link rel='stylesheet' href="./style5.css">
+    <link rel='stylesheet' href="./BootstrapResultsPage.css">
+    <!-- Include the above in your HEAD tag -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
+
+    <body>
+
+        <!-- partial:index.partial.html -->
+        <div id="viewport">
+            <!-- Sidebar -->
+            <div id="sidebar">
+                <br>
+                <br>
+                <header>
+                    <a id="header">
+                        <br>
+                        <img src="usthlogo.png" style="width:70%;">
+                        <br>
+                        TRAST
+                    </a>
+
+                </header>
+                <ul class="nav">
+                    <br>
+                    <li>
+                        <a href="UserHomepage.php">
+                            <i class="zmdi zmdi-search"></i> Search Patient
+                        </a>
+                    </li>
+                    <li>
+                        <a href="NewPatient.php">
+                            <i class="zmdi zmdi-accounts-add"></i> New Patient
+                        </a>
+                    </li>
+                    <li>
+                        <a href="HelpPage.php">
+                            <i class="zmdi zmdi-help-outline"></i> Help
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="zmdi zmdi-calendar"></i> About
+                        </a>
+                    </li>
+                    <li>
+                        <!-- <a href="#">
+                          <i class="zmdi zmdi-info-outline"></i> Log Out
+                        </a>
+                      </li> -->
+                        <!-- <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-settings"></i> Services
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            <i class="zmdi zmdi-comment-more"></i> Contact
+                          </a>
+                        </li> -->
+                </ul>
+            </div>
+            <!-- Content -->
+            <div id="content">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <ul class="nav navbar-nav navbar-left">
+
+                            <li> <h3 class="mb-4">TRAST: Thrombosis Risk Assessment System</h3></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>  <a href="UsersProfile.php"><?php echo $_SESSION['username']; ?>
+                                    <li><a href="Logout.php">Log Out</a></li></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid">
 
 
+                    <div id="content" class="p-4 p-md-5 pt-5">
+                        <form>
+                            <p>	     
+                            <div class="mb-5">
+                                <div class="container-fluid">
+                                    <div id="content" class="p-4 p-md-5 pt-5">
+                                        <br>
+                                        <table class="table table-sm">
+                                            <?php
+                                            echo $msg;
+
+                                            $queryStepOne = "SELECT step_one, COUNT(*) As total FROM RiskAssessment WHERE ph_id='$ph_id' GROUP By step_one HAVING COUNT(*)>1";
+                                            $resultStepOne = mysqli_query($mysqlconn, $queryStepOne);
+                                            if (mysqli_num_rows($resultStepOne) > 0) {
+                                                ?>
+                                                <br>
+                                                <?php while ($row = mysqli_fetch_assoc($resultStepOne)) { ?>
+
+                                                    <span>Step One:</span> <?php echo $row['step_one']; ?><br>
+                                                    <span>Total:</span> <?php echo $row['total']; ?><br>
+
+                                                    <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <span>No repeating values for Risk Factors associated with Patient(Step Two) </span><br>
+                                                <?php
+                                            }
+                                            ?>
+
+                                            <br>
+                                            <?php
+                                            $queryStepTwo = "SELECT step_two, COUNT(*) As total FROM RiskAssessment WHERE ph_id='$ph_id' GROUP By step_two HAVING COUNT(*)>1";
+                                            $resultStepTwo = mysqli_query($mysqlconn, $queryStepTwo);
+                                            if (mysqli_num_rows($resultStepTwo) > 0) {
+                                                ?>
+                                                <br>
+                                                <?php while ($row = mysqli_fetch_assoc($resultStepTwo)) { ?>
+
+                                                    <span>Step One:</span> <?php echo $row['step_two']; ?><br>
+                                                    <span>Total:</span> <?php echo $row['total']; ?><br>
+
+                                                    <?php
+                                                }
+                                            } else {
+                                                ?>
+                                                <span>No repeating values for Risk Factors associated with Patient(Step Two)  </span><br>
+                                                <?php
+                                            }
+                                            ?>
 
 
-<?php
-mysqli_close($mysqlconn);
-?>
+                                            <br>
+                                            <span>Patient ID:</span> <?php echo $_POST['ph_id']; ?><br>
+                                            <span>Step One:</span> <?php echo $_POST['step_one']; ?><br>
+                                            <span>Step Two:</span> <?php echo implode(", ", $_POST['step_two']); ?><br>
+                                            <span>TRF:</span> <?php echo $_POST['trf']; ?><br>
+                                            <span>Risk Level:</span> <?php echo $_POST['regimen']; ?><br>
+                                            <span>Anticoagulants:</span> <?php echo $_POST['anticoagulants']; ?><br>
+                                            <span>Modalities:</span> <?php echo implode(", ", $_POST['modalities']); ?><br>
+                                            <span>Physician:</span> <?php echo $_POST['username']; ?><br>
+
+                                            </body>
+                                            </html>

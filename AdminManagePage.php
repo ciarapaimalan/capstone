@@ -128,9 +128,15 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
 
                         TRAST
                     </a>
+
                 </header>
                 <ul class="nav">
                     <br>
+                    <li>
+                        <a href="AdminManagePage.php">
+                            <i class="zmdi zmdi-account-o"></i> Manage
+                        </a>
+                    </li> 
                     <li>
                         <a href="UserHomepage.php">
                             <i class="zmdi zmdi-search"></i> Search Patient
@@ -151,21 +157,17 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                             <i class="zmdi zmdi-calendar"></i> About
                         </a>
                     </li>
+
+                    <!-- <li>
+                      <a href="#">
+                        <i class="zmdi zmdi-settings"></i> Services
+                      </a>
+                    </li>
                     <li>
-                        <!-- <a href="#">
-                          <i class="zmdi zmdi-info-outline"></i> Log Out
-                        </a>
-                      </li> -->
-                        <!-- <li>
-                          <a href="#">
-                            <i class="zmdi zmdi-settings"></i> Services
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i class="zmdi zmdi-comment-more"></i> Contact
-                          </a>
-                        </li> -->
+                      <a href="#">
+                        <i class="zmdi zmdi-comment-more"></i> Contact
+                      </a>
+                    </li> -->
                 </ul>
             </div>
             <!-- Content -->
@@ -186,7 +188,7 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
 
                     <div id="content" class="p-4 p-md-5 pt-5">
                         <br>
-                        <h1>Hi, <i> <?php echo $_SESSION['username']; ?>!</i></h1>
+<!--                        <h1>Hi, <i> <?php echo $_SESSION['username']; ?>!</i></h1>-->
                         <br>
                         <br>
                         <div class="container">
@@ -195,11 +197,7 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                                 <li class="active">
                                     <a  href="#1" data-toggle="tab">Tickets</a>
                                 </li>
-                                <li>
-                                    <a href="#2" data-toggle="tab">Patients</a>
-                                </li>
-                                <li>
-                                    <a href="#3" data-toggle="tab">Scheduled Check-Ups</a>
+                                <li><a href="#2" data-toggle="tab">Patients</a>
                                 </li>
                             </ul>
 
@@ -250,16 +248,16 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                                     }
                                     ?>                                   
                                     <?php
-                                    $sql = "SELECT * FROM ticket where username='$username' ORDER BY severity DESC";
+                                    $sql = "SELECT * FROM ticket where username='$username'&& status='Processing'  ORDER BY severity DESC";
 
-                                    $profileActions = '<option value="ACTION_PROCESSING">Process</option>'
-                                            . '<option value="ACTION_CANCEL">Cancel</option>';
+                                    $profileActions = '<option value="ACTION_PROCESSING">Processing</option>'
+                                            . '<option value="ACTION_RESOLVED">Resolved</option>';
 
                                     $result = mysqli_query($mysqlconn, $sql);
                                     ?>
                                     <table id="example" class="table table-striped table-hover table-bordered" width="100%">
 
-                                        <form method="POST" action="UsersProfile.php">
+                                        <form method="POST" action="">
                                             <?php
                                             if (mysqli_num_rows($result) > 0) {
                                                 echo" <table>
@@ -306,107 +304,128 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                                 <div class="tab-pane" id="2">
 
                                     <table id="example" class="table table-striped table-hover table-bordered" width="100%">
+                                        <br>
+                                        <br>
                                         <?php
-                                        $sqlinfo = "SELECT * FROM PatientInfo WHERE username='$username'";
+                                        if (isSet($_POST['submit'])) {
+                                            $username = $mysqlconn->real_escape_string($_POST['username']);
+                                            $password = $mysqlconn->real_escape_string($_POST['password']);
+                                            $password = md5($password);
 
-                                        $resultinfo = mysqli_query($mysqlconn, $sqlinfo);
+                                            $fullname = $mysqlconn->real_escape_string($_POST['fullname']);
+                                            $role = $mysqlconn->real_escape_string($_POST['role']);
 
-                                        if (mysqli_num_rows($resultinfo) > 0) {
-                                            echo" <center> <table>
-                                            <tr>
-                                                <th>Pulmonary Diagnosis</th>
-                                                <th>Other Diagnosis</th>
-                                                <th>Oxygen Level</th>
-                                                <th>Special Endorsement</th>
-                                                <th>Physician</th>
-                                                <th>Status</th>
-                                                <th>Ward</th>
-                                                <th>Bed No.</th>
-                                                <th>Admission No.</th>
-                                                <th>Hospital No.</th>
-                                                <th>Admission Date</th>
-                                                <th>Disposition</th>
-                                                <th>Discharge Date</th>
-                                                </tr></center>";
+                                            switch ($_POST['SelectActions']) {
+                                                case "ACTION_CREATE":
+                                                    $sqlcmd = "insert into UserAccnt(username,password, fullname,role) values('$username', '$password','$fullname','$role')";
+                                                    break;
+                                                case "ACTION_UPDATE":
+                                                    $userlist = $mysqlconn->real_escape_string($_POST['userlist']);
+//            $sqlcmd = "update users set FullName = '$fullname', Profile = '$profile', password = '$password', eid='$eid' where eid = '$eidlist'";
+                                                    $sqlcmd = "update UserAccnt set username = '$username', password = '$password', fullname='$fullname', role='$role'where username = '$userlist'";
 
-                                            while ($row = mysqli_fetch_array($resultinfo)) {
-                                                echo "<td>" . $row['pulmonary_diagnosis'] . "</td>";
-                                                echo "<td>" . $row['other_diagnosis'] . "</td>";
-                                                echo "<td>" . $row['oxygen_lvl'] . "</td>";
-                                                echo "<td>" . $row['special_endorsement'] . "</td>";
-                                                echo "<td>" . $row['username'] . "</td>";
-                                                echo "<td>" . $row['status'] . "</td>";
-                                                echo "<td>" . $row['ward'] . "</td>";
-                                                echo "<td>" . $row['bed_no'] . "</td>";
-                                                echo "<td>" . $row['admission_no'] . "</td>";
-                                                echo "<td>" . $row['hosp_no'] . "</td>";
-                                                echo "<td>" . $row['admission_date'] . "</td>";
-                                                echo "<td>" . $row['disposition'] . "</td>";
-                                                echo "<td>" . $row['discharge_date'] . "</td>";
-                                                echo "</tr>";
+                                                    break;
+                                                case "ACTION_DELETE":
+                                                    $userlist = $mysqlconn->real_escape_string($_POST['userlist']);
+                                                    $sqlcmd = "delete from UserAccnt where username = '$userlist'";
+                                                    break;
                                             }
-                                            echo "</table>";
+
+                                            if ($mysqlconn->query($sqlcmd) === true) {
+                                                echo 'User table successfully updated<br>';
+                                                $_POST['submit'] = '';
+                                            } else {
+                                                echo "ERROR: Could not able to execute $sqlcmd. " . $mysqlconn->error;
+                                            }
+                                        }
+                                        if (isset($_POST['search'])) {
+                                            $valueToSearch = $_POST['valueToSearch'];
+                                            // search in all table columns
+                                            // using concat mysql function
+                                            $conn = "SELECT * FROM UserAccnt WHERE CONCAT(username,password,fullname,role) LIKE '%" . $valueToSearch . "%'";
+                                            $search_result = filterTable($conn);
                                         } else {
-                                            echo "No records found";
+                                            $conn = "SELECT * FROM UserAccnt";
+                                            $search_result = filterTable($conn);
+                                        }
+
+// function to connect and execute the query
+                                        function filterTable($conn) {
+                                            include('MySQL.php');
+                                            $filter_Result = mysqli_query($mysqlconn, $conn);
+                                            return $filter_Result;
                                         }
                                         ?>
+                                        <form action="" method="post" name="frmUser" >
+                                            <input type="text" name="valueToSearch" placeholder="Value To Search"><br><br>
+                                            <input type="submit" name="search" value="Filter"><br><br>
+
+                                            <table>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Username</th>
+                                                    <th>Password</th>
+                                                    <th>Fullname</th>
+                                                    <th>Role</th>
+                                                </tr>
+                                                <?php $i = 0; ?>
+                                                <!-- populate table from mysql database -->
+                                                <?php while ($row = mysqli_fetch_array($search_result)): ?>
+                                                    <tr>
+                                                    <tr class="<?php if (isset($classname)) echo $classname; ?>">
+                                                        <td><input type="radio" name="userlist" value="<?php echo $row['username']; ?>"></td>
+                                                        <td><?php echo $row['username']; ?></td>
+                                                        <td><?php echo $row['password']; ?></td>
+                                                        <td><?php echo $row['fullname']; ?></td>
+                                                        <td><?php echo $row['role']; ?></td>
+
+
+                                                    </tr>
+
+                                                <?php endwhile; ?>
+                                                <tr>
+                                                    <td> Add User:</td>
+                                                    <td><input type="textbox"  name="username" class="username" > </td>
+                                                    <td><input type="textbox"  name="password" class="password"> </td>
+                                                    <td><input type="textbox"  name="fullname" class="fullname"> </td>
+
+                                                    <td> <select name="role" >
+                                                            <option value="Physician">Physician</option>
+                                                            <option value="Admin">Admin</option>
+                                                        </select> </td>
+
+                                                </tr> 
+                                                <tr class="listheader">
+                                                <tr class="listheader">
+                                                    <td colspan="6">
+                                                        Mode: <select name="SelectActions">
+                                                            <option value="ACTION_CREATE">Create</option>
+                                                            <option value="ACTION_UPDATE">Update</option>
+                                                            <option value="ACTION_DELETE">Delete</option>
+
+                                                        </select>
+                                                        <input type="submit" name="submit" value="Submit">
+
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </form>
+
+                                    </table>
                                     </table>
                                 </div>
 
                                 <div class="tab-pane" id="3">
 
                                     <table id="example" class="table table-striped table-hover table-bordered" width="100%">
+
                                         <?php
-                                        if (isset($_POST['SelectRow'])) {
-
-                                            switch ($_POST['SelectActions']) {
-                                                case "ACTION_CANCEL":
-                                                    $sql = 'update schedule set status = "Cancelled" where ';
-                                                    updateSched($sql);
-                                                    break;
-                                                case "ACTION_DONE":
-                                                    $sql = 'update schedule set status = "Processing" where ';
-                                                    updateSched($sql);
-                                                    break;
-                                            }
-                                        }
-
-                                        function updateSched($sql) {
-                                            include 'MySQL.php';
-
-                                            $criteria = "";
-                                            foreach ($_POST['SelectRow'] as $value) {
-                                                $criteria = $criteria . "sched_id=" . $value . " or ";
-                                            }
-
-
-                                            $criteria = rtrim($criteria, " or ");
-
-                                            $criteria;
-
-                                            $sql = $sql . $criteria;
-
-                                            if ($mysqlconn->query($sql) == true) {
-                                                echo "<br><b>Ticket Updated</b>";
-                                            }
-
-                                            $mysqlconn->close();
-                                        }
-                                        ?> 
-                                        <?php
-                                        $sql = "SELECT * FROM schedule WHERE  username='$username'";
-
-                                        $profileActions = '<option value="ACTION_CANCEL">Cancel</option>'
-                                                . '<option value="ACTION_DONE">Done</option>';
-                                        $resultsched = mysqli_query($mysqlconn, $sql);
-                                        ?>
-                                        <form method="POST" action="UsersProfile.php">
-
-                                            <?php
-                                            if (mysqli_num_rows($resultsched) > 0) {
-                                                echo" <table>
+                                        $sqlsched = "SELECT * FROM schedule WHERE ph_id='$id' ORDER BY date  DESC";
+                                        $resultsched = mysqli_query($mysqlconn, $sqlsched);
+                                        if (mysqli_num_rows($resultsched) > 0) {
+                                            echo" <table>
                                             <tr>
-                                            <th></th>
                                             <th>Date</th>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
@@ -415,33 +434,32 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                                                 <th>Status</th>
 
                                             </tr>";
-                                                while ($row = mysqli_fetch_array($resultsched)) {
-                                                    echo "<tr>";
-                                                    echo "<td> <input type='checkbox' name='SelectRow[]' value=" . $row['sched_id'] . ">";
-                                                    echo "<td>" . $row['date'] . "</td>";
-                                                    echo "<td>" . $row['start_time'] . "</td>";
-                                                    echo "<td>" . $row['end_time'] . "</td>";
-                                                    echo "<td>" . $row['username'] . "</td>";
-                                                    echo "<td>" . $row['note'] . "</td>";
-                                                    echo "<td>" . $row['status'] . "</td>";
-                                                    echo "</tr>";
-                                                }
-
-                                                echo "</table>";
-                                            } else {
-                                                echo "No schedule found";
+                                            while ($row = mysqli_fetch_array($resultsched)) {
+                                                echo "<tr>";
+                                                echo "<td>" . $row['date'] . "</td>";
+                                                echo "<td>" . $row['start_time'] . "</td>";
+                                                echo "<td>" . $row['end_time'] . "</td>";
+                                                echo "<td>" . $row['username'] . "</td>";
+                                                echo "<td>" . $row['note'] . "</td>";
+                                                echo "<td>" . $row['status'] . "</td>";
+                                                echo "</tr>";
                                             }
-                                            ?>
 
-                                            <br><br>
-                                            Select Action to Perform: <select name="SelectActions">
-                                                <?php echo $profileActions ?>
-                                            </select><br><br>
+                                            echo "</table>";
+                                        } else {
+                                            echo "No schedule found";
+                                        }
+                                        ?>
 
-                                            <input type="submit" name="Submit" value="Submit" class="button">
-                                        </form>
+
+
                                     </table>
                                 </div>
+
+
+
+
+
 
 
 

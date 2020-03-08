@@ -148,11 +148,6 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                         </a>
                     </li>
                     <li>
-                        <a href="ManageSchedule.php">
-                            <i class="zmdi zmdi-accounts-add"></i> Manage Schedules
-                        </a>
-                    </li>
-                    <li>
                         <a href="HelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
@@ -192,40 +187,36 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                 <div class="container-fluid">
 
                     <div id="content" class="p-4 p-md-5 pt-5">
-                        <h2>Manage Patient's Information</h2>
+                        <h2>Manage Users</h2>
                         <br>
 
-
                         <?php
-                        include ('MySQL.php');
-
                         if (isSet($_POST['submit'])) {
-                            $patient_fname = $mysqlconn->real_escape_string($_POST['patient_fname']);
-                            $patient_mname = $mysqlconn->real_escape_string($_POST['patient_mname']);
-                            $patient_lname = $mysqlconn->real_escape_string($_POST['patient_lname']);
-                            $birthdate = $mysqlconn->real_escape_string($_POST['birthdate']);
-                            $sex = $mysqlconn->real_escape_string($_POST['sex']);
-                            $address = $mysqlconn->real_escape_string($_POST['address']);
-                            $contactno = $mysqlconn->real_escape_string($_POST['contactno']);
+                            $username = $mysqlconn->real_escape_string($_POST['username']);
+                            $password = $mysqlconn->real_escape_string($_POST['password']);
+                            $password = md5($password);
+
+                            $fullname = $mysqlconn->real_escape_string($_POST['fullname']);
+                            $role = $mysqlconn->real_escape_string($_POST['role']);
 
                             switch ($_POST['SelectActions']) {
                                 case "ACTION_CREATE":
-                                    $sqlcmd = "INSERT INTO Patient(patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno)"
-                                            . "values('$patient_fname','$patient_mname','$patient_lname','$birthdate','$sex','$address','$contactno')";
+                                    $sqlcmd = "insert into UserAccnt(username,password, fullname,role) values('$username', '$password','$fullname','$role')";
                                     break;
                                 case "ACTION_UPDATE":
-                                    $patientlist = $mysqlconn->real_escape_string($_POST['patientlist']);
-                                    $sqlcmd = "update Patient set patient_fname = '$patient_fname', patient_mname = '$patient_mname', patient_lname='$patient_lname', birthdate='$birthdate', sex='$sex', address='$address', contactno='$contactno'where patient_fname = '$patientlist'";
+                                    $userlist = $mysqlconn->real_escape_string($_POST['userlist']);
+//            $sqlcmd = "update users set FullName = '$fullname', Profile = '$profile', password = '$password', eid='$eid' where eid = '$eidlist'";
+                                    $sqlcmd = "update UserAccnt set username = '$username', password = '$password', fullname='$fullname', role='$role'where username = '$userlist'";
 
                                     break;
                                 case "ACTION_DELETE":
-                                    $patientlist = $mysqlconn->real_escape_string($_POST['patientlist']);
-                                    $sqlcmd = "delete from Patient where patient_fname = '$patientlist'";
+                                    $userlist = $mysqlconn->real_escape_string($_POST['userlist']);
+                                    $sqlcmd = "delete from UserAccnt where username = '$userlist'";
                                     break;
                             }
 
                             if ($mysqlconn->query($sqlcmd) === true) {
-                                echo 'Patient Information table successfully updated<br>';
+                                echo 'User table successfully updated<br>';
                                 $_POST['submit'] = '';
                             } else {
                                 echo "ERROR: Could not able to execute $sqlcmd. " . $mysqlconn->error;
@@ -235,10 +226,10 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                             $valueToSearch = $_POST['valueToSearch'];
                             // search in all table columns
                             // using concat mysql function
-                            $conn = "SELECT * FROM Patient(patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno) LIKE '%" . $valueToSearch . "%'";
+                            $conn = "SELECT * FROM UserAccnt WHERE CONCAT(username,password,fullname,role) LIKE '%" . $valueToSearch . "%'";
                             $search_result = filterTable($conn);
                         } else {
-                            $conn = "SELECT * FROM Patient";
+                            $conn = "SELECT * FROM UserAccnt";
                             $search_result = filterTable($conn);
                         }
 
@@ -255,57 +246,42 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
 
                             <table>
                                 <tr>
-                                    <th></th>  
-                                    <th>First Name</th>
-                                    <th>Middle Name</th>
-                                    <th>Last Name</th>
-                                    <th>Birthdate</th>
-                                    <th>Sex</th>
-                                    <th>Address</th>
-                                    <th>Contact No.</th>
-
+                                    <th></th>
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Fullname</th>
+                                    <th>Role</th>
                                 </tr>
                                 <?php $i = 0; ?>
                                 <!-- populate table from mysql database -->
                                 <?php while ($row = mysqli_fetch_array($search_result)): ?>
                                     <tr>
                                     <tr class="<?php if (isset($classname)) echo $classname; ?>">
-                                        <td><input type="radio" name="patientlist" value="<?php echo $row['patient_fname']; ?>"></td>   
-
-                                        <td><?php echo $row['patient_fname']; ?></td>
-                                        <td><?php echo $row['patient_mname']; ?></td>
-                                        <td><?php echo $row['patient_lname']; ?></td>
-                                        <td><?php echo $row['birthdate']; ?></td>
-                                        <td><?php echo $row['sex']; ?></td>
-                                        <td><?php echo $row['address']; ?></td> 
-                                        <td><?php echo $row['contactno']; ?></td>
-
-
+                                        <td><input type="radio" name="userlist" value="<?php echo $row['username']; ?>"></td>
+                                        <td><?php echo $row['username']; ?></td>
+                                        <td><?php echo $row['password']; ?></td>
+                                        <td><?php echo $row['fullname']; ?></td>
+                                        <td><?php echo $row['role']; ?></td>
 
 
                                     </tr>
 
                                 <?php endwhile; ?>
                                 <tr>
-                                    <td> Add User:</td>         
+                                    <td> Add User:</td>
+                                    <td><input type="textbox"  name="username" class="username" > </td>
+                                    <td><input type="textbox"  name="password" class="password"> </td>
+                                    <td><input type="textbox"  name="fullname" class="fullname"> </td>
 
-
-                                    <td><input type="textbox"  name="patient_fname" class="patient_fname" > </td>
-                                    <td><input type="textbox"  name="patient_mname" class="patient_mname"> </td>
-                                    <td><input type="textbox"  name="patient_lname" class="patient_lname"> </td>
-
-                                    <td><input type="date"  name="birthdate" class="birthdate" > </td>
-                                    <td> <select name="sex" >
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select> </td>           
-                                    <td><input type="textbox"  name="address" class="address"> </td>
-                                    <td><input type="textbox"  name="contactno" class="contactno"> </td>
+                                    <td> <select name="role" >
+                                            <option value="Physician">Physician</option>
+                                            <option value="Admin">Admin</option>
+                                        </select> </td>
 
                                 </tr> 
                                 <tr class="listheader">
                                 <tr class="listheader">
-                                    <td colspan="8">
+                                    <td colspan="6">
                                         Mode: <select name="SelectActions">
                                             <option value="ACTION_CREATE">Create</option>
                                             <option value="ACTION_UPDATE">Update</option>
@@ -320,16 +296,16 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                             </table>
                         </form>
 
-
+                        
                     </div>
 
-                </div>
             </div>
-
-
-
         </div>
+
+
+
     </div>
+</div>
 </div>
 
 </body>

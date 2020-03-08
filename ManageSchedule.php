@@ -192,53 +192,17 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                 <div class="container-fluid">
 
                     <div id="content" class="p-4 p-md-5 pt-5">
-                        <h2>Manage Patient's Information</h2>
-                        <br>
-
+                        <h2>Manage Scheduled Check-Ups</h2>
 
                         <?php
-                        include ('MySQL.php');
-
-                        if (isSet($_POST['submit'])) {
-                            $patient_fname = $mysqlconn->real_escape_string($_POST['patient_fname']);
-                            $patient_mname = $mysqlconn->real_escape_string($_POST['patient_mname']);
-                            $patient_lname = $mysqlconn->real_escape_string($_POST['patient_lname']);
-                            $birthdate = $mysqlconn->real_escape_string($_POST['birthdate']);
-                            $sex = $mysqlconn->real_escape_string($_POST['sex']);
-                            $address = $mysqlconn->real_escape_string($_POST['address']);
-                            $contactno = $mysqlconn->real_escape_string($_POST['contactno']);
-
-                            switch ($_POST['SelectActions']) {
-                                case "ACTION_CREATE":
-                                    $sqlcmd = "INSERT INTO Patient(patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno)"
-                                            . "values('$patient_fname','$patient_mname','$patient_lname','$birthdate','$sex','$address','$contactno')";
-                                    break;
-                                case "ACTION_UPDATE":
-                                    $patientlist = $mysqlconn->real_escape_string($_POST['patientlist']);
-                                    $sqlcmd = "update Patient set patient_fname = '$patient_fname', patient_mname = '$patient_mname', patient_lname='$patient_lname', birthdate='$birthdate', sex='$sex', address='$address', contactno='$contactno'where patient_fname = '$patientlist'";
-
-                                    break;
-                                case "ACTION_DELETE":
-                                    $patientlist = $mysqlconn->real_escape_string($_POST['patientlist']);
-                                    $sqlcmd = "delete from Patient where patient_fname = '$patientlist'";
-                                    break;
-                            }
-
-                            if ($mysqlconn->query($sqlcmd) === true) {
-                                echo 'Patient Information table successfully updated<br>';
-                                $_POST['submit'] = '';
-                            } else {
-                                echo "ERROR: Could not able to execute $sqlcmd. " . $mysqlconn->error;
-                            }
-                        }
                         if (isset($_POST['search'])) {
                             $valueToSearch = $_POST['valueToSearch'];
                             // search in all table columns
                             // using concat mysql function
-                            $conn = "SELECT * FROM Patient(patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno) LIKE '%" . $valueToSearch . "%'";
+                            $conn = "SELECT * FROM schedule WHERE CONCAT(date,start_time,end_time,username,note,status) LIKE '%" . $valueToSearch . "%'";
                             $search_result = filterTable($conn);
                         } else {
-                            $conn = "SELECT * FROM Patient";
+                            $conn = "SELECT * FROM schedule";
                             $search_result = filterTable($conn);
                         }
 
@@ -248,91 +212,105 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                             $filter_Result = mysqli_query($mysqlconn, $conn);
                             return $filter_Result;
                         }
+
+                        if (isset($_POST['SelectRow'])) {
+
+                            switch ($_POST['SelectActions']) {
+                                case "ACTION_CANCELLED":
+                                    $sql = 'update schedule set status = "Cancelled" where ';
+                                    updateList($sql);
+                                    break;
+
+                                case "ACTION_DONE":
+                                    $sql = 'update schedule set status = "Done" where ';
+                                    updateList($sql);
+                                    break;
+                            }
+                        }
+
+                        function updateList($sql) {
+                            include 'MySQL.php';
+
+                            $criteria = "";
+                            foreach ($_POST['SelectRow'] as $value) {
+                                $criteria = $criteria . "sched_id=" . $value . " or ";
+                            }
+
+
+                            $criteria = rtrim($criteria, " or ");
+
+                            $criteria;
+
+                            $sql = $sql . $criteria;
+
+
+                            if ($mysqlconn->query($sql) == true) {
+                                echo "<br><b>Schedule Updated</b>";
+                            }
+
+                            $mysqlconn->close();
+                        }
+                        ?>
+
+                        <?php
+                        $sql = "SELECT * FROM schedule ";
+
+                        $profileActions = '<option value="ACTION_CANCELLED">Cancel</option>'
+                                . '<option value="ACTION_DONE">Done</option>';
+                        $result = mysqli_query($mysqlconn, $sql);
                         ?>
                         <form action="" method="post" name="frmUser" >
                             <input type="text" name="valueToSearch" placeholder="Value To Search"><br><br>
-                            <input type="submit" name="search" value="Filter"><br><br>
-
-                            <table>
+                            <input type="submit" name="search" value="Filter"><br><br>                                 <table>
                                 <tr>
-                                    <th></th>  
-                                    <th>First Name</th>
-                                    <th>Middle Name</th>
-                                    <th>Last Name</th>
-                                    <th>Birthdate</th>
-                                    <th>Sex</th>
-                                    <th>Address</th>
-                                    <th>Contact No.</th>
+                                    <th> </th>
+                                    <th>Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Physician</th>
+                                    <th>Note</th>
+                                    <th>Status</th>
 
                                 </tr>
-                                <?php $i = 0; ?>
-                                <!-- populate table from mysql database -->
-                                <?php while ($row = mysqli_fetch_array($search_result)): ?>
-                                    <tr>
-                                    <tr class="<?php if (isset($classname)) echo $classname; ?>">
-                                        <td><input type="radio" name="patientlist" value="<?php echo $row['patient_fname']; ?>"></td>   
-
-                                        <td><?php echo $row['patient_fname']; ?></td>
-                                        <td><?php echo $row['patient_mname']; ?></td>
-                                        <td><?php echo $row['patient_lname']; ?></td>
-                                        <td><?php echo $row['birthdate']; ?></td>
-                                        <td><?php echo $row['sex']; ?></td>
-                                        <td><?php echo $row['address']; ?></td> 
-                                        <td><?php echo $row['contactno']; ?></td>
-
-
-
-
-                                    </tr>
-
-                                <?php endwhile; ?>
                                 <tr>
-                                    <td> Add User:</td>         
+                                    <?php
+                                    while ($row = mysqli_fetch_array($search_result)) {
+                                        echo "<tr>";
+                                        echo "<td> <input type='checkbox' name='SelectRow[]' value=" . $row['sched_id'] . ">";
+                                        echo "<td>" . $row['date'] . "</td>";
+                                        echo "<td>" . $row['start_time'] . "</td>";
+                                        echo "<td>" . $row['end_time'] . "</td>";
+                                        echo "<td>" . $row['username'] . "</td>";
+                                        echo "<td>" . $row['note'] . "</td>";
+                                        echo "<td>" . $row['status'] . "</td>";
+                                        echo "</tr>";
+                                    }
+
+                                    echo "</table>";
+
+                                    mysqli_close($mysqlconn);
+                                    ?>
+
+                                <br><br>
+                                Select Action to Perform: <select name="SelectActions">
+<?php echo $profileActions ?>
+                                </select><br><br>
+
+                                <input type="submit" name="Submit" value="Submit" class="button">
+        <!--                        <input type= "button" type="submit" name="Submit" value="Submit" onclick="myFunction()" value="Submit">-->
 
 
-                                    <td><input type="textbox"  name="patient_fname" class="patient_fname" > </td>
-                                    <td><input type="textbox"  name="patient_mname" class="patient_mname"> </td>
-                                    <td><input type="textbox"  name="patient_lname" class="patient_lname"> </td>
-
-                                    <td><input type="date"  name="birthdate" class="birthdate" > </td>
-                                    <td> <select name="sex" >
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select> </td>           
-                                    <td><input type="textbox"  name="address" class="address"> </td>
-                                    <td><input type="textbox"  name="contactno" class="contactno"> </td>
-
-                                </tr> 
-                                <tr class="listheader">
-                                <tr class="listheader">
-                                    <td colspan="8">
-                                        Mode: <select name="SelectActions">
-                                            <option value="ACTION_CREATE">Create</option>
-                                            <option value="ACTION_UPDATE">Update</option>
-                                            <option value="ACTION_DELETE">Delete</option>
-
-                                        </select>
-                                        <input type="submit" name="submit" value="Submit">
-
-
-                                    </td>
-                                </tr>
                             </table>
+
+
                         </form>
 
 
                     </div>
-
                 </div>
             </div>
-
-
-
         </div>
-    </div>
-</div>
-
-</body>
+    </body>
 
 
 </html>
