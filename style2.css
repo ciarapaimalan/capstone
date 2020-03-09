@@ -1,0 +1,313 @@
+body {
+
+	background-color: #fdfefe;
+	background-attachment: fixed;
+	background-size: cover;
+
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	font-family: arial;
+	box-sizing: border-box;
+}
+
+
+.titlelog {
+	width: 100%;
+	height: 200px;
+	background: #FFCC00;
+	position: center;
+
+}
+
+.store ul {
+	display: inline-flex;
+	margin: 35px;
+}
+
+.store ul span {
+	display: inline-flex;
+	margin: 35px;
+}
+
+
+.store ul li {
+	list-style: none;
+	margin: 0 10px;
+	margin-left: 100px;
+	color: black;
+	font-size: 50px;
+	font-weight: bold;
+	margin-top: -35px;
+
+}
+
+.logo img {
+
+	width: 250px;
+	margin-top: -10px;
+
+
+}
+
+.logo1 img {
+
+	width: 50px;
+	margin-top: 145px;
+	margin-right: -145px;
+
+}
+
+
+.divline {
+	float:left; 
+	background-color:#000000; 
+	width: 100%; 
+	height: 20px;
+
+}
+
+.util {
+	float:right; 
+	width: 0%; 
+	height: 20px;
+
+}
+
+
+
+
+
+/* purple box */
+
+.activebox	{
+	
+	width: 500px; 
+	height: 300px;
+	background: #bdc3c7;
+	background-image: url(healing.gif);
+	/*opacity: .8;*/
+	border-style: double;
+	border-width: 9px;
+  	background-size: 100% 100%;
+	
+	margin: 0 auto;
+	margin-top: 20px;
+
+}
+
+/* MAIN BAR CONFIG */
+
+
+
+/*
+
+.searchbar {
+	
+	display: inline-block;
+	margin-top: 20px;
+	margin-left: 20%;
+}
+
+
+.searchbar input {
+	
+	position: relative;
+	margin: 20px;
+}
+
+
+*/
+
+
+.text {
+	/*background-color: #d3c2ff;*/
+	font-size: 50px;
+	font-weight: bold;
+	text-align: center;
+	position: relative;
+	padding: 30px;
+	color: black;
+    text-shadow:
+    -2px -2px 0 #fff,
+    2px -2px 0 #fff,
+    -2px 2px 0 #fff,
+    2px 2px 0 #fff; 
+
+}
+
+
+
+
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 20px;
+  background: #c30000;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #7ee576;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+
+
+
+
+.activebox2 {
+	width: 900px; 
+	height: 800px;
+	background: #ecf0f1;
+	margin: 0 auto;
+	margin-top: 20px;
+
+
+}
+
+.fillform {
+
+	text-align: left;
+	
+	margin-left: 30px;
+	padding-top: 10px;
+
+}
+
+
+.fillform span {
+
+	margin-right: 30px;
+	width: 20%;
+	
+}
+
+.fillform span input {
+
+	max-width: 30px;
+	
+	
+}
+
+
+.longinput {
+
+	width: 500px;
+	background: #F6F698;
+	
+	
+}
+
+
+.longinput1 {
+
+	width: 180px;
+	background: #F6F698;
+	
+	
+}
+
+.longinput2 {
+
+	width: 35px;
+	background: #F6F698;
+	
+	
+}
+
+.button1 {
+
+	margin-left: 100px;
+	width: 100px;
+	height: 50px;
+
+}
+
+
+.button2 {
+	margin-left: 0%;
+	position: absolute;
+	text-align: center;
+	background-color: #bdc3c7;
+	width: 100px;
+	height: 50px;
+	margin-top: 100px;
+	font-weight: bold;
+	font-size: 25px;
+
+}
+
+
+
+
+.button3 {
+	margin-left: 100px;
+	position: absolute;
+	text-align: center;
+	background-color: #bdc3c7;
+	width: 100px;
+	height: 50px;
+	margin-top: 100px;
+	font-weight: bold;
+	font-size: 25px;
+
+}
+
+
+
+.button2:focus {
+	background-color: #F6F698;
+
+}
+
+
+
+.button3:focus {
+	background-color: #F6F698;
+
+}
+
+.form: {
+	background-color: #F6F698;
+	
+	
+}
+
+
+
+/*
+
+.activebox3 {
+	width: 800px; 
+	height: 1000px;
+	background: #aa6f91;
+	margin: 0 auto;
+	margin-top: 20px;
+
+	position:absolute;
+*/
+
+
