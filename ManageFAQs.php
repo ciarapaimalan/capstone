@@ -92,12 +92,7 @@ $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
                 background-color: #737373;
                 color: white;
             }
-            span{
-                font-weight:bold;
-                font-size: 12pt;
-                padding:5px;
-
-            }
+        
             button{
                 background-color: #737373; 
                 border: none;
