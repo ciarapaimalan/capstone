@@ -123,12 +123,7 @@ if (isSet($_POST['Export'])) {
                 background-color: #737373;
                 color: white;
             }
-            span{
-                font-weight:bold;
-                font-size: 12pt;
-                padding:5px;
-
-            }
+       
             button{
                 background-color: #737373; 
                 border: none;
