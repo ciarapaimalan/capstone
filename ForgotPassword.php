@@ -263,7 +263,7 @@ include ('MySQL.php');
                         <br>
                         <div class="row">
 
-                            <input type="text" name="username" value=""  class="form__input" placeholder="Name" required ><br>
+                            <input type="text" name="username" value=""  class="form__input" placeholder="username" required ><br>
                         </div>
                         <div class="row">
                             <textarea rows="3" cols="5" placeholder="Note" name="message"  class="form__input"required></textarea><br>
