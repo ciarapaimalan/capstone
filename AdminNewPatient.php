@@ -66,7 +66,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         </a>
                     </li>
                     <li>
-                        <a href="AdminNewPatient.php.php">
+                        <a href="AdminNewPatient.php">
                             <i class="zmdi zmdi-accounts-add"></i> New Patient
                         </a>
                     </li>
