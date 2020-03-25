@@ -64,6 +64,7 @@ if (isSet($_POST['Export'])) {
 
         <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
         <script src="https://nightly.datatables.net/js/dataTables.bootstrap.js"></script>
+        <link rel="icon" href="usthlogo.png">
 
 
         <style>
