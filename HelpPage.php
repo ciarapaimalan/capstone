@@ -61,7 +61,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="UserAbout.php">
                             <i class="zmdi zmdi-calendar"></i> About
                         </a>
                     </li>
