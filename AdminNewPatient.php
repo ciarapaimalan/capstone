@@ -132,9 +132,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                             <p> Input patient details below</p>
                             <br>
                             <?php
-                            date_default_timezone_set('Asia/Manila');
-                            echo "<span style='color:red;font-weight:bold;'>Date: </span>" . date('F j, Y g:i:a  ');
-
                             if ($mysqlconn === false) {
                                 die("ERROR: Could not connect. " . $mysqlconn->connect_error);
                             }
