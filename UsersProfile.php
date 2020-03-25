@@ -33,6 +33,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
         <script src="https://nightly.datatables.net/js/dataTables.bootstrap.js"></script>
         <link rel="stylesheet" href="./table.css">
+        <link rel="icon" href="usthlogo.png">
+
 
 
 
