@@ -191,7 +191,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     </div>
                                                     <div class="form-input">
                                                         <label for="contactno" class="required">Contact Number</label>
-                                                        <input type="text" name="contactno" id="phone_number" required/>
+                                                        <input type="number" name="contactno" id="phone_number" required/>
                                                     </div>
 
                                                     <div class="form-submit">
