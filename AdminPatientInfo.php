@@ -445,14 +445,7 @@ if (isSet($_POST['Export'])) {
                 </div>
             </div>
         </div>
-
-
-
-
-
-    </div>
-</div>
-
-</body>
+        <br>
+    </body>
 
 </html>
