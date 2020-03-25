@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css"
               href="LogInStartCSS/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="BootstrapLandingPageTrial.css" />
-
+        <link rel="icon" href="usthlogo.png">
 
         <link rel="stylesheet" type="text/css" href="style6.css" />
         <title>UST-CRM Log In</title>
