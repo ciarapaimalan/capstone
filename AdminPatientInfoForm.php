@@ -292,14 +292,10 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                                                     <input type="date" name="date"required/>           
                                                 </div>
 
-
-                                                <input type="submit" name=submit class="btnsubmit btnsubmit1" >
-                                                <input type="button" onclick="goBack()" class="back" value="Back">
-                                                <script>
-                                                    function goBack() {
-                                                        window.history.back();
-                                                    }
-                                                </script> 
+                                                <div class="form-submit">
+                                                    <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
+                                                    <input type="submit" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                </div>      
                                             </div>
                                         </div>
                                     </form>
@@ -316,7 +312,10 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                     //          alert(val);
 
                     document.getElementById("ph_id").setAttribute("value", val);
-
+                    
+                    function goBack() {
+                        window.history.back();
+                    }
                 </script>
                 </html>  
 
