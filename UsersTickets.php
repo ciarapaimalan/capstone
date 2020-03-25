@@ -298,8 +298,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 }
                                 ?>
 
-
-
                             </form>
                             </table>
                         </div>
