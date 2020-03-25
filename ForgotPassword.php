@@ -10,9 +10,9 @@ include ('MySQL.php');
         <link rel="stylesheet" type="text/css"
               href="LogInStartCSS/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="BootstrapLandingPageTrial.css" />
-
-
         <link rel="stylesheet" type="text/css" href="style6.css" />
+        <link rel="icon" href="usthlogo.png">
+
         <title>UST-CRM Log In</title>
     </head>
     <style>
