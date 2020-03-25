@@ -328,7 +328,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <tr>
                                             <td><input type="checkbox" name="modalities[]" value="Plantar Pneumatic Compression"> Plantar Pneumatic Compression</td>
                                             <td><input type="checkbox" name="modalities[]" value="Nadroparin 3,800 IU/ SC q 24 h" > Nadroparin 3,800 IU/ SC q 24 h</td>
-                                            <td><input type="checkbox" name="modalities[]"  id="others" onclick="ShowHideDiv(this)" />
+                                            <td><input type="checkbox" name="modalities[]"  id="others" value="Others" onclick="ShowHideDiv(this)" />
                                                 Others:
                                                 <div id="other_modalities" style="display: none">
                                                     <input type="text" id="other_modalities" name="other_modalities"  value="N/A" style="border: none; border-bottom: 2px solid black; width: 100%;"/>
