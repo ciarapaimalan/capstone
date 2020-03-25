@@ -53,6 +53,8 @@ if (isSet($_POST['Export'])) {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="./table.css">
+        <link rel="icon" href="usthlogo.png">
+
 
         <style>
             .select:hover {background-color:#f5f5f5;}
