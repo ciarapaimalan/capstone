@@ -207,7 +207,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         updateSched($sql);
                                         break;
                                     case "ACTION_DONE":
-                                        $sql = 'update schedule set status = "Processing" where ';
+                                        $sql = 'update schedule set status = "Done" where ';
                                         updateSched($sql);
                                         break;
                                 }
@@ -229,7 +229,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 $sql = $sql . $criteria;
 
                                 if ($mysqlconn->query($sql) == true) {
-                                    echo "<br><b>Ticket Updated</b>";
+                                     ?>
+                                    <div class="alert alert-success">
+                                        <strong>Success!</strong> Schedule has been Updated.
+                                    </div>
+                                    <?php
                                 }
 
                                 $mysqlconn->close();
