@@ -456,17 +456,12 @@ if (isSet($_POST['Export'])) {
 
 
 
-                </div></div></div>
+                </div>
+            </div>
+        </div>
+
+        <br>
 
     </body>
-
-</html>        </div>
-</div>
-
-
-
-</div></div></div>
-
-</body>
 
 </html>
