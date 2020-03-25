@@ -132,6 +132,9 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                             <p> Input patient details below</p>
                             <br>
                             <?php
+                            date_default_timezone_set('Asia/Manila');
+                            echo "<span style='color:red;font-weight:bold;'>Date: </span>" . date('F j, Y g:i:a  ');
+
                             if ($mysqlconn === false) {
                                 die("ERROR: Could not connect. " . $mysqlconn->connect_error);
                             }
@@ -164,7 +167,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 mysqli_close($mysqlconn);
                             }
                             ?>
-                            
+
                             <div class="container-fluid">
                                 <br>
                                 <div class="signup-form">
@@ -213,7 +216,10 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                         <label for="contactno" class="required">Contact Number</label>
                                                         <input type="number" name="contactno" id="phone_number" required/>
                                                     </div>
-                                                    <input type="submit" name=submit class="btnsubmit btnsubmit1" >
+                                                    <div class="form-submit">
+                                                        <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
+                                                        <input type="submit" value="Back" class="submit" id="back" name="back"  onclick="goBack()"/>     
+                                                    </div>                                               
                                                 </div>
                                             </div>
                                         </form>
@@ -225,8 +231,12 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 </div>
             </div>
         </div>
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
 
-      
     </body>
 
 </html>
