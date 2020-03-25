@@ -40,6 +40,8 @@ $result = mysqli_query($mysqlconn, $sql);
 
         <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
         <script src="https://nightly.datatables.net/js/dataTables.bootstrap.js"></script>
+        <link rel="icon" href="usthlogo.png">
+
         <style>
             .select:hover {background-color:#f5f5f5;}
 
