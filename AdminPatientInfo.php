@@ -361,7 +361,7 @@ if (isSet($_POST['Export'])) {
                                                         <tr>
                                                             <th>Assessment Date</th>
                                                             <th>Risk Factors associated with Clinical Setting (Step One)</th>
-                                                            <th>Risk Factors associated with Patient(Step Two</th>
+                                                            <th>Risk Factors associated with Patient(Step Two)</th>
                                                             <th>Total Risk Factor</th>
                                                             <th>Contraindication to anticoagulants?</th>
                                                             <th>Modalities</th>
