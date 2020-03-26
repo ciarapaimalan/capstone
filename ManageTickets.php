@@ -168,7 +168,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                     break;
                                 case "ACTION_PROCESSING":
                                     $search_result = 'update ticket set status = "Processing" where ';
-                                    updateList($sql);
+                                    updateList($search_result);
                                     break;
                                 case "ACTION_RESOLVED":
                                     $search_result = 'update ticket set status = "Resolved" where ';
