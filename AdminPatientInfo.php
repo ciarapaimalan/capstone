@@ -11,7 +11,7 @@ if (isSet($_POST['Export'])) {
     $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
 
 //    $sqlSelect = "SELECT * FROM RiskAssessment WHERE ph_id='$id' ORDER BY RA_ID DESC";
-    $sqlSelect = "SELECT Patient.*, RiskAssessment.* FROM Patient INNER JOIN RiskAssessment ON (Patient.ph_id = RiskAssessment.ph_id)";
+    $sqlSelect = "SELECT Patient.*, RiskAssessment.* FROM Patient INNER JOIN RiskAssessment ON Patient.ph_id = RiskAssessment.ph_id WHERE Patient.ph_id='$id' && RiskAssessment.ph_id='$id' ORDER BY RA_ID DESC";
     $result = mysqli_query($mysqlconn, $sqlSelect);
 
     $num_column = mysqli_num_fields($result);
