@@ -19,7 +19,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="icon" href="usthlogo.png">
+
 
         <style>
             .select:hover {background-color:#f5f5f5;}
@@ -182,31 +182,46 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                             switch ($_POST['SelectActions']) {
                                 case "ACTION_CREATE":
                                     $sqlcmd = "insert into FAQs(question,answer,severity,role) values('$question','$answer','$severity','$role')";
+
+
+                                    if ($mysqlconn->query($sqlcmd) === true) {
+                                        ?>
+                                        <div class="alert alert-success">
+                                            <strong>Success!</strong> FAQs table has been updated.
+                                        </div>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <div class="alert alert-danger">
+                                            <strong>Error!</strong> Please check your inputs.
+                                        </div>
+                                        <?php
+                                    }
                                     break;
                                 case "ACTION_UPDATE":
-                                    $faqslist = $mysqlconn->real_escape_string($_POST['faqslist']);
-                                    $sqlcmd = "update FAQs set question = '$question', answer='$answer', severity='$severity', role='$role' where question = '$faqslist'";
-
+                                    if (isset($_POST['faqslist'])) {
+                                        $faqslist = $mysqlconn->real_escape_string($_POST['faqslist']);
+                                        $sqlcmd = "update FAQs set question = '$question', answer='$answer', severity='$severity', role='$role' where question = '$faqslist'";
+                                    } else {
+                                        ?>
+                                        <div class="alert alert-danger">
+                                            <strong>Error!</strong> Please select a record to update.
+                                        </div>
+                                        <?php
+                                    }
                                     break;
                                 case "ACTION_DELETE":
-                                    $faqslist = $mysqlconn->real_escape_string($_POST['faqslist']);
-                                    $sqlcmd = "delete from FAQs where question = '$faqslist'";
+                                    if (isset($_POST['faqslist'])) {
+                                        $faqslist = $mysqlconn->real_escape_string($_POST['faqslist']);
+                                        $sqlcmd = "delete from FAQs where question = '$faqslist'";
+                                    } else {
+                                        ?>
+                                        <div class="alert alert-danger">
+                                            <strong>Error!</strong> Please select a record to delete.
+                                        </div>
+                                        <?php
+                                    }
                                     break;
-                            }
-
-
-                            if ($mysqlconn->query($sqlcmd) === true) {
-                                ?>
-                                <div class="alert alert-success">
-                                    <strong>Success!</strong> FAQs table has been updated.
-                                </div>
-                                <?php
-                            } else {
-                                ?>
-                                <div class="alert alert-danger">
-                                    <strong>Error!</strong> Please check your inputs.
-                                </div>
-                                <?php
                             }
                         }
                         if (isset($_POST['search'])) {
@@ -227,6 +242,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                             return $filter_Result;
                         }
                         ?>
+
                         <form class="form-horizontal" action="" method="post"   enctype="multipart/form-data">    
 
                             <button type="submit" class="btn btn-default"  name="Export" value="Export" >
@@ -262,11 +278,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 <?php endwhile; ?>
                                 <tr>
                                     <td> Add FAQ:</td>
-                                    <td><input type="textbox"  name="question" class="question" required> </td>
-                                    <td><input type="textbox"  name="answer" class="answer"required> </td>
-                                    <td><input type="number"  name="severity" class="severity" min="1" max="5"required> </td>
+                                    <td><input type="textbox"  name="question" class="question" > </td>
+                                    <td><input type="textbox"  name="answer" class="answer"> </td>
+                                    <td><input type="number"  name="severity" class="severity" min="1" max="5"> </td>
 
-                                    <td> <select name="role" required>
+                                    <td> <select name="role" >
                                             <option value="Physician">Physician</option>
                                             <option value="Admin">Admin</option>
                                         </select> </td>
