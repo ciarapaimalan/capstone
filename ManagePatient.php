@@ -243,7 +243,7 @@ if (isSet($_POST['Export'])) {
                                     $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select CSV File only</label></div>';
                                 }
                             } else {
-                                $message = '<div class="alert alert-danger"><strong>Error!</strong> Please Select File</div>';
+                                $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select a File</div>';
                             }
                         }
                         $sqlcmd = "SELECT * FROM Patient";
