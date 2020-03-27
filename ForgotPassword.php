@@ -10,9 +10,10 @@ include ('MySQL.php');
         <link rel="stylesheet" type="text/css"
               href="LogInStartCSS/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="BootstrapLandingPageTrial.css" />
-        <link rel="stylesheet" type="text/css" href="style6.css" />
         <link rel="icon" href="usthlogo.png">
 
+
+        <link rel="stylesheet" type="text/css" href="style6.css" />
         <title>UST-CRM Log In</title>
     </head>
     <style>
@@ -242,14 +243,14 @@ include ('MySQL.php');
                     <form method="POST" action="">
 
                         <?php
-                        $sql = mysqli_query($mysqlconn, "SELECT question FROM FAQs WHERE q_id='33'");
+                        $sql = mysqli_query($mysqlconn, "SELECT question FROM FAQs WHERE question='What if I forgot my password'");
                         while ($row = mysqli_fetch_array($sql)) {
                             echo'<tr><td><input  type="hidden" value="' . $row["question"] . '"  id ="question" name="question" ></td></tr>';
                         }
                         ?>
                         <br>
                         <?php
-                        $sql = mysqli_query($mysqlconn, "SELECT severity FROM FAQs WHERE q_id='33'");
+                        $sql = mysqli_query($mysqlconn, "SELECT severity FROM FAQs WHERE question='What if I forgot my password'");
                         while ($row = mysqli_fetch_array($sql)) {
                             echo'<tr><td><input  type="hidden" value="' . $row["severity"] . '"  id ="severity" name="severity" ></td></tr>';
                         }
