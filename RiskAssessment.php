@@ -294,8 +294,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         <br><br>
                         <div class="container">
                             <table class="table table-sm">
-                                <h1>STEP 5: Choose from Modalities listed below</h1>
-                                <h3>guided by STEP 4</h3>
+                                <h1>STEP 5: Choose from Modalities listed below guided by STEP 4</h1>
+                               
 
 
                                 <thead>
