@@ -236,7 +236,7 @@ if (isSet($_POST['Export'])) {
                                     $handle = fopen($_FILES['UserAccnt']['tmp_name'], "r");
                                     fgetcsv($handle, 10000, ",");
                                     while (($column = fgetcsv($handle, 10000, ",")) !== FALSE) {
-                                        $column[1] = md5($column[1]);  
+                                        $column[1] = md5($column[1]);
 
                                         $sqlcmd = "INSERT into UserAccnt (username,password, fullname,role) VALUES ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "')";
 
@@ -252,7 +252,7 @@ if (isSet($_POST['Export'])) {
                                     }
 
                                     fclose($handle);
-                                
+
 // header("location: UpdateTable.php?updation=1");
                                 } else {
                                     $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select CSV File only</label></div>';
@@ -260,8 +260,8 @@ if (isSet($_POST['Export'])) {
                             } else {
                                 $message = '<div class="alert alert-danger"><strong>Error!</strong> Please Select File</div>';
                             }
-                            }
-                        
+                        }
+
                         $sqlcmd = "SELECT * FROM UserAccnt";
                         $result = mysqli_query($mysqlconn, $sqlcmd);
                         ?>
@@ -410,7 +410,7 @@ if (isSet($_POST['Export'])) {
                                 <tr>
                                     <td> Add User:</td>
                                     <td><input type="textbox"  name="username" class="username"></td>
-                                    <td><input type="textbox"  name="password" class="password"> </td>
+                                    <td><input type="textbox"  name="password" class="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"> </td>
                                     <td><input type="textbox"  name="fullname" class="fullname"> </td>
 
                                     <td> <select name="role"required >
