@@ -372,8 +372,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 </table>
 
                 <script>
-
-                    function calcTRF() {
+   function calcTRF() {
             var trf = 0;
             $("input[id=checked][data-trf]:checked").each(function (i, el) {
                 trf += +$(el).data("trf");
@@ -381,7 +380,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 //           ---- delete these if not needed
             $("#trf").val(trf);
             if (trf >= 5) {
-                alert("The maximum value is 5. Please check your inputs.");
+                alert("The maximum TRF is 5. Please check your inputs.");
                 trf = 5;
             }
 //            ----
