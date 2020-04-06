@@ -217,7 +217,7 @@
     <h1 class="CRM">Center for Respiratory Medicine</h1>
     <p class="TRAST">TRAST: Thrombosis Risk Assessment System</p>
     <br><br>
-    <p class="desc"> A platform for the physicians of the UST- CRM in providing the <br>
+    <p class="desc"> A platform for the physicians of the USTH- CRM in providing the <br>
         best care possible in preventing patients’ having a pulmonary embolism.</p>
     <br>
     <center>
