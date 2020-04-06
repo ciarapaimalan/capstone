@@ -386,6 +386,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 trf = 5;
             }
 //            ----
+            document.getElementById("trfdisplay").innerHTML = trf;
+
 
             var text;
             var reg = document.getElementById("trf").value;
