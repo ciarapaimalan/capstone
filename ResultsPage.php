@@ -133,7 +133,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <br>
                                         <table class="table table-sm">
                                             <?php
-                                            date_default_timezone_set('Asia/Manila');
 
 //$RA_ID = $mysqlconn->real_escape_string($_POST['RA_ID']);
                                             if (isSet($_POST['Submit'])) {
