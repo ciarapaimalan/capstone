@@ -235,6 +235,10 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <b>Physician's username:</b> <?php echo $_POST['username']; ?><br>
 
                                                     <b>Assessment Date:</b> <?php echo $_POST['exam_date']; ?><br>
+</div>
+                                            <br>
+                                            <br>
+                                            <input type="button" onclick="printDiv('printableArea')" value="Print Result" class="btn btn-primary" />
 
                                                 <?php } else {
                                                     ?>
@@ -244,11 +248,9 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <?php
                                                 }
                                                 ?>
-
-                                            </div>
+                                                
                                             <br>
                                             <br>
-                                            <input type="button" onclick="printDiv('printableArea')" value="Print Result" class="btn btn-primary" />
 
 <!--                                            <input type="button" onclick="printDiv('printableArea')" value="Print Result" class="submit" id="submit" style="background-color: #008CBA;"/>-->
 
