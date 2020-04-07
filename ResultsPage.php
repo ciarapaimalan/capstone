@@ -133,7 +133,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <br>
                                         <table class="table table-sm">
                                             <?php
-                                            date_default_timezone_set('UTC');
+                                            date_default_timezone_set('Asia/Manila');
 
 //$RA_ID = $mysqlconn->real_escape_string($_POST['RA_ID']);
                                             if (isSet($_POST['Submit'])) {
@@ -152,12 +152,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                 $modalities = implode(", ", $_POST['modalities']);
                                                 $other_modalities = $mysqlconn->real_escape_string($_POST['other_modalities']);
                                                 $username = $mysqlconn->real_escape_string($_POST['username']);
-//                                                $exam_date = $mysqlconn->real_escape_string($_POST['exam_date']);
+                                                $exam_date = $mysqlconn->real_escape_string($_POST['exam_date']);
 //$date_updated = $mysqlconn->real_escape_string($_POST['date_updated']);
 
                                                 $sql = "Insert into RiskAssessment(ph_id,step_one,step_two,trf,regimen,anticoagulants,anticoagulants_elab,modalities,other_modalities,username,exam_date
-) values('$ph_id','$step_one','$step_two','$trf','$regimen','$anticoagulants','$anticoagulants_elab','$modalities','$other_modalities','$username',NOW()
-)";
+) values('$ph_id','$step_one','$step_two','$trf','$regimen','$anticoagulants','$anticoagulants_elab','$modalities','$other_modalities','$username','$exam_date')";
 
 
                                                 if ($mysqlconn->query($sql) === true) {
@@ -236,7 +235,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <b>Other Modalities:</b> <?php echo $_POST['other_modalities']; ?><br>
                                                     <b>Physician's username:</b> <?php echo $_POST['username']; ?><br>
 
-                                                    <b>Assessment Date:</b> <?php echo date('Y-m-d'); ?><br>
+                                                    <b>Assessment Date:</b> <?php echo $_POST['exam_date']; ?><br>
 
                                                 <?php } else {
                                                     ?>
@@ -276,5 +275,5 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
             }
         </script>
 
-        </body>
-        </html>
+    </body>
+</html>
