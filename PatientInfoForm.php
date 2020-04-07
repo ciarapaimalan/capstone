@@ -233,9 +233,9 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                             <div class="signup-form">
                                 <div class="container-fluid">
                                     <?php
-                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
+                                   $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
                                     while ($row = mysqli_fetch_array($sqlpatient)) {
-                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_lname"] . ' </i></h3><br>';
+                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_mname"] . ' ' . $row["patient_lname"] . ' </i></h3><br>';
                                     }
                                     ?>
                                     <form action = "" method = "POST" action = "" >
