@@ -198,7 +198,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                         }
                                                     } else {
                                                         ?>
-                                                        &nbsp;&nbsp;<i>No repeating values for Risk Factors associated with Patient (Step One) </i><br>
+                                                        &nbsp;&nbsp;<i>No repeating values for Risk Factors associated with Clinical Setting (Step One) </i><br>
                                                         <?php
                                                     }
                                                     ?>
