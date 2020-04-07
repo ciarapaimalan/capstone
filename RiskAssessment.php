@@ -271,7 +271,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
             <!--                    <p>TRF:<span id="trf" name="TRF" ></span></p>-->
 
 
-                                TRF:<span><p id="trfdisplay" class='trfdisplay'></p></span>
+                                <span><p id="trfdisplay" class='trfdisplay'></p></span>
                                 <input type="hidden"id="trf" name="trf">
                             </table> 
 
