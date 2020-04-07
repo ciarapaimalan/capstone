@@ -160,7 +160,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     $resultStepOne = mysqli_query($mysqlconn, $queryStepOne);
                                                     if (mysqli_num_rows($resultStepOne) > 0) {
                                                         ?>
-                                                        <br>
                                                         <?php while ($row = mysqli_fetch_assoc($resultStepOne)) { ?>
 
                                                             &nbsp;&nbsp;<i>Step One:</i> <?php echo $row['step_one']; ?><br>
@@ -174,13 +173,12 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                         <?php
                                                     }
                                                     ?>
-
+                                                    <br>
                                                     <?php
                                                     $queryStepTwo = "SELECT step_two, COUNT(*) As total FROM RiskAssessment WHERE ph_id='$ph_id' GROUP By step_two HAVING COUNT(*)>1";
                                                     $resultStepTwo = mysqli_query($mysqlconn, $queryStepTwo);
                                                     if (mysqli_num_rows($resultStepTwo) > 0) {
                                                         ?>
-                                                        <br>
                                                         <?php while ($row = mysqli_fetch_assoc($resultStepTwo)) { ?>
 
                                                             &nbsp;&nbsp;<i>Step Two:</i> <?php echo $row['step_two']; ?><br>
@@ -190,7 +188,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                         }
                                                     } else {
                                                         ?>
-                                                       &nbsp;&nbsp;<i>No repeating values for Risk Factors associated with Patient (Step Two)</i><br>
+                                                        &nbsp;&nbsp;<i>No repeating values for Risk Factors associated with Patient (Step Two)</i><br>
                                                         <?php
                                                     }
                                                     ?>
@@ -209,20 +207,20 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <b>Other Modalities:</b> <?php echo $_POST['other_modalities']; ?><br>
                                                     <b>Physician's username:</b> <?php echo $_POST['username']; ?><br>
                                                     <b>Assessment Date:</b> <?php echo $_POST['exam_date']; ?><br>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <input type="button" onclick="printDiv('printableArea')" value="Print Result" class="btn btn-primary" />
+                                                </div>
+                                                <br>
+                                                <br>
+                                                <input type="button" onclick="printDiv('printableArea')" value="Print Result" class="btn btn-primary" />
 
-                                                <?php } else {
-                                                    ?>
-                                                    <div class="alert alert-danger">
-                                                        <strong>Error!</strong> No values entered.
-                                                    </div>
-                                                    <?php
-                                                }
+                                            <?php } else {
                                                 ?>
-                                                
+                                                <div class="alert alert-danger">
+                                                    <strong>Error!</strong> No values entered.
+                                                </div>
+                                                <?php
+                                            }
+                                            ?>
+
                                             <br>
                                             <br>
 
