@@ -354,8 +354,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     <!--                                Physician: <input type="text" name="exam_phys"/>-->
                                 <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
 
-<!--                            Date: <input type="date" name="exam_date"/> -->
-<!--                            Date Updated: <input type="date" name="date_updated"/> -->
+<?php
+                                date_default_timezone_set('Asia/Manila');
+                                ?>
+                                 <input type="hidden" name="exam_date" value="<?=date('Y-m-d');?>"> 
+                                    <!--                            Date Updated: <input type="date" name="date_updated"/> -->
 
                                 </tbody>
                             </table> 
