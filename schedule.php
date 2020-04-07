@@ -175,9 +175,9 @@ $result = mysqli_query($mysqlconn, $sql);
                                                 <div class="form-group">                      
 
                                                     <?php
-                                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
-                                                    while ($row = mysqli_fetch_array($sqlpatient)) {
-                                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_lname"] . '</i> </h3><br>';
+                                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
+                                    while ($row = mysqli_fetch_array($sqlpatient)) {
+                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_mname"] . ' ' . $row["patient_lname"] . ' </i></h3><br>';
                                                         echo'<input  type="hidden" value="' . $row["contactno"] . '"  id ="contactno" name="contactno" >';
                                                     }
                                                     ?>
