@@ -19,7 +19,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="icon" href="usthlogo.png">
+        <link rel="icon" href="usthlogo.png">
 
     </head>
     <style>
@@ -294,8 +294,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         <br><br>
                         <div class="container">
                             <table class="table table-sm">
-                                <h1>STEP 5: Choose from Modalities listed below</h1>
-                                <h3>guided by STEP 4</h3>
+                                <h1>STEP 5: Choose from Modalities listed below guided by STEP 4</h1>
 
 
                                 <thead>
@@ -354,11 +353,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     <!--                                Physician: <input type="text" name="exam_phys"/>-->
                                 <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
 
-<?php
+                                <?php
                                 date_default_timezone_set('Asia/Manila');
                                 ?>
                                  <input type="hidden" name="exam_date" value="<?=date('Y-m-d');?>"> 
-                                    <!--                            Date Updated: <input type="date" name="date_updated"/> -->
+    <!--                            Date Updated: <input type="date" name="date_updated"/> -->
 
                                 </tbody>
                             </table> 
@@ -377,7 +376,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     </div>
     <script>
 
-         function calcTRF() {
+        function calcTRF() {
             var trf = 0;
             $("input[id=checked][data-trf]:checked").each(function (i, el) {
                 trf += +$(el).data("trf");
@@ -390,7 +389,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
             }
 //            ----
             document.getElementById("trfdisplay").innerHTML = trf;
-
 
             var text;
             var reg = document.getElementById("trf").value;
@@ -481,7 +479,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
 </body> 
 </html>
-
 
 
 
