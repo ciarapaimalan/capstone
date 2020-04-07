@@ -272,7 +272,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 <!--                    <p>TRF:<span id="trf" name="TRF" ></span></p>-->
 
 
-                                    TRF:<span><p id="trfdisplay" class='trfdisplay'></p></span>
+                                    <span><p id="trfdisplay" class='trfdisplay'></p></span>
                                     <input type="hidden"id="trf" name="trf">
                                 </table> 
 
@@ -354,8 +354,10 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <!--                                Physician: <input type="text" name="exam_phys"/>-->
                                     <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
 
-<!--                            Date: <input type="date" name="exam_date"/> -->
-<!--                            Date Updated: <input type="date" name="date_updated"/> -->
+                                    <?php
+                                    date_default_timezone_set('Asia/Manila');
+                                    ?>
+                                 <input type="hidden" name="exam_date" value="<?= date('Y-m-d'); ?>"> <!--                            Date Updated: <input type="date" name="date_updated"/> -->
 
                                     </tbody>
                                 </table> 
@@ -372,20 +374,21 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 </table>
 
                 <script>
-   function calcTRF() {
-            var trf = 0;
-            $("input[id=checked][data-trf]:checked").each(function (i, el) {
-                trf += +$(el).data("trf");
-            });
-//           ---- delete these if not needed
-            $("#trf").val(trf);
-            if (trf >= 5) {
-                alert("The maximum TRF is 5. Please check your inputs.");
-                trf = 5;
-            }
-//            ----
-            document.getElementById("trfdisplay").innerHTML = trf;
 
+                    function calcTRF() {
+                        var trf = 0;
+                        $("input[id=checked][data-trf]:checked").each(function (i, el) {
+                            trf += +$(el).data("trf");
+                        });
+                        $("#trf").val(trf);
+                        //           ---- delete these if not needed
+
+                        if (trf >= 5) {
+                            alert("The maximum TRF is 5. Please check your inputs.");
+                            trf = 5;
+                        }
+//            ----
+                        document.getElementById("trfdisplay").innerHTML = trf;
 
                         var text;
                         var reg = document.getElementById("trf").value;
