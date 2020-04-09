@@ -23,6 +23,15 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
         <style>
             .select:hover {background-color:#f5f5f5;}
+            textarea {
+                width: 50%;
+                height: 100px;
+                padding: 12px 20px;
+                box-sizing: border-box;
+                border: 2px solid #ebebeb;
+                border-radius: 4px;
+                resize: none;
+            }
         </style>
     </head>
     <body>
@@ -188,7 +197,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                     Tell us more about this concern:<br>
 
-                                    <textarea name="message" id="message" rows="10" cols="30"> </textarea>
+                                    <textarea name="message" id="message" rows="10" cols="30" > </textarea>
                                     <br>
 
                                     <input type="submit" name="submit" class="btn btn-success">
