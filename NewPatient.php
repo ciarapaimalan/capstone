@@ -22,7 +22,16 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
         <style>
             .select:hover {background-color:#f5f5f5;}
-
+            #back {
+                background-color: white;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
+            }
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
+            }
         </style>
     </head>
     <body>
@@ -193,12 +202,12 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     </div>
                                                     <div class="form-input">
                                                         <label for="contactno" class="required">Contact Number</label>
-                                                        <input type="number" name="contactno" id="phone_number" required/>
+                                                        <input type="text" name="contactno" id="phone_number" required/>
                                                     </div>
 
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="submit" value="Back" class="submit" id="back" name="back"  onclick="goBack()"/>     
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
                                                     </div>
                                                 </div>
                                         </form>
@@ -216,14 +225,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 window.history.back();
             }
         </script>
-        <!-- JS  -->
-
-<!--        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/nouislider/nouislider.min.js"></script>
-        <script src="vendor/wnumb/wNumb.js"></script>
-        <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
-        <script src="js/main.js"></script>-->
+  
     </body>
 
 </html>
