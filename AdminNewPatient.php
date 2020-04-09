@@ -22,24 +22,17 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
         <style>
             .select:hover {background-color:#f5f5f5;}
-            .btnsubmit {
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
+
+
+            #back {
+                background-color: white;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
             }
-
-
-            .btnsubmit1:hover {
-                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
             }
         </style>
     </head>
@@ -217,7 +210,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     </div>
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="submit" value="Back" class="submit" id="back" name="back"  onclick="goBack()"/>     
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
                                                     </div>                                               
                                                 </div>
                                             </div>
