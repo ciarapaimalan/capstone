@@ -133,8 +133,9 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 $message = $mysqlconn->real_escape_string($_POST['message']);
                                 $severity = $mysqlconn->real_escape_string($_POST['severity']);
                                 $username = $mysqlconn->real_escape_string($_POST['username']);
+                                $date = $mysqlconn->real_escape_string($_POST['date']);
 
-                                $sql = "Insert into ticket(q_id,question,message,severity,username,date) values('$id','$question','$message','$severity','$username',NOW() )";
+                                $sql = "Insert into ticket(q_id,question,message,severity,username,date) values('$id','$question','$message','$severity','$username','$date' )";
                                 if ($mysqlconn->query($sql) === true) {
                                     ?>
                                     <div class="alert alert-success">
@@ -191,13 +192,16 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 <br>
 
                                 <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
-
+                                <?php
+                                date_default_timezone_set('Asia/Manila');
+                                ?>
+                                <input type="hidden" name="date" value="<?= date('Y-m-d'); ?>"> 
                                 <input type="checkbox" name ="q_id" id="q_id" value="" onclick="ShowHideDiv()"> Let us know about this incident<br><br>
                                 <div id="dvtext" style="display: none">
 
                                     Tell us more about this concern:<br>
 
-                                    <textarea name="message" id="message" rows="10" cols="30" > </textarea>
+                                    <textarea name="message" id="message" rows="10" cols="30"  class="form__input" required> </textarea>
                                     <br>
 
                                     <input type="submit" name="submit" class="btn btn-success">
