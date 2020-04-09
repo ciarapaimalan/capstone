@@ -148,7 +148,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         </a>
                     </li>
                     <li>
-                        <a href=“AdminHelpPage.php">
+                        <a href="AdminHelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
                     </li>
