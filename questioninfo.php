@@ -54,40 +54,26 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 <ul class="nav">
                     <br>
                     <li>
-                        <a href="UserHomepage.php">
+                        <a href="AdminHomepage.php">
                             <i class="zmdi zmdi-search"></i> Search Patient
                         </a>
                     </li>
                     <li>
-                        <a href="NewPatient.php">
+                        <a href="AdminNewPatient.php">
                             <i class="zmdi zmdi-accounts-add"></i> New Patient
                         </a>
                     </li>
                     <li>
-                        <a href="HelpPage.php">
+                        <a href="AdminHelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
                     </li>
                     <li>
-                        <a href="UserAbout.php">
+                        <a href="AdminAbout.php">
                             <i class="zmdi zmdi-calendar"></i> About
                         </a>
                     </li>
-                    <li>
-                        <!-- <a href="#">
-                          <i class="zmdi zmdi-info-outline"></i> Log Out
-                        </a>
-                      </li> -->
-                        <!-- <li>
-                          <a href="#">
-                            <i class="zmdi zmdi-settings"></i> Services
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            <i class="zmdi zmdi-comment-more"></i> Contact
-                          </a>
-                        </li> -->
+
                 </ul>
             </div>
             <!-- Content -->
@@ -101,17 +87,18 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         <ul class="nav navbar-nav navbar-right">
                             <li> 
 
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $_SESSION['username']; ?><span class="caret"></span></a>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" >Manage<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="UsersTickets.php">Tickets</a></li>
-                                    <li><a href="UsersPatient.php">Patients</a></li>
-                                    <li><a href="UsersSchedule.php">Schedules</a></li>
-                                    <li><a href="UsersChangePW.php">Change Password</a></li>
+                                    <li><a href="ManageUsers.php">User</a></li>
+                                    <li><a href="ManagePatient.php">Patients</a></li>
+                                    <li><a href="ManagePatientInfo.php">Patient's Chart</a></li>
+                                    <li><a href="ManageSchedule.php">Schedule</a></li>
+                                    <li><a href="ManageTickets.php">Tickets</a></li>
+                                    <li><a href="ManageFAQs.php">FAQs</a></li>
                                 </ul>
                             </li>
 
-                            <li><a href="Logout.php">Log Out</a></li>
-                            </li>
+                            <li><a href="Logout.php">Log Out</a></li></li>
                         </ul>
                     </div>
                 </nav>
@@ -136,6 +123,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 $date = $mysqlconn->real_escape_string($_POST['date']);
 
                                 $sql = "Insert into ticket(q_id,question,message,severity,username,date) values('$id','$question','$message','$severity','$username','$date' )";
+
                                 if ($mysqlconn->query($sql) === true) {
                                     ?>
                                     <div class="alert alert-success">
@@ -151,6 +139,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 }
                             }
                             ?>
+
                             <?php
                             $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
 
@@ -201,7 +190,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                     Tell us more about this concern:<br>
 
-                                    <textarea name="message" id="message" rows="10" cols="30"  class="form__input" required> </textarea>
+                                    <textarea name="message" id="message" rows="10" cols="30" required> </textarea>
                                     <br>
 
                                     <input type="submit" name="submit" class="btn btn-success">
