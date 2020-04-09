@@ -78,29 +78,18 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
             .right {
                 right: 0;
             }
-            .button {
-                border: none;
-                color: white;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
 
-            .button5 {
-                background-color: #555555;
-                color: white;
-                border: 2px solid #555555;
-            }
-
-            .button5:hover {
+            #back {
                 background-color: white;
-                color: #555555;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
             }
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
+            }
+
         </style>
     </head>
     <body>
@@ -233,7 +222,7 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                             <div class="signup-form">
                                 <div class="container-fluid">
                                     <?php
-                                   $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
+                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
                                     while ($row = mysqli_fetch_array($sqlpatient)) {
                                         echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_mname"] . ' ' . $row["patient_lname"] . ' </i></h3><br>';
                                     }
@@ -312,7 +301,7 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
 
                                                 <div class="form-submit">
                                                     <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                    <input type="submit" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                    <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
                                                 </div>                      
                                             </div>
                                         </div>
