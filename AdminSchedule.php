@@ -62,6 +62,25 @@ $result = mysqli_query($mysqlconn, $sql);
                 right: 0;
             }
 
+            #back {
+                background-color: white;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
+            }
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
+            }
+            textarea {
+                width: 100%;
+                height: 100px;
+                padding: 12px 20px;
+                box-sizing: border-box;
+                border: 2px solid #ebebeb;
+                border-radius: 4px;
+                resize: none;
+            }
 
         </style>
     </head>
@@ -184,8 +203,8 @@ $result = mysqli_query($mysqlconn, $sql);
 
                                                     <?php
                                                     $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
-                                    while ($row = mysqli_fetch_array($sqlpatient)) {
-                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_mname"] . ' ' . $row["patient_lname"] . ' </i></h3><br>';
+                                                    while ($row = mysqli_fetch_array($sqlpatient)) {
+                                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_mname"] . ' ' . $row["patient_lname"] . ' </i></h3><br>';
                                                         echo'<input  type="hidden" value="' . $row["contactno"] . '"  id ="contactno" name="contactno" >';
                                                     }
                                                     ?>
@@ -204,7 +223,7 @@ $result = mysqli_query($mysqlconn, $sql);
                                                         <input type="time" name="end_time" class="end_time" required ><br>
                                                     </div>
                                                     <div class="form-input">
-                                                        <label for="note" class="required">Note</label>
+                                                        <label for="note"  >Note</label>
                                                         <br><textarea name="note" id="note" rows="5" cols="62"> </textarea>
                                                     </div>
                                                     <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
@@ -213,7 +232,7 @@ $result = mysqli_query($mysqlconn, $sql);
 
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="submit" value="Back" class="submit" id="back" name="back"  onclick="goBack()"/>     
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
                                                     </div>
 
                                                 </div>
