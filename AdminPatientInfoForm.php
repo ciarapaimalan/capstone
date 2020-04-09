@@ -78,24 +78,15 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
             .right {
                 right: 0;
             }
-            .btnsubmit {
-                background-color: #4CAF50; /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-                -webkit-transition-duration: 0.4s; /* Safari */
-                transition-duration: 0.4s;
+            #back {
+                background-color: white;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
             }
-
-
-            .btnsubmit1:hover {
-                box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
             }
         </style>
     </head>
@@ -214,16 +205,15 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                         ?>
 
                         <div class="container-fluid">
-                            <br>
                             <div class="signup-form">
                                 <div class="container-fluid">
                                     <?php
-                                   $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
+                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
                                     while ($row = mysqli_fetch_array($sqlpatient)) {
                                         echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_mname"] . ' ' . $row["patient_lname"] . ' </i></h3><br>';
                                     }
                                     ?>
-                                    <form action = "" method = "POST" action = "" ">
+                                    <form action = "" method = "POST" action = "" >
                                         <div class="form-row">
                                             <div class="form-group">
 
@@ -296,7 +286,7 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
 
                                                 <div class="form-submit">
                                                     <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                    <input type="submit" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                    <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
                                                 </div>      
                                             </div>
                                         </div>
@@ -314,7 +304,7 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                     //          alert(val);
 
                     document.getElementById("ph_id").setAttribute("value", val);
-                    
+
                     function goBack() {
                         window.history.back();
                     }
