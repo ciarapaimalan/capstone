@@ -178,7 +178,7 @@ $result = mysqli_query($mysqlconn, $sql);
                                 if ($start_time >= $end_time) {
                                     ?>
                                     <div class="alert alert-danger">
-                                        <strong>Error!</strong> wrong time
+                                        <strong>Error!</strong> Please check your inputs.
                                     </div>
                                     <?php
                                 } else {
