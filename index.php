@@ -211,7 +211,7 @@
     <body>
         <br><br><br><br>
     <center>
-        <img src="logos.png" alt="lib&ust_logo" style="width: 15%">
+        <img src="logofinal.png" alt="lib&ust_logo" style="width: 15%">
     </center>
 
     <h1 class="CRM">Center for Respiratory Medicine</h1>
