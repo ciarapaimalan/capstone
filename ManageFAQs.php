@@ -159,7 +159,7 @@ if (isSet($_POST['Export'])) {
                         </a>
                     </li>
                     <li>
-                        <a href=“AdminHelpPage.php">
+                        <a href="AdminHelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
                     </li>
