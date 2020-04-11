@@ -187,7 +187,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     </div>
 
                                                     <div class="form-radio-group">
-                                                        <label for="sex">Sex</label>
+                                                        <label for="sex" class="required">Sex</label>
                                                         <div class="form-radio-item">
                                                             <input type="radio" name="sex" id="male" value="Male" checked>
                                                             <label for="male">Male</label>
@@ -201,7 +201,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     </div>
                                                     <br>
                                                     <div class="form-input">
-                                                        <label for="address">Address</label>
+                                                        <label for="address" class="required">Address</label>
                                                         <input type="text" name="address" id="address" required/>
                                                     </div>
                                                     <div class="form-input">
