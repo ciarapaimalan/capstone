@@ -36,6 +36,6 @@ if (mysqli_num_rows($result) > 0)
 
     echo $output;
 } else {
-    echo 'Patient Not Found';
+    echo 'Question Not Found';
 }
 ?>
