@@ -279,16 +279,7 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                                                 </div>
                                                 <div class="form-input">
                                                     <label for="disposition" class="required">Disposition</label>
-                                                    <select id="disposition" name="disposition" style=" box-sizing: border-box;
-                                                            border: 1px solid #ebebeb;
-                                                            padding: 14px 20px;
-                                                            border-radius: 5px;
-                                                            -moz-border-radius: 5px;
-                                                            -webkit-border-radius: 5px;
-                                                            -o-border-radius: 5px;
-                                                            -ms-border-radius: 5px;
-                                                            font-size: 14px;
-                                                            font-family: 'Poppins';" required>
+                                                    <select id="disposition" name="disposition" class="form-control" required>
                                                         <option value="In-Patient">In-Patient</option>
                                                         <option value="Discharged">Discharged</option>
                                                         <option value="Deceased">Deceased</option>
