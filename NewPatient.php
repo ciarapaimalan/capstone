@@ -179,7 +179,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                                     <div class="form-input">
                                                         <label for="birthdate" class="required"required>Birthday</label>
-                                                        <input type="date" name="birthdate" id="bday"required />
+                                                        <input type="date" name="birthdate" max="2000-12-31" id="bday"required />
                                                     </div>
 
                                                     <div class="form-radio-group">
