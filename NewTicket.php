@@ -172,11 +172,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     </div>
                                                     <div class="form-input">
                                                         <label for="recipient-name" class="required">Question/Incident</label>
-                                                        <input type="text" class="form-control" id="recipient-name" name="question">
+                                                        <input type="text" class="form-control" id="recipient-name" name="question" required>
                                                     </div>
                                                     <div class="form-input">
                                                         <label for="message-text" class="required">Message</label>
-                                                        <textarea class="form-control" id="message-text" name="message"></textarea>
+                                                        <textarea class="form-control" id="message-text" name="message" required></textarea>
                                                     </div>
                                                     <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
                                                     <?php
