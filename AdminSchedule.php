@@ -40,6 +40,8 @@ $result = mysqli_query($mysqlconn, $sql);
 
         <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
         <script src="https://nightly.datatables.net/js/dataTables.bootstrap.js"></script>
+        <link rel="icon" href="usthlogo.png">
+
         <style>
             .select:hover {background-color:#f5f5f5;}
 
@@ -60,6 +62,25 @@ $result = mysqli_query($mysqlconn, $sql);
                 right: 0;
             }
 
+            #back {
+                background-color: white;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
+            }
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
+            }
+            textarea {
+                width: 100%;
+                height: 100px;
+                padding: 12px 20px;
+                box-sizing: border-box;
+                border: 2px solid #ebebeb;
+                border-radius: 4px;
+                resize: none;
+            }
 
         </style>
     </head>
@@ -93,7 +114,7 @@ $result = mysqli_query($mysqlconn, $sql);
                         </a>
                     </li>
                     <li>
-                        <a href="HelpPage.php">
+                        <a href="AdminHelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
                     </li>
@@ -138,10 +159,13 @@ $result = mysqli_query($mysqlconn, $sql);
                         <div>
                             <h2 class="mb-4">Schedule a Check-up</h2>
                             <br>                        
-                            <?php
+                     <?php
+                            date_default_timezone_set('Asia/Manila');
+
                             if ($mysqlconn === false) {
                                 die("ERROR: Could not connect. " . $mysqlconn->connect_error);
                             }
+
                             if (isset($_POST['submit'])) {
 
                                 $ph_id = $mysqlconn->real_escape_string($_POST['ph_id']);
@@ -152,26 +176,50 @@ $result = mysqli_query($mysqlconn, $sql);
                                 $username = $mysqlconn->real_escape_string($_POST['username']);
                                 $note = $mysqlconn->real_escape_string($_POST['note']);
 
+                                $query = mysqli_query($mysqlconn, "select username from schedule where ph_id='$ph_id' && start_time='$start_time'&& date='$date'&& status='Upcoming'");
+                                $numrows = mysqli_num_rows($query);
 
-                                $sql = "INSERT INTO schedule(ph_id,contactno,date,start_time,end_time,username,note)"
-                                        . "values('$ph_id','$contactno','$date','$start_time','$end_time','$username','$note')";
-
-
-                                if ($mysqlconn->query($sql) === true) {
-                                    ?>
-                                    <div class="alert alert-success">
-                                        <strong>Success!</strong> New Schedule Record has been added.
-                                    </div>
-                                    <?php
-                                } else {
+                                if ($start_time >= $end_time) {
                                     ?>
                                     <div class="alert alert-danger">
                                         <strong>Error!</strong> Please check your inputs.
                                     </div>
                                     <?php
+                                } else {
+                                    if ($numrows == 0) {
+                                        $sql = "INSERT INTO schedule(ph_id,contactno,date,start_time,end_time,username,note)"
+                                                . "values('$ph_id','$contactno','$date','$start_time','$end_time','$username','$note')";
+
+                                        if ($mysqlconn->query($sql) === true) {
+                                            ?>
+                                            <div class="alert alert-success">
+                                                <strong>Success!</strong> New Schedule Record has been added.
+                                            </div>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <div class="alert alert-danger">
+                                                <strong>Error!</strong> Please check your inputs.
+                                            </div>
+                                            <?php
+                                        }
+                                    } else {
+                                        $row = mysqli_fetch_array($query);
+                                        ?>
+                                        <div class="alert alert-danger">
+                                            <strong>Error!</strong> The check-up schedule to this patient has been taken by
+                                            <?php
+                                            echo'<b><i>' . $row["username"] . '</i></b>. Please enter a different schedule.';
+                                        }
+                                        ?>
+
+                                    </div>
+                                    <?php
                                 }
                             }
                             ?>
+
+
                             <div class="signup-form">
                                 <div class="signup-form">
                                     <div class="container-fluid">
@@ -181,16 +229,16 @@ $result = mysqli_query($mysqlconn, $sql);
                                                 <div class="form-group">                                    
 
                                                     <?php
-                                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
+                                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
                                                     while ($row = mysqli_fetch_array($sqlpatient)) {
-                                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_lname"] . '</i> </h3><br>';
+                                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_mname"] . ' ' . $row["patient_lname"] . ' </i></h3><br>';
                                                         echo'<input  type="hidden" value="' . $row["contactno"] . '"  id ="contactno" name="contactno" >';
                                                     }
                                                     ?>
                                                     <input type="hidden" name ="ph_id" id="ph_id" value="" >
                                                     <div class="form-input">
                                                         <label for="date" class="required">Date</label>
-                                                        <input type="date" name="date" class="date" required ><br>
+                                                        <input type="date" name="date" class="date" min="<?= date('Y-m-d'); ?>" required ><br>
                                                     </div>
 
                                                     <div class="form-input">
@@ -202,7 +250,7 @@ $result = mysqli_query($mysqlconn, $sql);
                                                         <input type="time" name="end_time" class="end_time" required ><br>
                                                     </div>
                                                     <div class="form-input">
-                                                        <label for="note" class="required">Note</label>
+                                                        <label for="note"  >Note</label>
                                                         <br><textarea name="note" id="note" rows="5" cols="62"> </textarea>
                                                     </div>
                                                     <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
@@ -211,7 +259,7 @@ $result = mysqli_query($mysqlconn, $sql);
 
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="submit" value="Back" class="submit" id="back" name="back"  onclick="goBack()"/>     
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
                                                     </div>
 
                                                 </div>

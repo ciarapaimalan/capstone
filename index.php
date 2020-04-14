@@ -8,6 +8,10 @@
         <link rel="stylesheet" type="text/css"
               href="LogInStartCSS/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="BootstrapLandingPageTrial.css" />
+        <link rel="icon" href="usthlogo.png">
+
+
+
 
 
         <link rel="stylesheet" type="text/css" href="style6.css" />
@@ -209,15 +213,14 @@
         }
     </style>
     <body>
-        <br><br><br><br>
+        <br><br><br><br><br>
     <center>
-        <img src="logos.png" alt="lib&ust_logo" style="width: 15%">
+        <img src="logosfinal.png" alt="lib&ust_logo" style="width: 15%">
     </center>
-
     <h1 class="CRM">Center for Respiratory Medicine</h1>
     <p class="TRAST">TRAST: Thrombosis Risk Assessment System</p>
-    <br><br>
-    <p class="desc"> A platform for the physicians of the UST- CRM in providing the <br>
+    <br>
+    <p class="desc"> A platform for the physicians of the UST-CRM in providing the <br>
         best care possible in preventing patients’ having a pulmonary embolism.</p>
     <br>
     <center>

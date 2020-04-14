@@ -47,6 +47,7 @@ if (isSet($_POST['Export'])) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
 
 
         <!--        tabs-->
@@ -63,6 +64,7 @@ if (isSet($_POST['Export'])) {
 
 
         <style>
+
             .select:hover {background-color:#f5f5f5;}
             body {font-family: Arial;}
 
@@ -106,7 +108,7 @@ if (isSet($_POST['Export'])) {
                 border-collapse: collapse;
                 width: 100%;
                 border:2pt;
-                border: 1px solid #ddd;
+/*                border: 1px solid #ddd;*/
 
             }
 
@@ -117,7 +119,7 @@ if (isSet($_POST['Export'])) {
                 font-size:12px;
             }
 
-            tr:nth-child(even){background-color: #f2f2f2}
+            /*            tr:nth-child(even){background-color: #f2f2f2}*/
 
             th {
 
@@ -150,6 +152,7 @@ if (isSet($_POST['Export'])) {
 
             }
 
+           
         </style>
     </head>
     <body>
@@ -182,7 +185,7 @@ if (isSet($_POST['Export'])) {
                         </a>
                     </li>
                     <li>
-                        <a href=“AdminHelpPage.php">
+                        <a href="AdminHelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
                     </li>
@@ -235,7 +238,7 @@ if (isSet($_POST['Export'])) {
                                     $handle = fopen($_FILES['UserAccnt']['tmp_name'], "r");
                                     fgetcsv($handle, 10000, ",");
                                     while (($column = fgetcsv($handle, 10000, ",")) !== FALSE) {
-                                        $column[1] = md5($column[1]);  
+                                        $column[1] = md5($column[1]);
 
                                         $sqlcmd = "INSERT into UserAccnt (username,password, fullname,role) VALUES ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "')";
 
@@ -251,7 +254,7 @@ if (isSet($_POST['Export'])) {
                                     }
 
                                     fclose($handle);
-                                
+
 // header("location: UpdateTable.php?updation=1");
                                 } else {
                                     $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select CSV File only</label></div>';
@@ -259,8 +262,8 @@ if (isSet($_POST['Export'])) {
                             } else {
                                 $message = '<div class="alert alert-danger"><strong>Error!</strong> Please Select File</div>';
                             }
-                            }
-                        
+                        }
+
                         $sqlcmd = "SELECT * FROM UserAccnt";
                         $result = mysqli_query($mysqlconn, $sqlcmd);
                         ?>
@@ -282,81 +285,6 @@ if (isSet($_POST['Export'])) {
                                 });
                             });
                         </script>
-
-                        <?php
-                        if (isSet($_POST['submit'])) {
-                            $username = $mysqlconn->real_escape_string($_POST['username']);
-                            $password = $mysqlconn->real_escape_string($_POST['password']);
-                            $password = md5($password);
-
-                            $fullname = $mysqlconn->real_escape_string($_POST['fullname']);
-                            $role = $mysqlconn->real_escape_string($_POST['role']);
-
-
-                            switch ($_POST['SelectActions']) {
-                                case "ACTION_CREATE":
-                                    $sqlcmd = "insert into UserAccnt(username,password, fullname,role) values('$username', '$password','$fullname','$role')";
-                                    break;
-                                case "ACTION_UPDATE":
-                                    if (isSet($_POST['userlist'])) {
-                                        $userlist = $mysqlconn->real_escape_string($_POST['userlist']);
-                                        $sqlcmd = "update UserAccnt set username = '$username', password = '$password', fullname='$fullname', role='$role'where username = '$userlist'";
-                                    } else {
-                                        ?>
-                                        <div class="alert alert-danger">
-                                            <strong>Error!</strong> Please select a record to update.
-                                        </div>
-                                        <?php
-                                    }
-
-                                    break;
-                                case "ACTION_DELETE":
-                                    if (isSet($_POST['userlist'])) {
-                                        $userlist = $mysqlconn->real_escape_string($_POST['userlist']);
-                                        $sqlcmd = "delete from UserAccnt where username = '$userlist'";
-                                    } else {
-                                        ?>
-                                        <div class="alert alert-danger">
-                                            <strong>Error!</strong> Please select a record to delete.
-                                        </div>
-                                        <?php
-                                    }
-                                    break;
-                            }
-
-
-                            if ($mysqlconn->query($sqlcmd) === true) {
-                                ?>
-                                <div class="alert alert-success">
-                                    <strong>Success!</strong> Users Record has been updated.
-                                </div>
-                                <?php
-                            } else {
-                                ?>
-                                <div class="alert alert-danger">
-                                    <strong>Error!</strong> Please check your inputs.
-                                </div>
-                                <?php
-                            }
-                        }
-                        if (isset($_POST['search'])) {
-                            $valueToSearch = $_POST['valueToSearch'];
-                            // search in all table columns
-                            // using concat mysql function
-                            $conn = "SELECT * FROM UserAccnt WHERE CONCAT(username,password,fullname,role) LIKE '%" . $valueToSearch . "%'";
-                            $search_result = filterTable($conn);
-                        } else {
-                            $conn = "SELECT * FROM UserAccnt";
-                            $search_result = filterTable($conn);
-                        }
-
-// function to connect and execute the query
-                        function filterTable($conn) {
-                            include('MySQL.php');
-                            $filter_Result = mysqli_query($mysqlconn, $conn);
-                            return $filter_Result;
-                        }
-                        ?>
                         <?php echo $message; ?>
 
                         <form class="form-horizontal" action="" method="post"   enctype="multipart/form-data">    
@@ -377,79 +305,57 @@ if (isSet($_POST['Export'])) {
                         </form>
                     </div>
                     <br>
-                    <table id="example" class="table table-striped table-hover table-bordered" width="100%">
+                    <a href="CreateUser.php"style=" font-size:15px;" > <span class="glyphicon glyphicon-plus"></span> New User</a> 
 
-                        <form action="" method="post" name="frmUser" >
-                            <input type="text" name="valueToSearch" placeholder="Value To Search">
-                            <input type="submit" name="search" value="Filter"><br><br>
+                    <h3 class="h6 mb-3"></h3>
 
-                            <table>
-                                <tr>
-                                    <th></th>
-                                    <th>Username</th>
-                                    <th>Password</th>
-                                    <th>Fullname</th>
-                                    <th>Role</th>
-                                </tr>
-                                <?php $i = 0; ?>
-                                <!-- populate table from mysql database -->
-                                <?php while ($row = mysqli_fetch_array($search_result)): ?>
-                                    <tr>
-                                    <tr class="<?php if (isset($classname)) echo $classname; ?>">
-                                        <td><input type="radio" name="userlist" value="<?php echo $row['username']; ?>"></td>
-                                        <td><?php echo $row['username']; ?></td>
-                                        <td><?php echo $row['password']; ?></td>
-                                        <td><?php echo $row['fullname']; ?></td>
-                                        <td><?php echo $row['role']; ?></td>
+                    <div class="form-group d-flex">
+                        <div class="icon"><span class="icon-paper-plane"></span></div>
+                        <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search a User here">
+                    </div>
 
+                    <table id="result"  width="100%"></table>
 
-                                    </tr>
+<!--                        <div id="result"></div>-->
 
-                                <?php endwhile; ?>
-                                <tr>
-                                    <td> Add User:</td>
-                                    <td><input type="textbox"  name="username" class="username"></td>
-                                    <td><input type="textbox"  name="password" class="password"> </td>
-                                    <td><input type="textbox"  name="fullname" class="fullname"> </td>
-
-                                    <td> <select name="role"required >
-                                            <option value="Physician">Physician</option>
-                                            <option value="Admin">Admin</option>
-                                        </select> </td>
-
-                                </tr> 
-                                <tr class="listheader">
-                                <tr class="listheader">
-                                    <td colspan="6">
-                                        Mode: <select name="SelectActions" class="btn btn-secondary dropdown-toggle" >
-                                            <option value="ACTION_CREATE">Create</option>
-                                            <option value="ACTION_UPDATE">Update</option>
-                                            <option value="ACTION_DELETE">Delete</option>
-
-                                        </select>
-                                        <input type="submit" name="submit" value="Submit" class="btn btn-success">
-
-
-                                    </td>
-                                </tr>
-                            </table>
-                            <br>
-
-                        </form>
-
-
+                    </p>
                 </div>
-
             </div>
         </div>
-
-
-
     </div>
-</div>
-</div>
+
+    <!-- partial -->
 
 </body>
 
+<script>
+    $(document).ready(function () {
 
+        load_data();
+
+        function load_data(query)
+        {
+            $.ajax({
+                url: "UserSearch.php",
+                method: "POST",
+                data: {query: query},
+                success: function (data)
+                {
+                    $('#result').html(data);
+                }
+            });
+        }
+        $('#search_text').keyup(function () {
+            var search = $(this).val();
+            if (search != '')
+            {
+                load_data(search);
+            } else
+            {
+                load_data();
+            }
+        });
+    });
+</script>
 </html>
+

@@ -123,30 +123,32 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                         <!-- partial -->
                         <div>
-                            <h2 class="mb-4">New Patient</h2>
-                            <p> Input patient details below</p>
+                            <h2 class="mb-4">Update User's Record</h2>
                             <br>
+                            <?php
+                            $user_id = mysqli_real_escape_string($mysqlconn, $_GET['user_id']);
+
+                            $sql = "SELECT * FROM UserAccnt WHERE user_id='$user_id'";
+                            $result = mysqli_query($mysqlconn, $sql);
+                            ?>
+
                             <?php
                             if ($mysqlconn === false) {
                                 die("ERROR: Could not connect. " . $mysqlconn->connect_error);
                             }
-                            if (isset($_POST['submit'])) {
 
-                                $patient_fname = $mysqlconn->real_escape_string($_POST['patient_fname']);
-                                $patient_mname = $mysqlconn->real_escape_string($_POST['patient_mname']);
-                                $patient_lname = $mysqlconn->real_escape_string($_POST['patient_lname']);
-                                $birthdate = $mysqlconn->real_escape_string($_POST['birthdate']);
-                                $sex = $mysqlconn->real_escape_string($_POST['sex']);
-                                $address = $mysqlconn->real_escape_string($_POST['address']);
-                                $contactno = $mysqlconn->real_escape_string($_POST['contactno']);
+                            if (isSet($_POST['submit'])) {
+                                $username = $mysqlconn->real_escape_string($_POST['username']);
+                                $password = $mysqlconn->real_escape_string($_POST['password']);
 
-                                $sql = "INSERT INTO Patient(patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno)"
-                                        . "values('$patient_fname','$patient_mname','$patient_lname','$birthdate','$sex','$address','$contactno')";
+                                $fullname = $mysqlconn->real_escape_string($_POST['fullname']);
+                                $role = $mysqlconn->real_escape_string($_POST['role']);
+                                $sqlcmd = "update UserAccnt set username = '$username', password='" . md5($_POST["password"]) . "', fullname='$fullname', role='$role'where user_id= '$user_id'";
 
-                                if ($mysqlconn->query($sql) === true) {
+                                if ($mysqlconn->query($sqlcmd) === true) {
                                     ?>
                                     <div class="alert alert-success">
-                                        <strong>Success!</strong>New Patient Record has been added.
+                                        <strong>Success!</strong> User Record has been Updated.
                                     </div>
                                     <?php
                                 } else {
@@ -156,62 +158,77 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                     </div>
                                     <?php
                                 }
-                                mysqli_close($mysqlconn);
+                            }
+                            if (isSet($_POST['Delete'])) {
+                                $sqlcmd = "delete from UserAccnt where user_id = '$user_id'";
+                                if ($mysqlconn->query($sqlcmd) === true) {
+                                    echo "<script type='text/javascript'>window.top.location='ManageUsers.php';</script>";
+                                } else {
+                                    ?>
+                                    <div class="alert alert-danger">
+                                        <strong>Error!</strong> Record cannot be deleted.
+                                    </div>
+                                    <?php
+                                }
+                                exit;
                             }
                             ?>
+                            <?php
+                            while ($row = mysqli_fetch_array($result)) {
+                                ?> 
 
-                            <div class="container-fluid">
-                                <br>
-                                <div class="signup-form">
-                                    <div class="container-fluid">
+                                <div class="container-fluid">
+                                    <br>
+                                    <div class="signup-form">
+                                        <div class="container-fluid">
+                                            <form action="" method="POST" >
 
-                                        <form action="" method="POST" action="" >
-                                            <div class="form-row">
-                                                <div class="form-group">
-                                                    <div class="form-input">
-                                                        <label for="patient_fname" class="required">First name</label>
-                                                        <input type="text" name="patient_fname" id="first_name" required/>
-                                                    </div>
-                                                    <div class="form-input">
-                                                        <label for="patient_mname" class="required">Middle name</label>
-                                                        <input type="text" name="patient_mname" id="middle_name" required/>
-                                                    </div>
-                                                    <div class="form-input">
-                                                        <label for="patient_lname" class="required">Last name</label>
-                                                        <input type="text" name="patient_lname" id="last_name" required/>
-                                                    </div>
+                                                <button type="submit" name="Delete"class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this record?')">Delete </button><br><br>
+                                            </form>
+                                            <form action="" method="POST" >
+                                                <div class="form-row">
+                                                    <div class="form-group">
+                                                        <div class="form-input">
+                                                            <div class="form-input">
+                                                                <label for="date" class="required">Username</label>
+                                                                <input type="text" class="form-control" name="username" value="<?php echo $row['username']; ?> " required>
+                                                            </div>
+                                                            <div class="form-input">
+                                                                <label for="severity" class="required">Password</label>
+                                                                <input type="password" class="form-control"  name="password" value="<?php echo $row['password']; ?> " required>
+                                                            </div>
+                                                            <div class="form-input">
+                                                                <label for="username" class="required">Fullname</label>
+                                                                <input type="text" class="form-control"  name="fullname" value="<?php echo $row['fullname']; ?> "required>
+                                                            </div>
 
-                                                    <div class="form-input">
-                                                        <label for="birthdate" class="required">Birthday</label>
-                                                        <input type="date" name="birthdate"  max="2000-12-31" id="bday" required/>
-                                                    </div>
-
-                                                    <div class="form-radio-group">
-                                                        <label for="sex">Sex</label>
-                                                        <div class="form-radio-item">
-                                                            <input type="radio" name="sex" id="male" value="Male" checked>
-                                                            <label for="male">Male</label>
-                                                            <span class="check"></span>
                                                         </div>
-                                                        <div class="form-radio-item">
-                                                            <input type="radio" name="sex" id="female" value="Female">
-                                                            <label for="female">Female</label>
-                                                            <span class="check"></span>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-input">
-                                                        <label for="address">Address</label>
-                                                        <input type="text" name="address" id="address" required/>
-                                                    </div>
-                                                    <div class="form-input">
-                                                        <label for="contactno" class="required">Contact Number</label>
-                                                        <input type="number" name="contactno" id="phone_number" required/>
-                                                    </div>
+                                                        <?php if ($row['role'] == 'Physician') { ?>
+
+                                                            <label for="role" class="required">Role</label>
+                                                            <select id="role" name="role" class="form-control"  value="<?php echo $row['role']; ?>"required>
+                                                                <option value="Physician" selected>Physician</option>
+                                                                <option value="Admin">Admin</option>
+                                                            </select>   
+                                                            <br><br>
+
+                                                        <?php } else { ?>
+                                                            <label for="role" class="required">Role</label>
+                                                            <select id="role" name="role" class="form-control"  value="<?php echo $row['role']; ?>"required>
+                                                                <option value="Physician" >Physician</option>
+                                                                <option value="Admin" selected>Admin</option>
+                                                            </select>   
+                                                            <br><br>
+                                                        <?php } ?>
+
+                                                        <?php
+                                                    }
+                                                    ?>
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
                                                         <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
-                                                    </div>                                               
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -225,8 +242,16 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         </div>
         <script>
             function goBack() {
-                window.history.back();
+            window.history.back();
             }
+
+            function delete(){
+            var result = confirm("Are you want to delete this record?");
+            if (result) {
+            //delete the item
+            }
+            }
+
         </script>
 
     </body>

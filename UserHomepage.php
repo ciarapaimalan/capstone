@@ -18,6 +18,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
+
         <style>
             .select:hover {background-color:#f5f5f5;}
         </style>
@@ -110,7 +112,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         <!--                        <h2 class="mb-4">TRAST: Thrombosis Risk Assessment System</h2>-->
                         <p>	     
                         <div class="mb-5">
-                        <h2 class="mb-4">Search Patient</h2>
+                            <h2 class="mb-4">Search Patient</h2>
                             <br>
                             <h3 class="h6 mb-3"></h3>
                             <div class="form-group d-flex">

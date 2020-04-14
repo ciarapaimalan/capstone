@@ -10,7 +10,7 @@ if (isset($_POST["query"])) {
   WHERE question LIKE '%" . $search . "%'
  ";
 } else {
-    $query = "SELECT * FROM FAQs ORDER BY q_id";
+    $query = "SELECT * FROM FAQs ORDER BY q_id LIMIT 20";
 }
 $result = mysqli_query($mysqlconn, $query);
 if (mysqli_num_rows($result) > 0) 
@@ -36,6 +36,6 @@ if (mysqli_num_rows($result) > 0)
 
     echo $output;
 } else {
-    echo 'Patient Not Found';
+    echo 'Question Not Found';
 }
 ?>

@@ -13,24 +13,24 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <title>TRAST</title>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
-        <link rel="stylesheet" href="./style3.css">
+        <link rel="stylesheet" href="style.css">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-        <!--dropwdown li-->
         <link rel="icon" href="usthlogo.png">
 
         <style>
             .select:hover {background-color:#f5f5f5;}
-            textarea {
-                width: 50%;
-                height: 100px;
-                padding: 12px 20px;
-                box-sizing: border-box;
-                border: 2px solid #ebebeb;
-                border-radius: 4px;
-                resize: none;
+            #back {
+                background-color: white;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
+            }
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
             }
         </style>
     </head>
@@ -116,26 +116,26 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                     </div>
                 </nav>
                 <div class="container-fluid">
-
                     <div class="container-fluid">
-                        <br><br>
 
-                        <p>	     
-                        <div class="mb-5">
+                        <!-- partial -->
+                        <div>
+                            <h2 class="mb-4">New Ticket</h2>
+                            <br>
+
                             <?php
                             if ($mysqlconn === false) {
                                 die("ERROR: Could not connect. " . $mysqlconn->connect_error);
                             }
 
                             if (isSet($_POST['submit'])) {
-                                $id = $mysqlconn->real_escape_string($_POST['q_id']);
                                 $question = $mysqlconn->real_escape_string($_POST['question']);
                                 $message = $mysqlconn->real_escape_string($_POST['message']);
                                 $severity = $mysqlconn->real_escape_string($_POST['severity']);
                                 $username = $mysqlconn->real_escape_string($_POST['username']);
                                 $date = $mysqlconn->real_escape_string($_POST['date']);
 
-                                $sql = "Insert into ticket(q_id,question,message,severity,username,date) values('$id','$question','$message','$severity','$username','$date' )";
+                                $sql = "Insert into ticket(question,message,severity,username,date) values('$question','$message','$severity','$username','$date' )";
                                 if ($mysqlconn->query($sql) === true) {
                                     ?>
                                     <div class="alert alert-success">
@@ -151,79 +151,68 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 }
                             }
                             ?>
-                            <?php
-                            $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
-
-                            $sql = "SELECT * FROM FAQs WHERE q_id='$id'";
-                            $result = mysqli_query($mysqlconn, $sql);
-                            ?>
-                            <table>
-                                <?php
-                                while ($row = mysqli_fetch_array($result)) {
-                                    ?> 
-                                    <h1><?php echo $row['question']; ?></h1><br><br>
-                                    <?php echo $row['answer']; ?><br>
-
-
-                                    <?php
-                                }
-                                ?>
-                            </table>    
-                            <br>
-                            <br>
-                            Need more assistance?<br>
-
-                            <form action=""method="post">
-
-                                <?php
-                                $sql = mysqli_query($mysqlconn, "SELECT question FROM FAQs WHERE q_id='$id'");
-                                while ($row = mysqli_fetch_array($sql)) {
-                                    echo'<tr><td><input  type="hidden" value="' . $row["question"] . '"  id ="question" name="question" ></td></tr>';
-                                }
-                                ?>
+                            <div class="container-fluid">
                                 <br>
-                                <?php
-                                $sql = mysqli_query($mysqlconn, "SELECT severity FROM FAQs WHERE q_id='$id'");
-                                while ($row = mysqli_fetch_array($sql)) {
-                                    echo'<tr><td><input  type="hidden" value="' . $row["severity"] . '"  id ="severity" name="severity" ></td></tr>';
-                                }
-                                ?>
+                                <div class="signup-form">
+                                    <div class="container-fluid">
 
-                                <br>
+                                        <form action="" method="POST" >
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <div class="form-input">
+                                                        <label for="severity" class="required">Subject</label>
+                                                        <select id="disposition" name="severity" class="form-control" required>
+                                                            <option value="5">Account</option>
+                                                            <option value="5">Patient</option>
+                                                            <option value="5">Risk Assessment</option>
+                                                            <option value="4">Patient's Chart</option>
+                                                            <option value="4">Schedule Check-up</option>
 
-                                <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
-                                <?php
-                                date_default_timezone_set('Asia/Manila');
-                                ?>
-                                <input type="hidden" name="date" value="<?= date('Y-m-d'); ?>"> 
-                                <input type="checkbox" name ="q_id" id="q_id" value="" onclick="ShowHideDiv()"> Let us know about this incident<br><br>
-                                <div id="dvtext" style="display: none">
-
-                                    Tell us more about this concern:<br>
-
-                                    <textarea name="message" id="message" rows="10" cols="30"  class="form__input" required> </textarea>
-                                    <br>
-
-                                    <input type="submit" name="submit" class="btn btn-success">
+                                                        </select>   
+                                                    </div>
+                                                    <div class="form-input">
+                                                        <label for="recipient-name" class="required">Question/Incident</label>
+                                                        <input type="text" class="form-control" id="recipient-name" name="question"required>
+                                                    </div>
+                                                    <div class="form-input">
+                                                        <label for="message-text" class="required">Message</label>
+                                                        <textarea class="form-control" id="message-text" name="message" required></textarea>
+                                                    </div>
+                                                    <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
+                                                    <?php
+                                                    date_default_timezone_set('Asia/Manila');
+                                                    ?>
+                                                    <input type="hidden" name="date" value="<?= date('Y-m-d'); ?>"> 
+                                                    <div class="form-submit">
+                                                        <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-    </body>
-    <script>
-        var val = "<?php echo $id ?>";
 
-        document.getElementById("q_id").setAttribute("value", val);
-        //call date
-        function ShowHideDiv() {
-            var q_id = document.getElementById("q_id");
-            var dvtext = document.getElementById("dvtext");
-            dvtext.style.display = q_id.checked ? "block" : "none";
-        }
-    </script>
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+        <!-- JS  -->
+
+<!--        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/nouislider/nouislider.min.js"></script>
+        <script src="vendor/wnumb/wNumb.js"></script>
+        <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
+        <script src="js/main.js"></script>-->
+    </body>
+
 </html>

@@ -3,6 +3,7 @@ include ('MySQL.php');
 session_start();
 $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
 
+
 if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     header('location:index.php');
     exit();
@@ -21,10 +22,12 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="./table.css">
+        <link rel="icon" href="usthlogo.png">
 
         <style>
             .select:hover {background-color:#f5f5f5;}
+            body {font-family: Arial;}
+
             /* Style the tab */
             .tab {
                 overflow: hidden;
@@ -65,8 +68,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 border-collapse: collapse;
                 width: 100%;
                 border:2pt;
-                border: 1px solid #ddd;
-
+                /*                border: 1px solid #ddd;*/
 
             }
 
@@ -74,9 +76,10 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 text-align: left;
                 padding: 10px;
                 border: 1px solid #ddd;
+                font-size:12px;
             }
 
-            tr:nth-child(even){background-color: #f2f2f2}
+            /*            tr:nth-child(even){background-color: #f2f2f2}*/
 
             th {
 
@@ -198,116 +201,56 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
 
                     <div id="content" class="p-4 p-md-5 pt-5">
-                        <!--                        <h2 class="mb-4">TRAST: Thrombosis Risk Assessment System</h2>-->
-
-                            <h3 class="h6 mb-3"></h3>
-                            <h2>Tickets</h2>
+                        <h2 class="mb-4">Tickets</h2>
+                        <p>	     
+                        <div class="mb-5">
 
                             <br>
-                            <?php
-                            if (isset($_POST['SelectRow'])) {
+                            <h3 class="h6 mb-3"></h3>
+                            <!--                               <div class="form-group d-flex">
+                                                                <div class="icon"><span class="icon-paper-plane"></span></div>
+                                                                <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search a Ticket here">
+                                                            </div>-->
 
-                                switch ($_POST['SelectActions']) {
-                                    case "ACTION_CANCEL":
-                                        $sql = 'update ticket set status = "Cancelled" where ';
-                                        updateList($sql);
-                                        break;
-                                    case "ACTION_PROCESSING":
-                                        $sql = 'update ticket set status = "Processing" where ';
-                                        updateList($sql);
-                                        break;
-                                    case "ACTION_RESOLVED":
-                                        $sql = 'update ticket set status = "Resolved" where ';
-                                        updateList($sql);
-                                        break;
-                                }
-                            }
-
-                            function updateList($sql) {
-                                include 'MySQL.php';
-
-                                $criteria = "";
-                                foreach ($_POST['SelectRow'] as $value) {
-                                    $criteria = $criteria . "id=" . $value . " or ";
-                                }
+                            <table id="result"  width="100%"></table>
 
 
-                                $criteria = rtrim($criteria, " or ");
-
-                                $criteria;
-
-                                $sql = $sql . $criteria;
-
-                                if ($mysqlconn->query($sql) == true) {
-                                    ?>
-                                    <div class="alert alert-success">
-                                        <strong>Success!</strong> Ticket has been Updated.
-                                    </div>
-                                    <?php
-                                }
-
-                                $mysqlconn->close();
-                            }
-                            ?>                                   
-                            <?php
-                            $sql = "SELECT * FROM ticket where username='$username' ORDER BY severity DESC";
-
-                            $profileActions = '<option value="ACTION_PROCESSING">Process</option>'
-                                    . '<option value="ACTION_CANCEL">Cancel</option>';
-
-                            $result = mysqli_query($mysqlconn, $sql);
-                            ?>
-<!--                                <table id="example" class="table table-striped table-hover table-bordered" width="100%">-->
-
-                            <form method="POST" action="">
-                                <?php
-                                if (mysqli_num_rows($result) > 0) {
-                                    echo" <table>
-                                            <tr>
-                                                <th> </th>
-                                                <th>Date</th>
-                                                <th>Incident</th>
-                                                <th>Message</th>
-                                                <th>Severity</th>
-                                                <th>Status</th>
-
-                                            </tr>";
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        echo "<tr>";
-                                        echo "<td> <input type='checkbox' name='SelectRow[]' value=" . $row['id'] . ">";
-                                        echo "<td>" . $row['date'] . "</td>";
-                                        echo "<td>" . $row['question'] . "</td>";
-                                        echo "<td>" . $row['message'] . "</td>";
-                                        echo "<td>" . $row['severity'] . "</td>";
-                                        echo "<td>" . $row['status'] . "</td>";
-                                        echo "</tr>";
-                                    }
-
-                                    echo "</table>";
-                                    ?> 
-                                    <br>
-                                    Select Action to Perform:
-                                    <select name="SelectActions">
-                                        <?php echo $profileActions ?>
-                                    </select><br><br>
-                                    <input type="submit" name="Submit" value="Submit" class="btn btn-success">
-
-                                    <?php
-                                } else {
-                                    echo "No records found";
-                                }
-                                ?>
-
-
-
-                            </form>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</body>
-</html>
 
+            <!-- partial -->
+
+    </body>
+
+    <script>
+        $(document).ready(function () {
+
+            load_data();
+
+            function load_data(query)
+            {
+                $.ajax({
+                    url: "UsersTicketsSearch.php",
+                    method: "POST",
+                    data: {query: query},
+                    success: function (data)
+                    {
+                        $('#result').html(data);
+                    }
+                });
+            }
+            $('#search_text').keyup(function () {
+                var search = $(this).val();
+                if (search != '')
+                {
+                    load_data(search);
+                } else
+                {
+                    load_data();
+                }
+            });
+        });
+    </script>
+</html>

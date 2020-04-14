@@ -6,34 +6,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     exit();
 }
 ?>
-<?php
-if (isSet($_POST['Export'])) {
-
-    $sqlSelect = "SELECT * FROM ticket";
-
-    $num_column = mysqli_num_fields($result);
-
-    $csv_header = '';
-    for ($i = 0; $i < $num_column; $i++) {
-        $csv_header .= '"' . mysqli_fetch_field_direct($result, $i)->name . '",';
-    }
-    $csv_header .= "\n";
-
-    $csv_row = '';
-    while ($row = mysqli_fetch_row($result)) {
-        for ($i = 0; $i < $num_column; $i++) {
-            $csv_row .= '"' . $row[$i] . '",';
-        }
-        $csv_row .= "\n";
-    }
-
-    /* Download as CSV File */
-    header('Content-type: application/csv');
-    header('Content-Disposition: attachment; filename=Tickets.csv');
-    echo $csv_header . $csv_row;
-    exit;
-}
-?>
 <!DOCTYPE html>
 <html lang="en" >
     <head>
@@ -60,7 +32,7 @@ if (isSet($_POST['Export'])) {
                 border-collapse: collapse;
                 width: 100%;
                 border:2pt;
-                /*                border: 1px solid #ddd;*/
+                border: 1px solid #ddd;
 
             }
 
@@ -71,7 +43,7 @@ if (isSet($_POST['Export'])) {
                 font-size:12px;
             }
 
-            /*            tr:nth-child(even){background-color: #f2f2f2}*/
+            tr:nth-child(even){background-color: #f2f2f2}
 
             th {
 
@@ -153,19 +125,13 @@ if (isSet($_POST['Export'])) {
 
 
                     <div id="content" class="p-4 p-md-5 pt-5">
-                        <h2 class="mb-4">Manage Ticket</h2>
-                        <p>	     
-                        <div class="mb-5">
+                        <h2 class="mb-4">Help Page</h2>
+                        <form>
+                            <p>	     
+                            <div class="mb-5">
 
-                            <br>
-                            <form class="form-horizontal" action="" method="post"   enctype="multipart/form-data">    
-
-                                <button type="submit" class="btn btn-default"  name="Export" value="Export" >
-                                    <span class="glyphicon glyphicon-export"></span> Export
-                                </button>
-                            </form>
-                            <br>
-                            <h3 class="h6 mb-3"></h3>
+                                <br>
+                                <h3 class="h6 mb-3"></h3>
 
                                 <div class="form-group d-flex">
                                     <div class="icon"><span class="icon-paper-plane"></span></div>
@@ -175,7 +141,7 @@ if (isSet($_POST['Export'])) {
                                 <table id="result"  width="100%"></table>
 
                                 </p>
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>

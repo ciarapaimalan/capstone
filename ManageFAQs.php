@@ -7,7 +7,34 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     exit();
 }
 ?>
+<?php
+if (isSet($_POST['Export'])) {
 
+    $sqlSelect = "SELECT * FROM FAQs ";
+
+    $num_column = mysqli_num_fields($result);
+
+    $csv_header = '';
+    for ($i = 0; $i < $num_column; $i++) {
+        $csv_header .= '"' . mysqli_fetch_field_direct($result, $i)->name . '",';
+    }
+    $csv_header .= "\n";
+
+    $csv_row = '';
+    while ($row = mysqli_fetch_row($result)) {
+        for ($i = 0; $i < $num_column; $i++) {
+            $csv_row .= '"' . $row[$i] . '",';
+        }
+        $csv_row .= "\n";
+    }
+
+    /* Download as CSV File */
+    header('Content-type: application/csv');
+    header('Content-Disposition: attachment; filename=FAQS.csv');
+    echo $csv_header . $csv_row;
+    exit;
+}
+?>
 <html lang="en" >
     <head>
         <meta charset="UTF-8">
@@ -19,10 +46,10 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-
+        <link rel="icon" href="usthlogo.png">
 
         <style>
-            .select:hover {background-color:#f5f5f5;}
+           .select:hover {background-color:#f5f5f5;}
             body {font-family: Arial;}
 
             /* Style the tab */
@@ -65,7 +92,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 border-collapse: collapse;
                 width: 100%;
                 border:2pt;
-                border: 1px solid #ddd;
+/*                border: 1px solid #ddd;*/
 
             }
 
@@ -76,14 +103,20 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 font-size:12px;
             }
 
-            tr:nth-child(even){background-color: #f2f2f2}
+            /*            tr:nth-child(even){background-color: #f2f2f2}*/
 
             th {
 
                 background-color: #737373;
                 color: white;
+                font-size:12px;
             }
-
+            /*            span{
+                            font-weight:bold;
+                            font-size: 12pt;
+                            padding:5px;
+            
+                        }*/
             button{
                 background-color: #737373; 
                 border: none;
@@ -97,6 +130,13 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 cursor: pointer;
 
             }
+            .dashed {
+                border-style: dashed;
+                padding: 10px;
+
+            }
+
+           
 
         </style>
     </head>
@@ -172,138 +212,65 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                     <div id="content" class="p-4 p-md-5 pt-5">
                         <h2>Manage FAQs</h2><br>
-                        <?php
-                        if (isSet($_POST['submit'])) {
-                            $question = $mysqlconn->real_escape_string($_POST['question']);
-                            $answer = $mysqlconn->real_escape_string($_POST['answer']);
-                            $severity = $mysqlconn->real_escape_string($_POST['severity']);
-                            $role = $mysqlconn->real_escape_string($_POST['role']);
 
-                            switch ($_POST['SelectActions']) {
-                                case "ACTION_CREATE":
-                                    $sqlcmd = "insert into FAQs(question,answer,severity,role) values('$question','$answer','$severity','$role')";
-                                    break;
-                                case "ACTION_UPDATE":
-                                    $faqslist = $mysqlconn->real_escape_string($_POST['faqslist']);
-                                    $sqlcmd = "update FAQs set question = '$question', answer='$answer', severity='$severity', role='$role' where question = '$faqslist'";
-
-                                    break;
-                                case "ACTION_DELETE":
-                                    $faqslist = $mysqlconn->real_escape_string($_POST['faqslist']);
-                                    $sqlcmd = "delete from FAQs where question = '$faqslist'";
-                                    break;
-                            }
-
-
-                            if ($mysqlconn->query($sqlcmd) === true) {
-                                ?>
-                                <div class="alert alert-success">
-                                    <strong>Success!</strong> FAQs table has been updated.
-                                </div>
-                                <?php
-                            } else {
-                                ?>
-                                <div class="alert alert-danger">
-                                    <strong>Error!</strong> Please check your inputs.
-                                </div>
-                                <?php
-                            }
-                        }
-                        if (isset($_POST['search'])) {
-                            $valueToSearch = $_POST['valueToSearch'];
-                            // search in all table columns
-                            // using concat mysql function
-                            $conn = "SELECT * FROM FAQs WHERE CONCAT(question,answer,severity,role) LIKE '%" . $valueToSearch . "%'";
-                            $search_result = filterTable($conn);
-                        } else {
-                            $conn = "SELECT * FROM FAQs";
-                            $search_result = filterTable($conn);
-                        }
-
-// function to connect and execute the query
-                        function filterTable($conn) {
-                            include('MySQL.php');
-                            $filter_Result = mysqli_query($mysqlconn, $conn);
-                            return $filter_Result;
-                        }
-                        ?>
                         <form class="form-horizontal" action="" method="post"   enctype="multipart/form-data">    
 
                             <button type="submit" class="btn btn-default"  name="Export" value="Export" >
                                 <span class="glyphicon glyphicon-export"></span> Export
                             </button>
                         </form>
+                        <br>
+                        <a href="createquestion.php"style=" font-size:15px;" > <span class="glyphicon glyphicon-plus"></span> New Question</a> 
 
-                        <form action="" method="post" name="frmUser" >
-                            <input type="text" name="valueToSearch" placeholder="Value To Search">
-                            <input type="submit" name="search" value="Filter"><br><br>
+                        <h3 class="h6 mb-3"></h3>
 
-                            <table>
-                                <tr>
-                                    <th></th>
-                                    <th>Question</th>
-                                    <th>Answer</th>
-                                    <th>Severity</th>
-                                    <th>Role</th>
+                        <div class="form-group d-flex">
+                            <div class="icon"><span class="icon-paper-plane"></span></div>
+                            <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search a Question here">
+                        </div>
 
-                                </tr>
-                                <?php $i = 0; ?>
-                                <!-- populate table from mysql database -->
-                                <?php while ($row = mysqli_fetch_array($search_result)): ?>
-                                    <tr>
-                                    <tr class="<?php if (isset($classname)) echo $classname; ?>">
-                                        <td><input type="radio" name="faqslist" value="<?php echo $row['question']; ?>"></td>
-                                        <td><?php echo $row['question']; ?></td>
-                                        <td><?php echo $row['answer']; ?></td>
-                                        <td><?php echo $row['severity']; ?></td>
-                                        <td><?php echo $row['role']; ?></td>
-                                    </tr>
+                        <table id="result"  width="100%"></table>
 
-                                <?php endwhile; ?>
-                                <tr>
-                                    <td> Add FAQ:</td>
-                                    <td><input type="textbox"  name="question" class="question" required> </td>
-                                    <td><input type="textbox"  name="answer" class="answer"required> </td>
-                                    <td><input type="number"  name="severity" class="severity" min="1" max="5"required> </td>
+                        <!--                        <div id="result"></div>-->
 
-                                    <td> <select name="role" required>
-                                            <option value="Physician">Physician</option>
-                                            <option value="Admin">Admin</option>
-                                        </select> </td>
-
-                                </tr> 
-                                <tr class="listheader">
-                                <tr class="listheader">
-                                    <td colspan="5">
-                                        Mode: <select name="SelectActions">
-                                            <option value="ACTION_CREATE">Create</option>
-                                            <option value="ACTION_UPDATE">Update</option>
-                                            <option value="ACTION_DELETE">Delete</option>
-
-                                        </select>
-                                        <input type="submit" name="submit" value="Submit" class="btn btn-success">
-
-
-                                    </td>
-                                </tr>
-                            </table>
-                            <br>
-
-                        </form>
-
-
+                        </p>
                     </div>
-
                 </div>
             </div>
-
-
-
         </div>
-    </div>
-</div>
 
-</body>
+        <!-- partial -->
 
+    </body>
 
+    <script>
+        $(document).ready(function () {
+
+            load_data();
+
+            function load_data(query)
+            {
+                $.ajax({
+                    url: "searchfaqs.php",
+                    method: "POST",
+                    data: {query: query},
+                    success: function (data)
+                    {
+                        $('#result').html(data);
+                    }
+                });
+            }
+            $('#search_text').keyup(function () {
+                var search = $(this).val();
+                if (search != '')
+                {
+                    load_data(search);
+                } else
+                {
+                    load_data();
+                }
+            });
+        });
+    </script>
 </html>
+

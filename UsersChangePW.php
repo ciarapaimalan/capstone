@@ -1,7 +1,8 @@
 <?php
 include ('MySQL.php');
+
 session_start();
-$username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
+
 
 if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     header('location:index.php');
@@ -52,6 +53,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
+
         <style>
             .select:hover {background-color:#f5f5f5;}
         </style>
@@ -151,10 +154,12 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 <br>
                                 <?php
                                 if (count($_POST) > 0) {
-                                    $result = mysqli_query($mysqlconn, "SELECT *from UserAccnt WHERE username='" . $_SESSION["username"] . "'");
+                                    $username = mysqli_real_escape_string($mysqlconn, $_SESSION['username']);
+                                    $result = mysqli_query($mysqlconn, "SELECT * from UserAccnt WHERE username='" . $_SESSION["username"] . "'");
                                     $row = mysqli_fetch_array($result);
-                                    if ($_POST["currentPassword"] == $row["password"]) {
-                                        mysqli_query($mysqlconn, "UPDATE UserAccnt set password='" . $_POST["newPassword"] . "' WHERE username='" . $_SESSION["username"] . "'");
+                                    if (md5($_POST["currentPassword"]) == $row["password"]) {
+
+                                        mysqli_query($mysqlconn, "UPDATE UserAccnt set password='" . md5($_POST["newPassword"]) . "' WHERE username='" . $_SESSION["username"] . "'");
                                         ?>
 
                                         <div class="alert alert-success">
@@ -194,7 +199,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                         <div class="form-input">
 
                                                             <br> <label>New Password</label>
-                                                            <input type="password" name="newPassword"class="txtField">
+                                                            <input type="password" name="newPassword"class="txtField"pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"> 
                                                             <span id="newPassword"class="required"></span>
                                                         </div>
                                                         <div class="form-input">
@@ -223,7 +228,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 </div>
             </div>
         </div>
-    
+
     </body>
 </html>
 

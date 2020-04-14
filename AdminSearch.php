@@ -17,7 +17,7 @@ if (isset($_POST["query"])) {
  
 ";
 } else {
-    $query = "SELECT * FROM Patient ORDER BY ph_id DESC";
+    $query = "SELECT * FROM Patient ORDER BY ph_id DESC LIMIT 20";
 }
 $result = mysqli_query($mysqlconn, $query);
 if (mysqli_num_rows($result) > 0) {

@@ -22,6 +22,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="./table.css">
+        <link rel="icon" href="usthlogo.png">
 
         <style>
             .select:hover {background-color:#f5f5f5;}
@@ -207,7 +208,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         updateSched($sql);
                                         break;
                                     case "ACTION_DONE":
-                                        $sql = 'update schedule set status = "Processing" where ';
+                                        $sql = 'update schedule set status = "Done" where ';
                                         updateSched($sql);
                                         break;
                                 }
@@ -229,7 +230,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 $sql = $sql . $criteria;
 
                                 if ($mysqlconn->query($sql) == true) {
-                                    echo "<br><b>Ticket Updated</b>";
+                                    ?>
+                                    <div class="alert alert-success">
+                                        <strong>Success!</strong> Schedule has been Updated.
+                                    </div>
+                                    <?php
                                 }
 
                                 $mysqlconn->close();

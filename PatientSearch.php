@@ -15,16 +15,16 @@ if (isset($_POST["query"])) {
   OR address LIKE '%" . $search . "%'
   OR contactno LIKE '%" . $search . "%'
  
- ";
+";
 } else {
     $query = "SELECT * FROM Patient ORDER BY ph_id DESC LIMIT 20";
 }
 $result = mysqli_query($mysqlconn, $query);
 if (mysqli_num_rows($result) > 0) {
     $output .= '
-  <div class="table-responsive">
-   <table class="table table bordered">
-    <tr>
+  <div class="table-responsive" >
+   <table class="table table bordered" >
+    <tr >
      <th>Patient ID</th>
      <th>First Name</th>
      <th>Middle Name</th>
@@ -40,7 +40,7 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {
 //        echo "<a href='searchp.php?fname=" . $row['patient_fname'] . "&lname=" . $row['patient_lname'] . "'>";
         $output .= '
-                  <tr class= "select" onclick=location.href="patientinfo.php?id=' . $row["ph_id"] . '">
+                  <tr class= "select" onclick=location.href="updatepatientinfo.php?id=' . $row["ph_id"] . '">
                     <td>' . $row["ph_id"] . '</td>
                     <td>' . $row["patient_fname"] . '</td>
                     <td>' . $row["patient_mname"] . '</td>

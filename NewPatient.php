@@ -18,9 +18,20 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
+
         <style>
             .select:hover {background-color:#f5f5f5;}
-
+            #back {
+                background-color: white;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
+            }
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
+            }
         </style>
     </head>
     <body>
@@ -168,11 +179,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                                     <div class="form-input">
                                                         <label for="birthdate" class="required"required>Birthday</label>
-                                                        <input type="date" name="birthdate" id="bday"required />
+                                                        <input type="date" name="birthdate" max="2000-12-31" id="bday"required />
                                                     </div>
 
                                                     <div class="form-radio-group">
-                                                        <label for="sex">Sex</label>
+                                                        <label for="sex" class="required">Sex</label>
                                                         <div class="form-radio-item">
                                                             <input type="radio" name="sex" id="male" value="Male"checked>
                                                             <label for="male">Male</label>
@@ -186,7 +197,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     </div>
                                                     <br>
                                                     <div class="form-input">
-                                                        <label for="address">Address</label>
+                                                        <label for="address"class="required">Address</label>
                                                         <input type="text" name="address" id="address"required />
                                                     </div>
                                                     <div class="form-input">
@@ -196,7 +207,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="submit" value="Back" class="submit" id="back" name="back"  onclick="goBack()"/>     
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
                                                     </div>
                                                 </div>
                                         </form>

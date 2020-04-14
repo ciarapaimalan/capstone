@@ -10,6 +10,7 @@ include ('MySQL.php');
         <link rel="stylesheet" type="text/css"
               href="LogInStartCSS/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="BootstrapLandingPageTrial.css" />
+        <link rel="icon" href="usthlogo.png">
 
 
         <link rel="stylesheet" type="text/css" href="style6.css" />
@@ -219,21 +220,21 @@ include ('MySQL.php');
                 <br>
             </div>
             <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
-                    <h2>Forgot Password</h2>
+                <h2>Forgot Password</h2>
                 <div class="container-fluid">
 
                     <?php
                     if (isSet($_POST['submit'])) {
-                        $id = $mysqlconn->real_escape_string($_POST['q_id']);
+//                        $id = $mysqlconn->real_escape_string($_POST['q_id']);
                         $question = $mysqlconn->real_escape_string($_POST['question']);
                         $message = $mysqlconn->real_escape_string($_POST['message']);
                         $severity = $mysqlconn->real_escape_string($_POST['severity']);
                         $username = $mysqlconn->real_escape_string($_POST['username']);
 
-                        $sql = "Insert into ticket(q_id,question,message,severity,username,date) values('$id','$question','$message','$severity','$username',NOW() )";
+                        $sql = "Insert into ticket(question,message,severity,username,date) values('$question','$message','$severity','$username',NOW() )";
 
                         if ($mysqlconn->query($sql) === true) {
-                            echo  "This incident has been recorded. The administrator will notify you regarding this";
+                            echo "This incident has been recorded. The administrator will notify you regarding this";
                         } else {
                             echo "Error! Please check you inputs.";
                         }
@@ -242,20 +243,21 @@ include ('MySQL.php');
                     <form method="POST" action="">
 
                         <?php
-                        $sql = mysqli_query($mysqlconn, "SELECT question FROM FAQs WHERE q_id='33'");
-                        while ($row = mysqli_fetch_array($sql)) {
-                            echo'<tr><td><input  type="hidden" value="' . $row["question"] . '"  id ="question" name="question" ></td></tr>';
-                        }
+//                        $sql = mysqli_query($mysqlconn, "SELECT question FROM FAQs WHERE question='What if I forgot my password'");
+//                        while ($row = mysqli_fetch_array($sql)) {
+//                            echo'<tr><td><input  type="hidden" value="' . $row["question"] . '"  id ="question" name="question" ></td></tr>';
+//                        }
                         ?>
                         <br>
                         <?php
-                        $sql = mysqli_query($mysqlconn, "SELECT severity FROM FAQs WHERE q_id='33'");
-                        while ($row = mysqli_fetch_array($sql)) {
-                            echo'<tr><td><input  type="hidden" value="' . $row["severity"] . '"  id ="severity" name="severity" ></td></tr>';
-                        }
+//                        $sql = mysqli_query($mysqlconn, "SELECT severity FROM FAQs WHERE question='What if I forgot my password'");
+//                        while ($row = mysqli_fetch_array($sql)) {
+//                            echo'<tr><td><input  type="hidden" value="' . $row["severity"] . '"  id ="severity" name="severity" ></td></tr>';
+//                        }
                         ?>
-                        <input type="hidden" name ="q_id" id="q_id" value="33" >
-
+<!--                        <input type="hidden" name ="q_id" id="q_id" value="33" >-->
+                        <tr><td><input  type="hidden" value="What If I forgot my password?"  id ="question" name="question" ></td></tr>
+                        <tr><td><input  type="hidden" value="5"  id ="severity" name="severity" ></td></tr>
                         <div class="row">
 
                             <input type="text" name="username" value=""  class="form__input" placeholder="Username" required ><br>

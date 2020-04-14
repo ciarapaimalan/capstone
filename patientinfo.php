@@ -11,7 +11,7 @@ if (isSet($_POST['Export'])) {
     $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
 
 //    $sqlSelect = "SELECT * FROM RiskAssessment WHERE ph_id='$id' ORDER BY RA_ID DESC";
-    $sqlSelect = "SELECT Patient.*, RiskAssessment.* FROM Patient INNER JOIN RiskAssessment ON (Patient.ph_id = RiskAssessment.ph_id)";
+    $sqlSelect = "SELECT Patient.*, RiskAssessment.* FROM Patient INNER JOIN RiskAssessment ON Patient.ph_id = RiskAssessment.ph_id WHERE Patient.ph_id='$id' && RiskAssessment.ph_id='$id' ORDER BY RA_ID DESC";
     $result = mysqli_query($mysqlconn, $sqlSelect);
 
     $num_column = mysqli_num_fields($result);
@@ -64,6 +64,7 @@ if (isSet($_POST['Export'])) {
 
         <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
         <script src="https://nightly.datatables.net/js/dataTables.bootstrap.js"></script>
+        <link rel="icon" href="usthlogo.png">
 
 
         <style>
@@ -428,7 +429,6 @@ if (isSet($_POST['Export'])) {
                                                 <th>Physician</th>
                                                 <th>Note</th>
                                                 <th>Status</th>
-
                                             </tr>";
                                         while ($row = mysqli_fetch_array($resultsched)) {
                                             echo "<tr>";
@@ -456,17 +456,13 @@ if (isSet($_POST['Export'])) {
 
 
 
-                </div></div></div>
+                </div>
+            </div>
+        </div>
 
+        <br>
+        <br>
+        <br>
     </body>
-
-</html>        </div>
-</div>
-
-
-
-</div></div></div>
-
-</body>
 
 </html>

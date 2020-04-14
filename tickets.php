@@ -10,8 +10,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 <?php
 if (isSet($_POST['Export'])) {
 
-    $sqlSelect = "SELECT Patient.*, PatientInfo.diagnosis_one,PatientInfo.diagnosis_two,PatientInfo.oxygen_lvl,PatientInfo.special_endorsement, PatientInfo.username, PatientInfo.status, PatientInfo.ward, PatientInfo.bed_no, PatientInfo.admission_no, PatientInfo.hosp_no, PatientInfo.admission_date, PatientInfo.disposition, PatientInfo.date "
-            . "FROM Patient INNER JOIN PatientInfo ON (Patient.ph_id = PatientInfo.ph_id)";
+    $sqlSelect = "SELECT * FROM tickets ";
     $result = mysqli_query($mysqlconn, $sqlSelect);
 
     $num_column = mysqli_num_fields($result);
@@ -32,7 +31,7 @@ if (isSet($_POST['Export'])) {
 
     /* Download as CSV File */
     header('Content-type: application/csv');
-    header('Content-Disposition: attachment; filename=patientinfo.csv');
+    header('Content-Disposition: attachment; filename=UserAccnt.csv');
     echo $csv_header . $csv_row;
     exit;
 }
@@ -48,11 +47,12 @@ if (isSet($_POST['Export'])) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
 
 
         <!--        tabs-->
-        <!--         Bootstrap 
-                <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Bootstrap -->
+        <!--        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
                  Datatables 
                 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
@@ -107,7 +107,7 @@ if (isSet($_POST['Export'])) {
                 border-collapse: collapse;
                 width: 100%;
                 border:2pt;
-                /*                border: 1px solid #ddd;*/
+                border: 1px solid #ddd;
 
             }
 
@@ -118,7 +118,7 @@ if (isSet($_POST['Export'])) {
                 font-size:12px;
             }
 
-            /*            tr:nth-child(even){background-color: #f2f2f2}*/
+            tr:nth-child(even){background-color: #f2f2f2}
 
             th {
 
@@ -150,7 +150,6 @@ if (isSet($_POST['Export'])) {
                 padding: 10px;
 
             }
-
 
         </style>
     </head>
@@ -184,7 +183,7 @@ if (isSet($_POST['Export'])) {
                         </a>
                     </li>
                     <li>
-                        <a href="AdminHelpPage.php">
+                        <a href=“AdminHelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
                     </li>
@@ -225,136 +224,158 @@ if (isSet($_POST['Export'])) {
                 <div class="container-fluid">
 
                     <div id="content" class="p-4 p-md-5 pt-5">
-                        <h2>Manage Patients' Chart</h2>
+                        <h2>Manage tickets</h2>
+
 
                         <?php
-                        include('MySQL.php');
-                        $message = '';
-//problem: uploads even when eid column are empty 
-                        if (isset($_POST["upload"])) {
-                            if ($_FILES['PatientInfo']['name']) {
-                                $filename = explode(".", $_FILES['PatientInfo']['name']);
-                                if (end($filename) == "csv") {
-                                    $handle = fopen($_FILES['PatientInfo']['tmp_name'], "r");
-                                    fgetcsv($handle, 10000, ",");
-                                    while (($column = fgetcsv($handle, 10000, ",")) !== FALSE) {
-                                        $sqlcmd = "INSERT into PatientInfo (ph_id,diagnosis_one,diagnosis_two,oxygen_lvl,special_endorsement,username,status,ward,bed_no,admission_no,hosp_no,admission_date,disposition,date)
-                   values ('" . $column[0] . "','" . $column[8] . "','" . $column[9] . "','" . $column[10] . "','" . $column[11] . "','" . $column[12] . "','" . $column[13] . "','" . $column[14] . "','" . $column[15] . "','" . $column[16] . "','" . $column[17] . "','" . $column[18] . "','" . $column[19] . "','" . $column[20] . "')";
+                        if (isSet($_POST['submit'])) {
+                            $question = $mysqlconn->real_escape_string($_POST['question']);
+                            $message = $mysqlconn->real_escape_string($_POST['message']);
+                            $severity = $mysqlconn->real_escape_string($_POST['severity']);
+                            $username = $mysqlconn->real_escape_string($_POST['username']);
+                            $date = $mysqlconn->real_escape_string($_POST['date']);
+                            $adminmessage = $mysqlconn->real_escape_string($_POST['adminmessage']);
+                            $adminusername = $mysqlconn->real_escape_string($_POST['adminusername']);
+                            $dateupdated = $mysqlconn->real_escape_string($_POST['dateupdated']);
 
-                                        $result = mysqli_query($mysqlconn, $sqlcmd);
 
-                                        if (!empty($result)) {
-                                            $type = "success";
-                                            $message = ' <div class="alert alert-success"><strong>Success!</strong> CSV Data Imported into the Database</div>';
-                                        } else {
-                                            $type = "error";
-                                            $message = '<div class="alert alert-danger"><strong>Error!</strong> Problem in Importing CSV Data</div>';
-                                        }
-                                    }
-
-                                    fclose($handle);
-// header("location: UpdateTable.php?updation=1");
-                                } else {
-                                    $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select CSV File only</label></div>';
-                                }
+                            $ticketlist = $mysqlconn->real_escape_string($_POST['ticketlist']);
+                            $sqlcmd = "update ticket set question  = '$question', message = '$message', severity='$severity', username='$username', date='$date',adminmessage='$adminmessage',adminmessage='$adminusername',dateupdated='$dateupdated'WHERE ticketlist = '$ticketlist'";
+//                            $sql = "Update  ticket(question,message,severity,username,date,adminmessage,dateupdated) values('$question','$message','$severity','$username','$date','$adminmessage','$dateupdated' )";
+                            if ($mysqlconn->query($sql) === true) {
+                                ?>
+                                <div class="alert alert-success">
+                                    <strong>Success!</strong> This incident has been recorded. The administrator will notify you regarding this.
+                                </div>
+                                <?php
                             } else {
-                                $message = '<div class="alert alert-danger"><strong>Error!</strong> Please Select File</div>';
+                                ?>
+                                <div class="alert alert-danger">
+                                    <strong>Error!</strong> Please check your inputs.
+                                </div>
+                                <?php
                             }
                         }
+                        if (isset($_POST['search'])) {
+                            $valueToSearch = $_POST['valueToSearch'];
+                            // search in all table columns
+                            // using concat mysql function
+                            $conn = "SELECT * FROM ticket WHERE status='Processing' AND date LIKE '%" . $valueToSearch . "%'
+                                        OR username LIKE '%" . $valueToSearch . "%' 
+                                        OR question LIKE '%" . $valueToSearch . "%' 
+                                        OR severity LIKE '%" . $valueToSearch . "%' 
+                                        OR status LIKE '%" . $valueToSearch . "%'
+ 
+  ";
+                            $search_result = filterTable($conn);
+                        } else {
+                            $conn = "SELECT * FROM ticket WHERE status='Processing'";
+                            $search_result = filterTable($conn);
+                        }
 
-                        $sqlcmd = "SELECT * FROM PatientInfo";
-                        $result = mysqli_query($mysqlconn, $sqlcmd);
+// function to connect and execute the query
+                        function filterTable($conn) {
+                            include('MySQL.php');
+                            $filter_Result = mysqli_query($mysqlconn, $conn);
+                            return $filter_Result;
+                        }
                         ?>
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                $("#frmCSVImport").on("submit", function () {
 
-                                    $("#response").attr("class", "");
-                                    $("#response").html("");
-                                    var fileType = ".csv";
-                                    var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + fileType + ")$");
-                                    if (!regex.test($("#file").val().toLowerCase())) {
-                                        $("#response").addClass("error");
-                                        $("#response").addClass("display-block");
-                                        $("#response").html("Invalid File. Upload : <b>" + fileType + "</b> Files.");
-                                        return false;
-                                    }
-                                    return true;
-                                });
-                            });
-                        </script>
 
-                        <?php echo $message; ?>
+                        <button type="submit" class="btn btn-default"  name="Export" value="Export" >
+                            <span class="glyphicon glyphicon-export"></span> Export
+                        </button>
 
-                        <form class="form-horizontal" action="" method="post"   enctype="multipart/form-data">    
 
-                            <button type="submit" class="btn btn-default"  name="Export" value="Export"style="margin-right: 0;margin-left:auto;display:block;" >
-                                <span class="glyphicon glyphicon-export"></span> Export
-                            </button>
-
-                            <div class="dashed">
-
-                                <label>Import CSV file of Patient's Chart Table</label>
-                                <input type="file" name="UserAccnt"/> <br>
-
-                                <button type="submit" class="btn btn-default" name="upload"  value="Upload" >
-                                    <span class="glyphicon glyphicon-import"></span> Import
-                                </button>
-
-                        </form>
                     </div>
                     <br>
+                    <table id="example" class="table table-striped table-hover table-bordered" width="100%">
 
-                    <h3 class="h6 mb-3"></h3>
+                        <form action="" method="post" name="frmUser" >
+                            <input type="text" name="valueToSearch" placeholder="Value To Search">
+                            <input type="submit" name="search" value="Filter"><br><br>
 
-                    <div class="form-group d-flex">
-                        <div class="icon"><span class="icon-paper-plane"></span></div>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>Date</th>
+                                    <th>username</th>
+                                    <th>Incident</th>
+                                    <th>Severity</th>
+                                    <th>Message</th>
+                                    <th>Status</th>
+                                    <th>Admin</th>
+                                    <th>Message to User</th>
+                                    <th>Date Updated</th>
 
-                        <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search a Patient Chart here">
-                    </div>
-                    <div style="overflow-x:auto;">
 
-                        <table id="result"  width="100%"></table>
-                    </div>
-                    <!--                        <div id="result"></div>-->
+                                </tr>
+                                <?php $i = 0; ?>
+                                <!-- populate table from mysql database -->
+                                <?php while ($row = mysqli_fetch_array($search_result)): ?>
+                                    <tr>
+                                    <tr class="<?php if (isset($classname)) echo $classname; ?>">
+                                        <td><input type="radio" name="tickelist" value="<?php echo $row['q_id']; ?>"></td>
+                                        <td><?php echo $row['date']; ?></td>
+                                        <td><?php echo $row['username']; ?></td>
+                                        <td><?php echo $row['question']; ?></td>
+                                        <td><?php echo $row['severity']; ?></td>
+                                        <td><?php echo $row['message']; ?></td>
+                                        <td><?php echo $row['status']; ?></td>
+                                        <td><?php echo $row['adminusername']; ?></td>
+                                        <td><?php echo $row['adminmessage']; ?></td>
+                                        <td><?php echo $row['dateupdated']; ?></td>
+
+
+                                    </tr>
+
+                                <?php endwhile; ?>
+                            </table>
+
+
+
+                            <label for="status" >Status</label>
+                            <select id="disposition" name="status" class="form-control"  value="<?php echo $row['status']; ?>"required>
+                                <option value="Processing">Processing</option>
+                                <option value="Resolved">Resolved</option>
+
+
+                            </select>   
+
+                            <div class="form-input">
+                                <label for="adminmessage" class="required">Message to User</label>
+                                <textarea class="form-control"  name="adminmessage" required></textarea>
+                            </div>
+                            <input type="hidden" name="adminusername" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
+                            <?php
+                            date_default_timezone_set('Asia/Manila');
+                            ?>
+
+                            <input type="hidden" name="dateupdated" value="<?= date('Y-m-d'); ?>"> 
+
+
+                            <input type="submit" name="submit" value="Submit" class="btn btn-success">
+
+
+                            </td>
+                            </tr>
+                            <br>
+
+                        </form>
+
 
                 </div>
+
             </div>
         </div>
-    </div>
 
-    <!-- partial -->
+
+
+    </div>
+</div>
+</div>
 
 </body>
 
-<script>
-    $(document).ready(function () {
 
-        load_data();
-
-        function load_data(query)
-        {
-            $.ajax({
-                url: "patientinfosearch.php",
-                method: "POST",
-                data: {query: query},
-                success: function (data)
-                {
-                    $('#result').html(data);
-                }
-            });
-        }
-        $('#search_text').keyup(function () {
-            var search = $(this).val();
-            if (search != '')
-            {
-                load_data(search);
-            } else
-            {
-                load_data();
-            }
-        });
-    });
-</script>
 </html>
-

@@ -19,6 +19,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
+
     </head>
     <style>
         .trfdisplay {
@@ -36,7 +38,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
             background-color: rgb(211, 239, 247)
 
         }
-       
+
 
     </style>
     <body>
@@ -269,7 +271,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
             <!--                    <p>TRF:<span id="trf" name="TRF" ></span></p>-->
 
 
-                                TRF:<span><p id="trfdisplay" class='trfdisplay'></p></span>
+                                <span><p id="trfdisplay" class='trfdisplay'></p></span>
                                 <input type="hidden"id="trf" name="trf">
                             </table> 
 
@@ -292,14 +294,13 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         <br><br>
                         <div class="container">
                             <table class="table table-sm">
-                                <h1>STEP 5: Choose from Modalities listed below</h1>
-                                <h3>guided by STEP 4</h3>
+                                <h1>STEP 5: Choose from Modalities listed below guided by STEP 4</h1>
 
 
                                 <thead>
                                 <td>Contraindication to anticoagulants?<br>          
-                                    <input type="radio" name="anticoagulants" value="No" id="No" checked > No <br>
-                                    <input type="radio" name="anticoagulants" value="Yes" id="Yes">    Yes, elaborate <input type="text" id="elaborate" value="N/A"name="anticoagulants_elab"  style="border: none; border-bottom: 2px solid black; width: 70%;display:none;"><br>
+                                    <input type="radio" name="anticoagulants" value="No" id="No"   onchange="changeThis(this)" > No <br>
+                                    <input type="radio" name="anticoagulants" value="Yes" id="Yes"  onchange="changeThis(this)">    Yes, elaborate <input type="text" id="elaborate" value="N/A"name="anticoagulants_elab"  style="border: none; border-bottom: 2px solid black; width: 70%;display:none;"><br>
                                 </td>
                                 <th></th>
                                 <th></th>
@@ -314,19 +315,19 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" name="modalities[]" value="Graduated compression stockings (GCS)"> Graduated compression stockings (GCS)</td>
-                                        <td><input type="checkbox" name="modalities[]" value="Enoxaparin 40mg/SC q 24 h"> Enoxaparin 40mg/SC q 24 h</td>
-                                        <td><input type="checkbox" name="modalities[]" value="Dabigatran 220 mg/tab po q 24h"> Dabigatran 220 mg/tab po q 24h</td>
+                                        <td><input type="checkbox" name="modalities[]" value="Enoxaparin 40mg/SC q 24 h" id="Enoxaparin"disabled> Enoxaparin 40mg/SC q 24 h</td>
+                                        <td><input type="checkbox" name="modalities[]" value="Dabigatran 220 mg/tab po q 24h" id="Dabigatran" disabled> Dabigatran 220 mg/tab po q 24h</td>
 
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" name="modalities[]" value="Intermittent pneumatic compression (IPC)"> Intermittent pneumatic compression (IPC)</td>
-                                        <td><input type="checkbox" name="modalities[]" value="Fondaparinux 2.5 mg/SC q 24 h"> Fondaparinux 2.5 mg/SC q 24 h</td>
-                                        <td><input type="checkbox" name="modalities[]" value="Rivaroxaban 10mg/tab po q 24 h"> Rivaroxaban 10mg/tab po q 24 h</td>
+                                        <td><input type="checkbox" name="modalities[]" value="Fondaparinux 2.5 mg/SC q 24 h" id="Fondaparinux" disabled> Fondaparinux 2.5 mg/SC q 24 h</td>
+                                        <td><input type="checkbox" name="modalities[]" value="Rivaroxaban 10mg/tab po q 24 h" id="Rivaroxaban" disabled> Rivaroxaban 10mg/tab po q 24 h</td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" name="modalities[]" value="Plantar Pneumatic Compression"> Plantar Pneumatic Compression</td>
-                                        <td><input type="checkbox" name="modalities[]" value="Nadroparin 3,800 IU/ SC q 24 h" > Nadroparin 3,800 IU/ SC q 24 h</td>
-                                        <td><input type="checkbox" name="modalities[]" value="Others"id="others" onclick="ShowHideDiv(this)" />
+                                        <td><input type="checkbox" name="modalities[]" value="Nadroparin 3,800 IU/ SC q 24 h" id="Nadroparin" disabled> Nadroparin 3,800 IU/ SC q 24 h</td>
+                                        <td><input type="checkbox" name="modalities[]" value="Others"id="others" onclick="ShowHideDiv(this)" disabled/>
                                             Others:
                                             <div id="other_modalities" style="display: none">
                                                 <input type="text" id="other_modalities" value="N/A" name="other_modalities" style="border: none; border-bottom: 2px solid black; width: 100%;"/>
@@ -335,25 +336,28 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                     <tr>
 
                                         <td><input type="checkbox" name="modalities[]" value="Adjusted dose Heparin (ADH)"> Adjusted dose Heparin (ADH)</td>
-                                        <td><input type="checkbox" name="modalities[]" value="Tinzaparin 3,500 IU/SC q 24 h"> Tinzaparin 3,500 IU/SC q 24 h</td>
-                                        <td><input type="checkbox" name="modalities[]" value="No prophylaxis"> No prophylaxis</td>     
+                                        <td><input type="checkbox" name="modalities[]" value="Tinzaparin 3,500 IU/SC q 24 h" id="Tinzaparin3" disabled> Tinzaparin 3,500 IU/SC q 24 h</td>
+                                        <td><input type="checkbox" name="modalities[]" value="No prophylaxis" > No prophylaxis</td>     
                                     </tr>
 
                                     <tr>
                                         <td></td>
-                                        <td><input type="checkbox" name="modalities[]" value="Tinzaparin 4,500 IU/SC q 24 h"> Tinzaparin 4,500 IU/SC q 24 h</td>
+                                        <td><input type="checkbox" name="modalities[]" value="Tinzaparin 4,500 IU/SC q 24 h" id="Tinzaparin4" disabled> Tinzaparin 4,500 IU/SC q 24 h</td>
                                         <td></td>
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td><input type="checkbox" name="modalities[]" value="Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h"> Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h </td>
+                                        <td><input type="checkbox" name="modalities[]" value="Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h" id="Lowdose " disabled> Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h </td>
                                         <td></td>
                                     </tr>
     <!--                                Physician: <input type="text" name="exam_phys"/>-->
                                 <input type="hidden" name="username" class="username" required readonly value="<?php echo $_SESSION['username']; ?>">
 
-<!--                            Date: <input type="date" name="exam_date"/> -->
-<!--                            Date Updated: <input type="date" name="date_updated"/> -->
+                                <?php
+                                date_default_timezone_set('Asia/Manila');
+                                ?>
+                                <input type="hidden" name="exam_date" value="<?= date('Y-m-d'); ?>"> 
+   <!--                            Date Updated: <input type="date" name="date_updated"/> -->
 
                                 </tbody>
                             </table> 
@@ -378,6 +382,13 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                 trf += +$(el).data("trf");
             });
             $("#trf").val(trf);
+            //           ---- delete these if not needed
+
+            if (trf >= 5) {
+                alert("The maximum TRF is 5. Please check your inputs.");
+                trf = 5;
+            }
+//            ----
             document.getElementById("trfdisplay").innerHTML = trf;
 
             var text;
@@ -435,6 +446,33 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
             other_modalities.style.display = others.checked ? "block" : "none";
         }
 
+        function changeThis(sender) {
+            if (document.getElementById('No').checked) {
+                document.getElementById("Enoxaparin").removeAttribute('disabled');
+                document.getElementById("Dabigatran").removeAttribute('disabled');
+                document.getElementById("Fondaparinux").removeAttribute('disabled');
+                document.getElementById("Rivaroxaban").removeAttribute('disabled');
+                document.getElementById("Nadroparin").removeAttribute('disabled');
+                document.getElementById("others").removeAttribute('disabled');
+                document.getElementById("Tinzaparin3").removeAttribute('disabled');
+                document.getElementById("Tinzaparin4").removeAttribute('disabled');
+                document.getElementById("Lowdose").removeAttribute('disabled');
+
+            } else {
+                document.getElementById("Enoxaparin").disabled = true;
+                document.getElementById("Dabigatran").disabled = true;
+                document.getElementById("Fondaparinux").disabled = true;
+                document.getElementById("Rivaroxaban").disabled = true;
+                document.getElementById("Nadroparin").disabled = true;
+                document.getElementById("others").disabled = true;
+                document.getElementById("Tinzaparin3").disabled = true;
+                document.getElementById("Tinzaparin4").disabled = true;
+                document.getElementById("Lowdose").disabled = true;
+
+            }
+        }
+
+
     </script>
 </div>
 </div>
@@ -442,7 +480,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
 </body> 
 </html>
-
 
 
 

@@ -48,6 +48,8 @@ if (isSet($_POST['Export'])) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
+
         <style>
 
             .select:hover {background-color:#f5f5f5;}
@@ -104,7 +106,6 @@ if (isSet($_POST['Export'])) {
                 font-size:12px;
             }
 
-            tr:nth-child(even){background-color: #f2f2f2}
 
             th {
 
@@ -170,7 +171,7 @@ if (isSet($_POST['Export'])) {
                         </a>
                     </li>
                     <li>
-                        <a href=“AdminHelpPage.php">
+                        <a href="AdminHelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
                     </li>
@@ -241,86 +242,30 @@ if (isSet($_POST['Export'])) {
                                     $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select CSV File only</label></div>';
                                 }
                             } else {
-                                $message = '<div class="alert alert-danger"><strong>Error!</strong> Please Select File</div>';
+                                $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select a File</div>';
                             }
                         }
                         $sqlcmd = "SELECT * FROM Patient";
                         $result = mysqli_query($mysqlconn, $sqlcmd);
                         ?>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $("#frmCSVImport").on("submit", function () {
 
-                        <?php
-                        if (isSet($_POST['submit'])) {
-                            $patient_fname = $mysqlconn->real_escape_string($_POST['patient_fname']);
-                            $patient_mname = $mysqlconn->real_escape_string($_POST['patient_mname']);
-                            $patient_lname = $mysqlconn->real_escape_string($_POST['patient_lname']);
-                            $birthdate = $mysqlconn->real_escape_string($_POST['birthdate']);
-                            $sex = $mysqlconn->real_escape_string($_POST['sex']);
-                            $address = $mysqlconn->real_escape_string($_POST['address']);
-                            $contactno = $mysqlconn->real_escape_string($_POST['contactno']);
-
-                            switch ($_POST['SelectActions']) {
-                                case "ACTION_CREATE":
-                                    $sqlcmd = "INSERT INTO Patient(patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno)"
-                                            . "values('$patient_fname','$patient_mname','$patient_lname','$birthdate','$sex','$address','$contactno')";
-                                    break;
-                                case "ACTION_UPDATE":
-                                    if (isset($_POST['patientlist'])) {
-                                        $patientlist = $mysqlconn->real_escape_string($_POST['patientlist']);
-                                        $sqlcmd = "update Patient set patient_fname = '$patient_fname', patient_mname = '$patient_mname', patient_lname='$patient_lname', birthdate='$birthdate', sex='$sex', address='$address', contactno='$contactno'where patient_fname = '$patientlist'";
-                                    } else {
-                                        ?>
-                                        <div class="alert alert-danger">
-                                            <strong>Error!</strong> Please select a record to update.
-                                        </div>
-                                        <?php
+                                    $("#response").attr("class", "");
+                                    $("#response").html("");
+                                    var fileType = ".csv";
+                                    var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + fileType + ")$");
+                                    if (!regex.test($("#file").val().toLowerCase())) {
+                                        $("#response").addClass("error");
+                                        $("#response").addClass("display-block");
+                                        $("#response").html("Invalid File. Upload : <b>" + fileType + "</b> Files.");
+                                        return false;
                                     }
-                                    break;
-                                case "ACTION_DELETE":
-                                    if (isset($_POST['patientlist'])) {
-                                        $patientlist = $mysqlconn->real_escape_string($_POST['patientlist']);
-                                        $sqlcmd = "delete from Patient where patient_fname = '$patientlist'";
-                                    } else {
-                                        ?>
-                                        <div class="alert alert-danger">
-                                            <strong>Error!</strong> Please select a record to delete.
-                                        </div>
-                                        <?php
-                                    }
-                                    break;
-                            }
-
-                            if ($mysqlconn->query($sqlcmd) === true) {
-                                ?>
-                                <div class="alert alert-success">
-                                    <strong>Success!</strong> Patient table has been updated.
-                                </div>
-                                <?php
-                            } else {
-                                ?>
-                                <div class="alert alert-danger">
-                                    <strong>Error!</strong> Please check your inputs.
-                                </div>
-                                <?php
-                            }
-                        }
-                        if (isset($_POST['search'])) {
-                            $valueToSearch = $_POST['valueToSearch'];
-                            // search in all table columns
-                            // using concat mysql function
-                            $conn = "SELECT * FROM Patient WHERE CONCAT(patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno) LIKE '%" . $valueToSearch . "%'";
-                            $search_result = filterTable($conn);
-                        } else {
-                            $conn = "SELECT * FROM Patient ";
-                            $search_result = filterTable($conn);
-                        }
-
-// function to connect and execute the query
-                        function filterTable($conn) {
-                            include('MySQL.php');
-                            $filter_Result = mysqli_query($mysqlconn, $conn);
-                            return $filter_Result;
-                        }
-                        ?>
+                                    return true;
+                                });
+                            });
+                        </script>
                         <?php echo $message; ?>
 
                         <form class="form-horizontal" action="" method="post"   enctype="multipart/form-data">    
@@ -331,8 +276,8 @@ if (isSet($_POST['Export'])) {
 
                             <div class="dashed">
 
-                                <label>Import CSV file of Users' Table</label>
-                                <input type="file" name="patient"/> <br>
+                                <label>Import CSV file of Patient Informtaion Table</label>
+                                <input type="file" name="UserAccnt"/> <br>
 
                                 <button type="submit" class="btn btn-default" name="upload"  value="Upload" >
                                     <span class="glyphicon glyphicon-import"></span> Import
@@ -340,89 +285,57 @@ if (isSet($_POST['Export'])) {
 
                         </form>
                     </div>
-                    <form action="" method="post" name="frmUser" >
-                        <input type="text" name="valueToSearch" placeholder="Value To Search" > 
-                        <input type="submit" name="search" value="Filter"><br><br>
+                    <br>
 
-                        <table>
-                            <tr>
-                                <th></th>
-                                <th>Patient ID</th>
-                                <th>First Name</th>
-                                <th>Middle Name</th>
-                                <th>Last Name</th>
-                                <th>Birthdate</th>
-                                <th>Sex</th>
-                                <th>Address</th>
-                                <th>Contact No.</th>
+                    <h3 class="h6 mb-3"></h3>
 
-                            </tr>
-                            <?php $i = 0; ?>
-                            <!-- populate table from mysql database -->
-                            <?php while ($row = mysqli_fetch_array($search_result)): ?>
-                                <tr>
-                                <tr class="<?php if (isset($classname)) echo $classname; ?>">
-                                    <td><input type="radio" name="patientlist" value="<?php echo $row['patient_fname']; ?>"></td>   
-                                    <td><?php echo $row['ph_id']; ?></td>
-                                    <td><?php echo $row['patient_fname']; ?></td>
-                                    <td><?php echo $row['patient_mname']; ?></td>
-                                    <td><?php echo $row['patient_lname']; ?></td>
-                                    <td><?php echo $row['birthdate']; ?></td>
-                                    <td><?php echo $row['sex']; ?></td>
-                                    <td><?php echo $row['address']; ?></td> 
-                                    <td><?php echo $row['contactno']; ?></td>
+                    <div class="form-group d-flex">
+                        <div class="icon"><span class="icon-paper-plane"></span></div>
+                        <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search Patient here">
+                    </div>
 
+                    <table id="result"  width="100%"></table>
 
+                    <!--                        <div id="result"></div>-->
 
-
-                                </tr>
-
-                            <?php endwhile; ?>
-                            <tr>
-                                <td> Add Patient:</td>   
-                                <td></td>         
-                                <td><input type="textbox"  name="patient_fname" class="patient_fname" > </td>
-                                <td><input type="textbox"  name="patient_mname" class="patient_mname"> </td>
-                                <td><input type="textbox"  name="patient_lname" class="patient_lname"> </td>
-
-                                <td><input type="date"  name="birthdate" class="birthdate" > </td>
-                                <td> <select name="sex"required >
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </select> </td>           
-                                <td><input type="textbox"  name="address" class="address"> </td>
-                                <td><input type="textbox"  name="contactno" class="contactno"> </td>
-
-                            </tr> 
-                            <tr class="listheader">
-                            <tr class="listheader">
-                                <td colspan="9">
-                                    Mode: <select name="SelectActions">
-                                        <option value="ACTION_CREATE">Create</option>
-                                        <option value="ACTION_UPDATE">Update</option>
-                                        <option value="ACTION_DELETE">Delete</option>
-
-                                    </select>
-                                    <input type="submit" name="submit" value="Submit"  class="btn btn-success">
-
-
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
-
+                    </p>
                 </div>
-
             </div>
         </div>
-
-
-
     </div>
-</div>
-</div>
+
+    <!-- partial -->
 
 </body>
 
+<script>
+    $(document).ready(function () {
 
+        load_data();
+
+        function load_data(query)
+        {
+            $.ajax({
+                url: "PatientSearch.php",
+                method: "POST",
+                data: {query: query},
+                success: function (data)
+                {
+                    $('#result').html(data);
+                }
+            });
+        }
+        $('#search_text').keyup(function () {
+            var search = $(this).val();
+            if (search != '')
+            {
+                load_data(search);
+            } else
+            {
+                load_data();
+            }
+        });
+    });
+</script>
 </html>
+

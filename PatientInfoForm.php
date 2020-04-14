@@ -57,6 +57,8 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
+
         <style>
             .select:hover {background-color:#f5f5f5;}
 
@@ -76,29 +78,18 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
             .right {
                 right: 0;
             }
-            .button {
-                border: none;
-                color: white;
-                padding: 16px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                transition-duration: 0.4s;
-                cursor: pointer;
-            }
 
-            .button5 {
-                background-color: #555555;
-                color: white;
-                border: 2px solid #555555;
-            }
-
-            .button5:hover {
+            #back {
                 background-color: white;
-                color: #555555;
+                color: #737070	;
+                border: 2px solid #A9A9A9;
             }
+            #back:hover {
+                background-color: #A9A9A9;
+                color: white;
+                border: 2px solid #A9A9A9;
+            }
+
         </style>
     </head>
     <body>
@@ -231,9 +222,9 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                             <div class="signup-form">
                                 <div class="container-fluid">
                                     <?php
-                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
+                                    $sqlpatient = mysqli_query($mysqlconn, "SELECT patient_fname,patient_mname,patient_lname,contactno FROM Patient WHERE ph_id='$id'");
                                     while ($row = mysqli_fetch_array($sqlpatient)) {
-                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_lname"] . ' </i></h3><br>';
+                                        echo'<h3><i>Patient Name: ' . $row["patient_fname"] . '   ' . $row["patient_mname"] . ' ' . $row["patient_lname"] . ' </i></h3><br>';
                                     }
                                     ?>
                                     <form action = "" method = "POST" action = "" >
@@ -288,16 +279,7 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
                                                 </div>
                                                 <div class="form-input">
                                                     <label for="disposition" class="required">Disposition</label>
-                                                    <select id="disposition" name="disposition" style=" box-sizing: border-box;
-                                                            border: 1px solid #ebebeb;
-                                                            padding: 14px 20px;
-                                                            border-radius: 5px;
-                                                            -moz-border-radius: 5px;
-                                                            -webkit-border-radius: 5px;
-                                                            -o-border-radius: 5px;
-                                                            -ms-border-radius: 5px;
-                                                            font-size: 14px;
-                                                            font-family: 'Poppins';" required>
+                                                    <select id="disposition" name="disposition"class="form-control" required>
                                                         <option value="In-Patient">In-Patient</option>
                                                         <option value="Discharged">Discharged</option>
                                                         <option value="Deceased">Deceased</option>
@@ -310,7 +292,7 @@ $result = mysqli_query($mysqlconn, $sqlcmd);
 
                                                 <div class="form-submit">
                                                     <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                    <input type="submit" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                    <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
                                                 </div>                      
                                             </div>
                                         </div>

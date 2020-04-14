@@ -18,6 +18,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="icon" href="usthlogo.png">
 
 
         <!--        tabs-->
@@ -147,7 +148,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                         </a>
                     </li>
                     <li>
-                        <a href=“AdminHelpPage.php">
+                        <a href="AdminHelpPage.php">
                             <i class="zmdi zmdi-help-outline"></i> Help
                         </a>
                     </li>

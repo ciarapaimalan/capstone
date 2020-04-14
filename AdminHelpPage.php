@@ -19,9 +19,15 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
         <!--dropwdown li-->
+        <link rel="icon" href="usthlogo.png">
 
         <style>
             .select:hover {background-color:#f5f5f5;}
+            .topright{
+                position: absolute;
+                top: 50px;
+                right: 0px;
+            }
         </style>
     </head>
     <body>
@@ -103,6 +109,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                 <br>
                                 <h3 class="h6 mb-3"></h3>
+                                <a href="AdminNewTicket.php"  class="topright" id="myBtn"> Cannot find your question? </a> 
+
                                 <div class="form-group d-flex">
                                     <div class="icon"><span class="icon-paper-plane"></span></div>
                                     <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search here your Question">

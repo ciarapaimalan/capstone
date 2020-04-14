@@ -53,6 +53,7 @@ if (isSet($_POST['Export'])) {
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="./table.css">
+        <link rel="icon" href="usthlogo.png">
 
         <style>
             .select:hover {background-color:#f5f5f5;}
@@ -243,66 +244,51 @@ if (isSet($_POST['Export'])) {
 
                         </form>
                     </div>
+                    <div class="form-group d-flex">
+                        <div class="icon"><span class="icon-paper-plane"></span></div>
+                        <input type="text" name="search_text" id="search_text" class="form-control" placeholder="Search a User here">
+                    </div>
                     <div style="overflow-x:auto;">
 
-                        <table id = "example" class = "table table-striped table-hover table-bordered" width = "100%">
+                        <table id="result"  width="100%"></table>
 
-                            <?php
-                            if (mysqli_num_rows($filter_Result) > 0) {
-                                echo" <center> <table>
-                                            <tr>
-                                                <th>Patient No.</th>
-                                                <th>First Name</th>
-                                                <th>Middle Name</th>
-                                                <th>Last Name</th>
-                                                <th>Diagnosis 1</th>
-                                                <th>Diagnosis 2</th>
-                                                <th>Oxygen Level</th>
-                                                <th>Special Endorsement</th>
-                                                <th>Physician</th>
-                                                <th>Status</th>
-                                                <th>Ward</th>
-                                                <th>Bed No.</th>
-                                                <th>Admission No.</th>
-                                                <th>Hospital No.</th>
-                                                <th>Admission Date</th>
-                                                <th>Disposition</th>
-                                                <th>Date</th>
-                                                </tr></center>";
 
-                                while ($row = mysqli_fetch_array($filter_Result)) {
-                                    echo "<td>" . $row['ph_id'] . "</td>";
-                                    echo "<td>" . $row['patient_fname'] . "</td>";
-                                    echo "<td>" . $row['patient_mname'] . "</td>";
-                                    echo "<td>" . $row['patient_lname'] . "</td>";
-                                    echo "<td>" . $row['diagnosis_one'] . "</td>";
-                                    echo "<td>" . $row['diagnosis_two'] . "</td>";
-                                    echo "<td>" . $row['oxygen_lvl'] . "</td>";
-                                    echo "<td>" . $row['special_endorsement'] . "</td>";
-                                    echo "<td>" . $row['username'] . "</td>";
-                                    echo "<td>" . $row['status'] . "</td>";
-                                    echo "<td>" . $row['ward'] . "</td>";
-                                    echo "<td>" . $row['bed_no'] . "</td>";
-                                    echo "<td>" . $row['admission_no'] . "</td>";
-                                    echo "<td>" . $row['hosp_no'] . "</td>";
-                                    echo "<td>" . $row['admission_date'] . "</td>";
-                                    echo "<td>" . $row['disposition'] . "</td>";
-                                    echo "<td>" . $row['date'] . "</td>";
-                                    echo "</tr>";
-                                }
-                                echo "</table>";
-                            } else {
-                                echo "No records found";
-                            }
-                            ?>
-                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-</body>
+        <!-- partial -->
+
+    </body>
+
+    <script>
+        $(document).ready(function () {
+
+            load_data();
+
+            function load_data(query)
+            {
+                $.ajax({
+                    url: "patientlistsearch.php",
+                    method: "POST",
+                    data: {query: query},
+                    success: function (data)
+                    {
+                        $('#result').html(data);
+                    }
+                });
+            }
+            $('#search_text').keyup(function () {
+                var search = $(this).val();
+                if (search != '')
+                {
+                    load_data(search);
+                } else
+                {
+                    load_data();
+                }
+            });
+        });
+    </script>
 </html>
-
