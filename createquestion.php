@@ -165,27 +165,30 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                             <div class="form-row">
                                                 <div class="form-group">
                                                     <div class="form-input">
-                                                        <div class="form-input">
-                                                            <label for="question" class="required">Question</label>
-                                                            <input type="text" class="form-control" name="question"  required>
-                                                        </div>
-                                                        <div class="form-input" >
-                                                            <label for="answer" class="required">Answer</label>
-                                                            <textarea class="form-control" rows = "8" name="answer"required></textarea>
-                                                        </div>
-                                                        <div class="form-input">
-                                                            <label for="severity" class="required">Severity</label>
-                                                            <input type="number" class="form-control"  name="severity" min="1" max="5"required >
-                                                        </div>
+                                                        <label for="question" class="required">Question</label>
+                                                        <input type="text" class="form-control" name="question"  required>
                                                     </div>
+                                                    <div class="form-input" >
+                                                        <label for="answer" class="required">Answer</label>
+                                                        <textarea class="form-control" rows = "8" name="answer"required></textarea>
+                                                    </div>
+
+                                                    <label for="severity" class="required">Severity</label>
+                                                    <select id="severity" name="severity" class="form-control" required>
+                                                        <option value="1" selected>Severity 1 (Urgent)</option>
+                                                        <option value="2">Severity 2 (High)</option>
+                                                        <option value="3">Severity 3 (Normal)</option>
+                                                        <option value="4">Severity 4 (Minor)</option>
+                                                    </select>
+                                                    <br>
                                                     <label for="role" class="required">Role</label>
                                                     <select id="role" name="role" class="form-control" required>
                                                         <option value="Physician">Physician</option>
                                                         <option value="Admin">Admin</option>
                                                     </select>   
-                                                    <br><br>
+                                                    <br><br
 
-                                                    <div class="form-submit">
+                                                        <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
                                                         <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
 
