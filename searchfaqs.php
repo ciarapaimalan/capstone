@@ -1,5 +1,4 @@
 <?php
-
 //$connect = mysqli_connect("localhost", "root", "", "TRAST");
 include ('MySQL.php');
 session_start();
@@ -14,7 +13,7 @@ if (isset($_POST["query"])) {
   
   ";
 } else {
-    $query = "SELECT * FROM FAQs ORDER BY severity DESC ";
+    $query = "SELECT * FROM FAQs ORDER BY severity ASC ";
 }
 $result = mysqli_query($mysqlconn, $query);
 if (mysqli_num_rows($result) > 0) {
@@ -35,7 +34,7 @@ if (mysqli_num_rows($result) > 0) {
                   <tr class= "select" onclick=location.href="updatefaqs.php?id=' . $row["q_id"] . '">
                     <td>' . $row["question"] . '</td>
                     <td>' . $row["answer"] . '</td>
-                    <td>' . $row["severity"] . '</td>  
+                    <td class="google-visualization-table-td" style="color:white;">' . $row["severity"] . '</td>  
                     <td>' . $row["role"] . '</td>  
 
                    </tr>
@@ -47,3 +46,22 @@ if (mysqli_num_rows($result) > 0) {
     echo 'Question Not Found';
 }
 ?>
+<script>
+    var elements = document.getElementsByClassName('google-visualization-table-td');
+
+    for (var i = 0; i < elements.length; i++) {
+        var value = elements[i].innerText || elements[i].textContent;
+
+        if (value === '1') {
+            elements[i].style.backgroundColor = '#d9534f';
+        } else if (value === '2') {
+            elements[i].style.backgroundColor = '#f0ad4e';
+        } else if (value === '3') {
+            elements[i].style.backgroundColor = '#5bc0de';
+        } else if (value === '4') {
+            elements[i].style.backgroundColor = '#5cb85c';
+        }
+
+    }
+    
+</script>
