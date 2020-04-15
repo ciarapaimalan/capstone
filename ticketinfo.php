@@ -198,9 +198,20 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                                 <label for="date">Date</label>
                                                                 <input type="text" class="form-control" name="date" value="<?php echo $row['date']; ?> "readonly>
                                                             </div>
+                                                            <?php
+                                                            if ($row['severity'] == '1') {
+                                                                $message = "Severity 1 (Urgent)";
+                                                            } else if ($row['severity'] == '2') {
+                                                                $message = "Severity 2 (High)";
+                                                            } else if ($row['severity'] == '3') {
+                                                                $message = "Severity 3 (Normal)";
+                                                            } else if ($row['severity'] == '4') {
+                                                                $message = "Severity 4 (Minor)";
+                                                            }
+                                                            ?>
                                                             <div class="form-input">
                                                                 <label for="severity">Severity</label>
-                                                                <input type="text" class="form-control"  name="severity" value="<?php echo $row['severity']; ?> "readonly>
+                                                                <input type="text" class="form-control" id="severity" name="severity" value="<?php echo $message ?> "readonly>
                                                             </div>
                                                             <div class="form-input">
                                                                 <label for="username" >Username</label>
@@ -286,8 +297,9 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     </div>
     <script>
         function goBack() {
-            window.history.back();
+        window.history.back();
         }
+       
     </script>
 
 </body>
