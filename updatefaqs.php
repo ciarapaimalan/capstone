@@ -187,7 +187,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                             </div>
                                                             <div class="form-input">
                                                                 <label for="severity" class="required">Severity</label>
-                                                                <input type="text" class="form-control"  name="severity" value="<?php echo $row['severity']; ?> "required>
+                                                                <input type="text" class="form-control"  name="severity" min="1" max="5" value="<?php echo $row['severity']; ?> "required>
                                                             </div>
                                                             <?php if ($row['role'] == 'Physician') { ?>
 
