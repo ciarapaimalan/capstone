@@ -19,7 +19,7 @@ if (isset($_POST["query"])) {
  
   ";
 } else {
-    $query = "SELECT * FROM ticket WHERE status='Processing' ORDER BY Severity DESC LIMIT 20 ";
+    $query = "SELECT * FROM ticket WHERE status='Processing' ORDER BY severity ASC LIMIT 20 ";
 }
 $result = mysqli_query($mysqlconn, $query);
 if (mysqli_num_rows($result) > 0) {
@@ -42,7 +42,7 @@ if (mysqli_num_rows($result) > 0) {
                     <td>' . $row["date"] . '</td>
                     <td>' . $row["username"] . '</td>
                     <td>' . $row["question"] . '</td>
-                    <td>' . $row["severity"] . '</td>
+                    <td class="google-visualization-table-td" style="color:white;">' . $row["severity"] . '</td>
                     <td>' . $row["status"] . '</td>  
                    </tr>
                     ';
@@ -53,3 +53,22 @@ if (mysqli_num_rows($result) > 0) {
     echo 'Ticket Not Found';
 }
 ?>
+<script>
+    var elements = document.getElementsByClassName('google-visualization-table-td');
+
+    for (var i = 0; i < elements.length; i++) {
+        var value = elements[i].innerText || elements[i].textContent;
+
+        if (value === '1') {
+            elements[i].style.backgroundColor = '#d9534f';
+        } else if (value === '2') {
+            elements[i].style.backgroundColor = '#f0ad4e';
+        } else if (value === '3') {
+            elements[i].style.backgroundColor = '#5bc0de';
+        } else if (value === '4') {
+            elements[i].style.backgroundColor = '#5cb85c';
+        }
+
+    }
+    
+</script>
