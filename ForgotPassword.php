@@ -257,7 +257,7 @@ include ('MySQL.php');
                         ?>
 <!--                        <input type="hidden" name ="q_id" id="q_id" value="33" >-->
                         <tr><td><input  type="hidden" value="What If I forgot my password?"  id ="question" name="question" ></td></tr>
-                        <tr><td><input  type="hidden" value="5"  id ="severity" name="severity" ></td></tr>
+                        <tr><td><input  type="hidden" value="1"  id ="severity" name="severity" ></td></tr>
                         <div class="row">
 
                             <input type="text" name="username" value=""  class="form__input" placeholder="Username" required ><br>
