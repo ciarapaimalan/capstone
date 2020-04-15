@@ -42,6 +42,7 @@ if (isSet($_POST['Export'])) {
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css'>
         <link rel="stylesheet" href="./style3.css">
+
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -49,14 +50,14 @@ if (isSet($_POST['Export'])) {
         <link rel="icon" href="usthlogo.png">
 
         <style>
-           .select:hover {background-color:#f5f5f5;}
+            .select:hover {background-color:#f5f5f5;}
             body {font-family: Arial;}
 
             /* Style the tab */
             .tab {
                 overflow: hidden;
                 border: 2px solid #ccc;
-                background-color: #Black;
+                background-color: Black;
             }
 
             /* Style the buttons inside the tab */
@@ -92,7 +93,6 @@ if (isSet($_POST['Export'])) {
                 border-collapse: collapse;
                 width: 100%;
                 border:2pt;
-/*                border: 1px solid #ddd;*/
 
             }
 
@@ -103,7 +103,6 @@ if (isSet($_POST['Export'])) {
                 font-size:12px;
             }
 
-            /*            tr:nth-child(even){background-color: #f2f2f2}*/
 
             th {
 
@@ -117,6 +116,7 @@ if (isSet($_POST['Export'])) {
                             padding:5px;
             
                         }*/
+            
             button{
                 background-color: #737373; 
                 border: none;
@@ -135,8 +135,6 @@ if (isSet($_POST['Export'])) {
                 padding: 10px;
 
             }
-
-           
 
         </style>
     </head>
@@ -233,7 +231,6 @@ if (isSet($_POST['Export'])) {
 
                         <!--                        <div id="result"></div>-->
 
-                        </p>
                     </div>
                 </div>
             </div>
@@ -271,6 +268,8 @@ if (isSet($_POST['Export'])) {
                 }
             });
         });
+
+
     </script>
 </html>
 
