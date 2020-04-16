@@ -19,7 +19,7 @@ if (isset($_POST["query"])) {
   OR adminusername LIKE '%" . $search . "%'
   ";
 } else {
-    $query = "SELECT * FROM ticket WHERE username='$username' ORDER BY date DESC ";
+    $query = "SELECT * FROM ticket WHERE username='$username' ORDER BY date ASC ";
 }
 $result = mysqli_query($mysqlconn, $query);
 if (mysqli_num_rows($result) > 0) {
