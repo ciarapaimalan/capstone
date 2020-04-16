@@ -19,7 +19,7 @@ if (isset($_POST["query"])) {
  
   ";
 } else {
-    $query = "SELECT * FROM ticket WHERE status='Processing' ORDER BY severity ASC LIMIT 20 ";
+    $query = "SELECT * FROM ticket WHERE status='Processing' ORDER BY date ASC LIMIT 20 ";
 }
 $result = mysqli_query($mysqlconn, $query);
 if (mysqli_num_rows($result) > 0) {
