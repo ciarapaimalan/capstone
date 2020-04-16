@@ -162,11 +162,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <div class="form-input">
                                                         <label for="severity" class="required">Subject</label>
                                                         <select id="disposition" name="severity" class="form-control" required>
-                                                            <option value="5">Account</option>
-                                                            <option value="5">Patient</option>
-                                                            <option value="5">Risk Assessment</option>
-                                                            <option value="4">Patient's Chart</option>
-                                                            <option value="4">Schedule Check-up</option>
+                                                            <option value="1">Account</option>
+                                                            <option value="1">Patient</option>
+                                                            <option value="1">Risk Assessment</option>
+                                                            <option value="2">Patient's Chart</option>
+                                                            <option value="2">Schedule Check-up</option>
 
                                                         </select>   
                                                     </div>
