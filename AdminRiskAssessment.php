@@ -348,7 +348,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td><input type="checkbox" name="modalities[]" value="Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h" id="Lowdose " disabled> Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h </td>
+                                            <td><input type="checkbox" name="modalities[]" value="Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h" id="Lowdose" disabled> Low dose unfractionated heparin <br> (LDUH) 5,000 U/SC q 8h </td>
                                             <td></td>
                                         </tr>
         <!--                                Physician: <input type="text" name="exam_phys"/>-->
