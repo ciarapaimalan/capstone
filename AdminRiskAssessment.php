@@ -205,13 +205,45 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <td> ACQUIRED</td>
                                     </tr>
                                     <tr class="noBorder">       
-                                        <!--SF1-->   <td><input type="checkbox" name="step_two[]" value="Age 41 to 60 years" data-trf="1" id="checked"> Age 41 to 60 years<br> </td>
-                                        <!--SF3--> <td><input type="checkbox" name="step_two[]" value="Factor V Leiden/Activated protein C resistance" data-trf="3" id="checked"> Factor V Leiden/Activated protein <br> C resistance </td>
-                                        <!--SF3--><td><input type="checkbox" name="step_two[]" value="Lupus anticoagulant"data-trf="3" id="checked"> Lupus anticoagulant</td>
-                                    </tr>
-                                    <tr>
-                                        <!--SF2--> <td><input type="checkbox" name="step_two[]" value="Age over 60 years (2 factors)" data-trf="2" id="checked"> Age over 60 years (2 factors)<br> </td>
-                                        <!--SF3--><td><input type="checkbox" name="step_two[]" value="Antithrombin III deficiency" data-trf="3" id="checked"> Antithrombin III deficiency</td>                     
+                                        <?php
+                                        $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
+
+                                        $sqlage = "SELECT birthdate FROM Patient WHERE ph_id='$id'";
+                                        $result = mysqli_query($mysqlconn, $sqlage);
+                                        while ($row = mysqli_fetch_array($result)) {
+
+                                            $birtdate = $row["birthdate"];
+                                            $today = date("Y-m-d");
+                                            $diff = date_diff(date_create($birtdate), date_create($today));
+                                            $age = $diff->format('%y');
+                                            if ($age >= '41' && $age <= '60') {
+                                                ?>
+                                                <!--SF1--> <td><input type = "checkbox" name = "step_two[]" value = "Age 41 to 60 years" data-trf = "1" id = "checked"checked> Age 41 to 60 years<br> </td>
+
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <!--SF1--> <td><input type = "checkbox" name = "step_two[]" value = "Age 41 to 60 years" data-trf = "1" id = "checked"> Age 41 to 60 years<br> </td>
+
+                                                <?php
+                                            }
+                                            ?>     
+                                            <!--SF3--> <td><input type="checkbox" name="step_two[]" value="Factor V Leiden/Activated protein C resistance" data-trf="3" id="checked"> Factor V Leiden/Activated protein <br> C resistance </td>
+                                            <!--SF3--><td><input type="checkbox" name="step_two[]" value="Lupus anticoagulant"data-trf="3" id="checked"> Lupus anticoagulant</td>
+                                        </tr>
+                                        <tr>
+                                            <?php if ($age > '60') { ?>
+                                                <!--SF2--> <td><input type="checkbox" name="step_two[]" value="Age over 60 years (2 factors)" data-trf="2" id="checked"checked> Age over 60 years (2 factors)<br> </td>
+
+
+                                            <?php } else {
+                                                ?>
+                                                <!--SF2--> <td><input type="checkbox" name="step_two[]" value="Age over 60 years (2 factors)" data-trf="2" id="checked"> Age over 60 years (2 factors)<br> </td>
+
+                                                <?php
+                                            }
+                                        }
+                                        ?>                                    <!--SF3--><td><input type="checkbox" name="step_two[]" value="Antithrombin III deficiency" data-trf="3" id="checked"> Antithrombin III deficiency</td>                     
                                         <!--SF3--><td><input type="checkbox" name="step_two[]" value="Antiphospholipid antibodies"data-trf="3" id="checked"> Antiphospholipid antibodies</td>
                                     </tr>
                                     <tr>
