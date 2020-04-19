@@ -10,7 +10,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 <?php
 if (isSet($_POST['Export'])) {
 
-    $sqlSelect = "SELECT * FROM UserAccnt ";
+    $sqlSelect = "SELECT username,password, fullname,role FROM UserAccnt ";
     $result = mysqli_query($mysqlconn, $sqlSelect);
 
     $num_column = mysqli_num_fields($result);
