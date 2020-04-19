@@ -220,7 +220,7 @@ if (isSet($_POST['Export'])) {
 
 
                         $conn = "SELECT Patient.*, PatientInfo.diagnosis_one,PatientInfo.diagnosis_two,PatientInfo.oxygen_lvl,PatientInfo.special_endorsement, PatientInfo.username, PatientInfo.status, PatientInfo.ward, PatientInfo.bed_no, PatientInfo.admission_no, PatientInfo.hosp_no, PatientInfo.admission_date, PatientInfo.disposition, PatientInfo.date "
-                                . "FROM Patient INNER JOIN PatientInfo ON (Patient.ph_id = PatientInfo.ph_id) WHERE username='$username'";
+                                . "FROM Patient INNER JOIN PatientInfo ON (Patient.ph_id = PatientInfo.ph_id) WHERE username='$username' ORDER BY PatientInfo.info_id DESC";
 
 
                         $filter_Result = mysqli_query($mysqlconn, $conn);
