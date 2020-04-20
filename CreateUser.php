@@ -146,6 +146,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <strong>Success!</strong> New User Record has been added.
                                     </div>
                                     <?php
+                                    echo "<script type='text/javascript'>window.top.location='ManageUsers.php';</script>";
                                 } else {
                                     ?>
                                     <div class="alert alert-danger">
@@ -189,7 +190,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'ManageUsers.php'">
 
                                                     </div>
                                                 </div>
