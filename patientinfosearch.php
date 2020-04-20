@@ -30,7 +30,7 @@ if (isset($_POST["query"])) {
 ";
 } else {
     $query = "SELECT Patient.*, PatientInfo.info_id,PatientInfo.diagnosis_one,PatientInfo.diagnosis_two,PatientInfo.oxygen_lvl,PatientInfo.special_endorsement, PatientInfo.username, PatientInfo.status, PatientInfo.ward, PatientInfo.bed_no, PatientInfo.admission_no, PatientInfo.hosp_no, PatientInfo.admission_date, PatientInfo.disposition, PatientInfo.date "
-            . "FROM Patient INNER JOIN PatientInfo ON (Patient.ph_id = PatientInfo.ph_id)";
+            . "FROM Patient INNER JOIN PatientInfo ON (Patient.ph_id = PatientInfo.ph_id) ORDER BY PatientInfo.info_id DESC";
 }
 $result = mysqli_query($mysqlconn, $query);
 if (mysqli_num_rows($result) > 0) {
