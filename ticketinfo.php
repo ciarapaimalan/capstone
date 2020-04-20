@@ -141,7 +141,6 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                 $question = $mysqlconn->real_escape_string($_POST['question']);
                                 $message = $mysqlconn->real_escape_string($_POST['message']);
-                                $severity = $mysqlconn->real_escape_string($_POST['severity']);
                                 $username = $mysqlconn->real_escape_string($_POST['username']);
                                 $status = $mysqlconn->real_escape_string($_POST['status']);
 
@@ -150,13 +149,14 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                 $adminusername = $mysqlconn->real_escape_string($_POST['adminusername']);
                                 $dateupdated = $mysqlconn->real_escape_string($_POST['dateupdated']);
 
-                                $sqlcmd = "update ticket set question  = '$question', message = '$message', severity='$severity', status='$status', username='$username', date='$date',adminmessage='$adminmessage',adminusername='$adminusername',dateupdated='$dateupdated'WHERE id='$id'";
+                                $sqlcmd = "update ticket set question  = '$question', message = '$message', status='$status', username='$username', date='$date',adminmessage='$adminmessage',adminusername='$adminusername',dateupdated='$dateupdated'WHERE id='$id'";
                                 if ($mysqlconn->query($sqlcmd) === true) {
                                     ?>
                                     <div class="alert alert-success">
                                         <strong>Success!</strong> Incident has been Updated.
                                     </div>
                                     <?php
+                                    echo "<script type='text/javascript'>window.top.location='ManageTickets.php';</script>";
                                 } else {
                                     ?>
                                     <div class="alert alert-danger">
@@ -168,7 +168,12 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                             if (isSet($_POST['Delete'])) {
                                 $sqlcmd = "delete from ticket where id = '$id'";
                                 if ($mysqlconn->query($sqlcmd) === true) {
-                                    echo "<script type='text/javascript'>window.top.location='ManageTicketsTrial.php';</script>";
+                                    ?>
+                                    <div class="alert alert-warning">
+                                        <strong>Warning!</strong> Patient Chart Record has been Deleted.
+                                    </div>
+                                    <?php
+                                    echo "<script type='text/javascript'>window.top.location='ManageTickets.php';</script>";
                                 } else {
                                     ?>
                                     <div class="alert alert-danger">
@@ -277,7 +282,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                             ?>
                                                             <div class="form-submit">
                                                                 <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                                <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                                <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'ManageTickets.php'">
 
                                                             </div>
                                                         <?php } ?>
@@ -297,9 +302,9 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
     </div>
     <script>
         function goBack() {
-        window.history.back();
+            window.history.back();
         }
-       
+
     </script>
 
 </body>
