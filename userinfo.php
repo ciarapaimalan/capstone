@@ -151,6 +151,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <strong>Success!</strong> User Record has been Updated.
                                     </div>
                                     <?php
+                                    echo "<script type='text/javascript'>window.top.location='ManageUsers.php';</script>";
                                 } else {
                                     ?>
                                     <div class="alert alert-danger">
@@ -162,6 +163,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                             if (isSet($_POST['Delete'])) {
                                 $sqlcmd = "delete from UserAccnt where user_id = '$user_id'";
                                 if ($mysqlconn->query($sqlcmd) === true) {
+                                    ?>
+                                    <div class="alert alert-warning">
+                                        <strong>Warning!</strong> Patient Chart Record has been Deleted.
+                                    </div>
+                                    <?php
                                     echo "<script type='text/javascript'>window.top.location='ManageUsers.php';</script>";
                                 } else {
                                     ?>
@@ -225,8 +231,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     }
                                                     ?>
                                                     <div class="form-submit">
-                                                        <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                        <input type="submit" value="Submit" class="submit" id="submit" name="submit"/>
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'ManageUsers.php'">
 
                                                     </div>
                                                 </div>
@@ -242,14 +248,14 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
         </div>
         <script>
             function goBack() {
-            window.history.back();
+                window.history.back();
             }
 
             function delete(){
-            var result = confirm("Are you want to delete this record?");
-            if (result) {
-            //delete the item
-            }
+                var result = confirm("Are you want to delete this record?");
+                if (result) {
+                    //delete the item
+                }
             }
 
         </script>
