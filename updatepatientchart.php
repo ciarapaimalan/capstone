@@ -159,6 +159,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <strong>Success!</strong> Patient Chart Record has been updated.
                                     </div>
                                     <?php
+                                    echo "<script type='text/javascript'>window.top.location='ManagePatientInfo.php';</script>";
                                 } else {
                                     ?>
                                     <div class="alert alert-danger">
@@ -170,6 +171,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                             if (isSet($_POST['Delete'])) {
                                 $sqlcmd = "DELETE from PatientInfo WHERE info_id = '$id'";
                                 if ($mysqlconn->query($sqlcmd) === true) {
+                                    ?>
+                                    <div class="alert alert-warning">
+                                        <strong>Warning!</strong> Patient Chart Record has been Deleted.
+                                    </div>
+                                    <?php
                                     echo "<script type = 'text/javascript'>window.top.location = 'ManagePatientInfo.php';</script>";
                                 } else {
                                     ?>
@@ -287,7 +293,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                                             <div class="form-submit">
                                                                 <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                                <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                                <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'ManagePatientInfo.php'">
                                                             </div>                      
                                                         </div>
                                                     </div>
