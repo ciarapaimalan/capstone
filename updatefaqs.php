@@ -123,7 +123,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                         <!-- partial -->
                         <div>
-                            <h2 class="mb-4">Update FAQs</h2>
+                            <h2 class="mb-4">Update Question</h2>
                             <br>
                             <?php
                             $id = mysqli_real_escape_string($mysqlconn, $_GET['id']);
@@ -148,6 +148,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <strong>Success!</strong> FAQs record has been Updated.
                                     </div>
                                     <?php
+                                    echo "<script type='text/javascript'>window.top.location='ManageFAQs.php';</script>";
                                 } else {
                                     ?>
                                     <div class="alert alert-danger">
@@ -159,6 +160,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                             if (isSet($_POST['Delete'])) {
                                 $sqlcmd = "delete from FAQs where q_id = '$id'";
                                 if ($mysqlconn->query($sqlcmd) === true) {
+                                    ?>
+                                    <div class="alert alert-warning">
+                                        <strong>Warning!</strong> Patient Chart Record has been Deleted.
+                                    </div>
+                                    <?php
                                     echo "<script type='text/javascript'>window.top.location='ManageFAQs.php';</script>";
                                 } else {
                                     ?>
@@ -180,7 +186,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <div class="container-fluid">
 
                                             <form action="" method="POST" >
-                                                <button type="submit" name="Delete"class="btn btn-danger">Delete</button><br><br>
+                                                <button type="submit" name="Delete"class="btn btn-danger"onclick="return confirm('Are you sure you want to delete this record?')">Delete</button><br><br>
 
                                                 <div class="form-row">
                                                     <div class="form-group">
@@ -259,7 +265,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
 
                                                             <div class="form-submit">
                                                                 <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                                <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                                <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'ManageFAQs.php'">
 
                                                             </div>
                                                         </div>
