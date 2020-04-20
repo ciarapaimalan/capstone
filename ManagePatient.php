@@ -218,13 +218,14 @@ if (isSet($_POST['Export'])) {
                         $message = '';
 //problem: uploads even when eid column are empty 
                         if (isset($_POST["upload"])) {
-                            if ($_FILES['patient']['name']) {
-                                $filename = explode(".", $_FILES['patient']['name']);
+                            if ($_FILES['Patient']['name']) {
+                                $filename = explode(".", $_FILES['Patient']['name']);
                                 if (end($filename) == "csv") {
-                                    $handle = fopen($_FILES['patient']['tmp_name'], "r");
+                                    $handle = fopen($_FILES['Patient']['tmp_name'], "r");
                                     fgetcsv($handle, 10000, ",");
                                     while (($column = fgetcsv($handle, 10000, ",")) !== FALSE) {
-                                        $sqlcmd = "INSERT into Patient(patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno) VALUES ('" . $column[0] . "','" . $column[1] . "','" . $column[2] . "','" . $column[3] . "','" . $column[4] . "','" . $column[5] . "','" . $column[6] . "')";
+
+                                        $sqlcmd = "INSERT into Patient (patient_fname,patient_mname,patient_lname,birthdate,sex,address,contactno) VALUES ('" . $column[1] . "','" . $column[2] . "','" . $column[3] . "','" . $column[4] . "','" . $column[5] . "','" . $column[6] . "','" . $column[7] . "')";
 
                                         $result = mysqli_query($mysqlconn, $sqlcmd);
 
@@ -236,15 +237,18 @@ if (isSet($_POST['Export'])) {
                                             $message = '<div class="alert alert-danger"><strong>Error!</strong> Problem in Importing CSV Data</div>';
                                         }
                                     }
+
                                     fclose($handle);
+
 // header("location: UpdateTable.php?updation=1");
                                 } else {
                                     $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select CSV File only</label></div>';
                                 }
                             } else {
-                                $message = '<div class="alert alert-danger"><strong>Error!</strong> Please select a File</div>';
+                                $message = '<div class="alert alert-danger"><strong>Error!</strong> Please Select File</div>';
                             }
                         }
+
                         $sqlcmd = "SELECT * FROM Patient";
                         $result = mysqli_query($mysqlconn, $sqlcmd);
                         ?>
@@ -277,7 +281,7 @@ if (isSet($_POST['Export'])) {
                             <div class="dashed">
 
                                 <label>Import CSV file of Patient Informtaion Table</label>
-                                <input type="file" name="UserAccnt"/> <br>
+                                <input type="file" name="Patient"/> <br>
 
                                 <button type="submit" class="btn btn-default" name="upload"  value="Upload" >
                                     <span class="glyphicon glyphicon-import"></span> Import
