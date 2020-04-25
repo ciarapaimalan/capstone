@@ -194,8 +194,9 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <div class="container-fluid">
 
                                             <form action="" method="POST" >
-                                                <button type="submit" name="Delete"class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button><br><br>
-
+                                                <button type="submit" name="Delete"class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this record?')">Delete </button><br><br>
+                                            </form>
+                                            <form action="" method="POST" >
                                                 <div class="form-row">
                                                     <div class="form-group">
                                                         <div class="form-input">
