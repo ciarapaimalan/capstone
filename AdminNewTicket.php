@@ -144,6 +144,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <strong>Success!</strong> This incident has been recorded. The administrator will notify you regarding this.
                                     </div>
                                     <?php
+                                    echo "<script type='text/javascript'>window.top.location='AdminHelpPage.php';</script>";
                                 } else {
                                     ?>
                                     <div class="alert alert-danger">
@@ -165,11 +166,11 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <div class="form-input">
                                                         <label for="severity" class="required">Subject</label>
                                                         <select id="disposition" name="severity" class="form-control" required>
-                                                            <option value="1">Account</option>
-                                                            <option value="1">Patient</option>
-                                                            <option value="1">Risk Assessment</option>
-                                                            <option value="2">Patient's Chart</option>
-                                                            <option value="2">Schedule Check-up</option>
+                                                            <option value="5">Account</option>
+                                                            <option value="5">Patient</option>
+                                                            <option value="5">Risk Assessment</option>
+                                                            <option value="4">Patient's Chart</option>
+                                                            <option value="4">Schedule Check-up</option>
 
                                                         </select>   
                                                     </div>
@@ -188,7 +189,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <input type="hidden" name="date" value="<?= date('Y-m-d'); ?>"> 
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'AdminHelpPage.php'">
                                                     </div>
                                                 </div>
                                             </div>
