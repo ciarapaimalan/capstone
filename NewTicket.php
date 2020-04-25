@@ -142,6 +142,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <strong>Success!</strong> This incident has been recorded. The administrator will notify you regarding this.
                                     </div>
                                     <?php
+                                    echo "<script type='text/javascript'>window.top.location='HelpPage.php';</script>";
                                 } else {
                                     ?>
                                     <div class="alert alert-danger">
@@ -185,7 +186,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <input type="hidden" name="date" value="<?= date('Y-m-d'); ?>"> 
                                                     <div class="form-submit">
                                                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
-                                                        <input type="button" value="Back" class="submit" id="back" name="back" onclick="goBack()">
+                                                        <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'HelpPage.php'">
                                                     </div>
                                                 </div>
                                             </div>
