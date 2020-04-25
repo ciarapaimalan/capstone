@@ -12,6 +12,7 @@ if (isSet($_POST['Export'])) {
     $sqlSelect = "SELECT * FROM ticket";
 
     $num_column = mysqli_num_fields($result);
+    $result = mysqli_query($mysqlconn, $sqlSelect);
 
     $csv_header = '';
     for ($i = 0; $i < $num_column; $i++) {
