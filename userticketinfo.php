@@ -230,7 +230,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                 </div>
 
                                                 <div class="form-input">
-                                                    <label for="adminmessage" class="required" >Message from Admin</label>
+                                                    <label for="adminmessage">Message from Admin</label>
                                                     <textarea class="form-control" id="message-text" name="adminmessage" rows="8" readonly><?php echo $row['adminmessage']; ?></textarea>
                                                 </div>
                                                 <input type="hidden" name="id" class="id" required readonly value="<?php echo $row['id']; ?>">
