@@ -189,7 +189,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     <br><br>
 
                                                     <div class="form-submit">
-                                                        <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
+                                                        <input type="submit" value="Submit" class="submit" id="submit" name="submit"  onclick="return confirm('Are you sure you want to submit this record?')" />
                                                         <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'ManageUsers.php'">
 
                                                     </div>
