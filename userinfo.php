@@ -160,25 +160,33 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                     <?php
                                 }
                             }
-                            if (isSet($_POST['Delete'])) {
-                                $sqlcmd = "delete from UserAccnt where user_id = '$user_id'";
-                                if ($mysqlconn->query($sqlcmd) === true) {
+                            if (isSet($_POST['Archive'])) {
+//                                $sqlcmd = "delete from UserAccnt where user_id = '$user_id'";
+
+                                $sqlcmd1 = "INSERT INTO UserAccnt_ARCHIVE SELECT * FROM UserAccnt WHERE user_id = '$user_id'";
+                                $sqlcmd2 = "DELETE FROM UserAccnt WHERE user_id = '$user_id'";
+
+                                if (($mysqlconn->query($sqlcmd1) === true) && ($mysqlconn->query($sqlcmd2) === true)) {
                                     ?>
                                     <div class="alert alert-warning">
-                                        <strong>Warning!</strong> Patient Chart Record has been Deleted.
+                                        <strong>Warning!</strong> User Record has been archived.
                                     </div>
                                     <?php
                                     echo "<script type='text/javascript'>window.top.location='ManageUsers.php';</script>";
                                 } else {
+//                                    echo "Could not able to execute $sql. " . $mysqlconn->error;
                                     ?>
                                     <div class="alert alert-danger">
-                                        <strong>Error!</strong> Record cannot be deleted.
+                                        <strong>Error!</strong> Record cannot be archived.
                                     </div>
                                     <?php
                                 }
                                 exit;
                             }
                             ?>
+                            <!--                            <div class="alert alert-danger">
+                                                                    <strong>Error!</strong> Record cannot be deleted.
+                                                                </div>-->
                             <?php
                             while ($row = mysqli_fetch_array($result)) {
                                 ?> 
@@ -189,7 +197,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                         <div class="container-fluid">
                                             <form action="" method="POST" >
 
-                                                <button type="submit" name="Delete"class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this record?')">Delete </button><br><br>
+                                                <button type="submit" name="Archive"class="btn btn-danger"  onclick="return confirm('Are you sure you want to archive this record?')">Archive </button><br><br>
                                             </form>
                                             <form action="" method="POST" >
                                                 <div class="form-row">
@@ -214,7 +222,19 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                             <label for="role" class="required">Role</label>
                                                             <select id="role" name="role" class="form-control"  value="<?php echo $row['role']; ?>"required>
                                                                 <option value="Physician" selected>Physician</option>
-                                                                <option value="Admin">Admin</option>
+                                                                <option value="System Admin">System Admin</option>
+                                                                <option value="Databse Admin">Database Admin</option>
+
+                                                            </select>   
+                                                            <br><br>
+                                                            <?php } else if ($row['role'] == 'System Admin') { ?>
+
+                                                            <label for="role" class="required">Role</label>
+                                                            <select id="role" name="role" class="form-control"  value="<?php echo $row['role']; ?>"required>
+                                                                <option value="Physician" >Physician</option>
+                                                                <option value="System Admin" selected>System Admin</option>
+                                                                <option value="Databse Admin">Database Admin</option>
+
                                                             </select>   
                                                             <br><br>
 
@@ -222,7 +242,8 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                             <label for="role" class="required">Role</label>
                                                             <select id="role" name="role" class="form-control"  value="<?php echo $row['role']; ?>"required>
                                                                 <option value="Physician" >Physician</option>
-                                                                <option value="Admin" selected>Admin</option>
+                                                                <option value="System Admin">System Admin</option>
+                                                                <option value="Databse Admin"selected>Database Admin</option>
                                                             </select>   
                                                             <br><br>
                                                         <?php } ?>
@@ -231,7 +252,7 @@ if (!isset($_SESSION['username']) || (trim($_SESSION['username']) == '')) {
                                                     }
                                                     ?>
                                                     <div class="form-submit">
-                                                        <input type="submit" value="Submit" class="submit" id="submit" name="submit"/>
+                                                        <input type="submit" value="Submit" class="submit" id="submit" name="submit" onclick="return confirm('Are you sure you want to update this record?')"/>
                                                         <input type="button" value="Back" class="submit" id="back" name="back" onClick="window.location = 'ManageUsers.php'">
 
                                                     </div>
