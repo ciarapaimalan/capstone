@@ -10,12 +10,15 @@
         <link rel="stylesheet" type="text/css" href="BootstrapLandingPageTrial.css" />
         <link rel="icon" href="usthlogo.png">
 
-
-
-
-
         <link rel="stylesheet" type="text/css" href="style6.css" />
         <title>UST-CRM Log In</title>
+        <script type="text/javascript">
+            var onloadCallback = function () {
+                grecaptcha.render('html_element', {
+                    'sitekey': '6LdB5vQUAAAAAGy_Z03f9tHiidXc4U9xPDFywhuL'
+                });
+            };
+        </script>
     </head>
     <style>
         label{
@@ -248,7 +251,7 @@
 
             <div class="row main-content bg-success text-center">
                 <div class="col-md-4 text-center company__info">
-                    <img src="USTransp.png" height="50%" width="100%">
+                    <img src="USTransp.png" height="40%" width="100%">
 
 
                     <br>
@@ -261,7 +264,9 @@
                             <h2>Login</h2>
                         </div>
                         <div class="row">
-                            <form method="POST" action="Auth.php">
+                            <form method="POST" onsubmit="return submitUserForm();" action="Auth.php">
+                                <div class="g-recaptcha" data-sitekey="6LdB5vQUAAAAAGy_Z03f9tHiidXc4U9xPDFywhuL"></div>
+
                                 <div class="row">
                                     <input type="text" name="username" id="username" name="username"
                                            class="form__input" placeholder="Username" required>
@@ -274,10 +279,33 @@
                                 <div class="row">
 
                                 </div>
+                                <div id="g-recaptcha-error"></div>
+
+                                <center>                             
+                                    <div id="html_element"></div>
+                                </center>
+                                <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+                                        async defer>
+                                </script>
                                 <div class="row">
                                     <input type="submit" value="LOG IN" class="btn">
                                 </div>
                             </form>
+
+                            <script>
+                                function submitUserForm() {
+                                    var response = grecaptcha.getResponse();
+                                    if (response.length == 0) {
+                                        document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">Please properly pass captcha security checkup.</span>';
+                                        return false;
+                                    }
+                                    return true;
+                                }
+
+                                function verifyCaptcha() {
+                                    document.getElementById('g-recaptcha-error').innerHTML = '';
+                                }
+                            </script>
                         </div>
                         <div class="row">
                             <p>
@@ -321,5 +349,13 @@
             modal.style.display = "none";
         }
     }
+    $("form").submit(function (event) {
+
+        var recaptcha = $("#g-recaptcha-response").val();
+        if (recaptcha === "") {
+            event.preventDefault();
+            alert("Please check the recaptcha");
+        }
+    });
 </script>
 </html>
